@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Hokejový Hub — Vyber si ligu</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #05070d;
+            --card-bg: #0e1524;
+            --border-color: #223049;
+            --text-color: #f4f7fb;
+            --text-muted: #8593ab;
+            --red: #e8283f;
+            --red-dark: #9a1626;
+            --ice: #3fc6ff;
+            font-family: 'Rajdhani', sans-serif;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            background:
+                radial-gradient(ellipse 900px 500px at 50% -10%, rgba(63,198,255,0.16), transparent 60%),
+                radial-gradient(ellipse 700px 400px at 90% 10%, rgba(232,40,63,0.10), transparent 60%),
+                linear-gradient(180deg, #05070d 0%, #070a13 40%, #05070d 100%);
+            color: var(--text-color);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .wrap {
+            width: 100%;
+            max-width: 600px;
+            text-align: center;
+        }
+
+        .eyebrow {
+            font-size: 0.8rem;
+            letter-spacing: 4px;
+            color: var(--ice);
+            font-weight: 600;
+            text-transform: uppercase;
+            margin-bottom: 8px;
+        }
+
+        h1.title {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: clamp(3rem, 10vw, 4.5rem);
+            letter-spacing: 3px;
+            margin-bottom: 8px;
+        }
+        h1.title .w1 { color: #f4f7fb; text-shadow: 0 0 18px rgba(63,198,255,0.45); }
+        h1.title .w2 { color: var(--red); text-shadow: 0 0 22px rgba(232,40,63,0.65); }
+
+        .subtitle {
+            font-weight: 600;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            margin-bottom: 40px;
+        }
+
+        .leagues-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
+        }
+        @media(min-width: 480px) {
+            .leagues-grid { grid-template-columns: 1fr 1fr; }
+        }
+
+        .league-card {
+            background: linear-gradient(180deg, rgba(17,26,45,0.9), rgba(10,15,26,0.95));
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 30px 20px;
+            text-decoration: none;
+            color: inherit;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            transition: all 0.25s ease;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .league-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--ice);
+            box-shadow: 0 15px 40px rgba(63,198,255,0.2);
+        }
+
+        .league-flag {
+            font-size: 3.5rem;
+            margin-bottom: 12px;
+        }
+
+        .league-name {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 2.2rem;
+            letter-spacing: 2px;
+            margin-bottom: 6px;
+            color: var(--text-color);
+        }
+
+        .league-desc {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            margin-bottom: 20px;
+        }
+
+        .league-btn {
+            background: #131c30;
+            border: 1px solid var(--border-color);
+            color: var(--ice);
+            padding: 8px 18px;
+            border-radius: 999px;
+            font-weight: 700;
+            font-size: 0.85rem;
+            transition: all 0.2s;
+        }
+
+        .league-card:hover .league-btn {
+            background: var(--ice);
+            color: #05070d;
+            border-color: var(--ice);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="wrap">
+        <div class="eyebrow">Interaktivní hokejová portálová zóna</div>
+        <h1 class="title"><span class="w1">HOKEJOVÉ</span> <span class="w2">SÁZEČKY & KVÍZY</span></h1>
+        <div class="subtitle">Zvol si ligu a otestuj své hokejové znalosti</div>
+
+        <div class="leagues-grid">
+            <!-- OPRAVENÝ ODKAZ: Směruje do mezistránky s výběrem her pro ELH -->
+            <a href="league_menu.html?league=elh" class="league-card">
+                <div class="league-flag">🇨🇿</div>
+                <div class="league-name">Extraliga (ELH)</div>
+                <div class="league-desc">Hádání hráčů, tabulka & playoff</div>
+                <div class="league-btn">Vstoupit do ELH →</div>
+            </a>
+
+            <!-- OPRAVENÝ ODKAZ: Směruje do mezistránky s výběrem her pro NHL -->
+            <a href="league_menu.html?league=nhl" class="league-card">
+                <div class="league-flag">🌎</div>
+                <div class="league-name">National Hockey League</div>
+                <div class="league-desc">Hádání hvězd, tabulka & playoff</div>
+                <div class="league-btn">Vstoupit do NHL →</div>
+            </a>
+        </div>
+    </div>
+
+</body>
+</html>

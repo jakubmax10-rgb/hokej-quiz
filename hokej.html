@@ -1,0 +1,1057 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>ELH Hráč Quiz</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #05070d;
+            --card-bg: #0e1524;
+            --card-bg-2: #111a2d;
+            --border-color: #223049;
+            --text-color: #f4f7fb;
+            --text-muted: #8593ab;
+            --red: #e8283f;
+            --red-dark: #9a1626;
+            --ice: #3fc6ff;
+            --gold: #f4c451;
+            --correct-color: #23c46a;
+            --partial-color: #eab308;
+            --incorrect-color: #e8283f;
+            font-family: 'Rajdhani', sans-serif;
+        }
+
+        html { scroll-padding-top: env(safe-area-inset-top, 0px); }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background:
+                radial-gradient(ellipse 900px 500px at 50% -10%, rgba(63,198,255,0.16), transparent 60%),
+                radial-gradient(ellipse 700px 400px at 90% 10%, rgba(232,40,63,0.10), transparent 60%),
+                linear-gradient(180deg, #05070d 0%, #070a13 40%, #05070d 100%);
+            color: var(--text-color);
+            min-height: 100%;
+            padding: 18px 14px calc(24px + env(safe-area-inset-bottom, 0px));
+            padding-top: calc(18px + env(safe-area-inset-top, 0px));
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        @media (prefers-color-scheme: light) {
+            body { background-color: #05070d; }
+        }
+
+        /* --- Tlačítko Zpět --- */
+        .back-nav {
+            width: 100%;
+            max-width: 640px;
+            display: flex;
+            justify-content: flex-start;
+            margin-bottom: 10px;
+            z-index: 10;
+        }
+
+        .back-btn-top {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            color: var(--text-muted);
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 0.88rem;
+            padding: 8px 14px;
+            border-radius: 999px;
+            background: rgba(14, 21, 36, 0.7);
+            border: 1px solid var(--border-color);
+            transition: all 0.2s ease;
+        }
+
+        .back-btn-top:hover {
+            color: var(--ice);
+            border-color: var(--ice);
+            background: rgba(19, 28, 48, 0.9);
+            transform: translateX(-3px);
+        }
+
+        /* --- Ledové úlomky na pozadí --- */
+        .ice-field {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            overflow: hidden;
+            z-index: 0;
+        }
+        .shard {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background: linear-gradient(135deg, rgba(63,198,255,0.55), rgba(63,198,255,0));
+            transform: rotate(45deg);
+            filter: drop-shadow(0 0 4px rgba(63,198,255,0.4));
+            animation: drift 14s ease-in-out infinite;
+            opacity: 0.5;
+        }
+        @keyframes drift {
+            0%   { transform: translateY(0) rotate(45deg); opacity: 0.15; }
+            50%  { transform: translateY(-24px) rotate(60deg); opacity: 0.55; }
+            100% { transform: translateY(0) rotate(45deg); opacity: 0.15; }
+        }
+        @media (prefers-reduced-motion: reduce) {
+            .shard { animation: none; }
+        }
+
+        .wrap {
+            width: 100%;
+            max-width: 640px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* --- Hero / hlavička --- */
+        .hero {
+            width: 100%;
+            text-align: center;
+            padding: 10px 10px 18px;
+            position: relative;
+        }
+
+        .rink-lines {
+            position: absolute;
+            inset: 0;
+            border-radius: 20px;
+            background-image:
+                linear-gradient(90deg, transparent 49.4%, rgba(63,198,255,0.12) 49.7%, rgba(63,198,255,0.12) 50.3%, transparent 50.6%),
+                repeating-linear-gradient(90deg, rgba(255,255,255,0.02) 0 1px, transparent 1px 60px);
+            opacity: 0.6;
+            pointer-events: none;
+        }
+
+        .eyebrow {
+            font-size: 0.72rem;
+            letter-spacing: 4px;
+            color: var(--ice);
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        h1.title {
+            font-family: 'Bebas Neue', 'Rajdhani', sans-serif;
+            font-size: clamp(2.6rem, 11vw, 4.4rem);
+            line-height: 0.95;
+            letter-spacing: 3px;
+            margin: 4px 0 6px;
+        }
+        h1.title .w1 { color: #f4f7fb; text-shadow: 0 0 18px rgba(63,198,255,0.45); }
+        h1.title .w2 {
+            color: var(--red);
+            text-shadow: 0 0 22px rgba(232,40,63,0.65), 0 0 46px rgba(232,40,63,0.35);
+        }
+
+        .subtitle {
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+        .subtitle strong { color: var(--ice); }
+
+        /* --- Stats bar --- */
+        .stats-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            background: linear-gradient(180deg, rgba(17,26,45,0.9), rgba(14,21,36,0.9));
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 12px 16px;
+            margin: 14px 0 16px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.35);
+        }
+
+        .stats-group { display: flex; gap: 22px; }
+        .stat-label { font-size: 0.62rem; letter-spacing: 1.5px; color: var(--text-muted); text-transform: uppercase; }
+        .stat-value { font-family: 'Bebas Neue', sans-serif; font-size: 1.6rem; letter-spacing: 1px; color: var(--ice); line-height: 1; }
+        .stat-value.streak-value { color: var(--gold); }
+
+        .give-up-btn {
+            background: linear-gradient(180deg, var(--red), var(--red-dark));
+            color: white;
+            border: none;
+            padding: 9px 18px;
+            border-radius: 999px;
+            cursor: pointer;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            font-size: 0.85rem;
+            box-shadow: 0 4px 14px rgba(232,40,63,0.35);
+            transition: transform 0.15s ease, box-shadow 0.15s ease;
+        }
+        .give-up-btn:hover { transform: translateY(-1px); box-shadow: 0 6px 18px rgba(232,40,63,0.5); }
+        .give-up-btn:active { transform: translateY(0); }
+
+        .hint-btn {
+            background: linear-gradient(180deg, #1a2438, #101828);
+            color: var(--gold);
+            border: 1px solid var(--border-color);
+            padding: 9px 16px;
+            border-radius: 999px;
+            cursor: pointer;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            font-size: 0.85rem;
+            transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
+        }
+        .hint-btn:hover { transform: translateY(-1px); border-color: var(--gold); box-shadow: 0 4px 14px rgba(244,196,81,0.25); }
+        .hint-btn:disabled { opacity: 0.4; cursor: not-allowed; transform: none; box-shadow: none; }
+
+        .hint-picker-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(3,5,10,0.78);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 100;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.2s ease;
+            padding: 20px;
+        }
+        .hint-picker-overlay.active { opacity: 1; pointer-events: auto; }
+
+        .hint-picker {
+            background: linear-gradient(180deg, #131c30, #0b1120);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 22px 20px;
+            width: 100%;
+            max-width: 360px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.6), 0 0 40px rgba(244,196,81,0.12);
+            transform: translateY(-16px);
+            transition: transform 0.2s ease;
+        }
+        .hint-picker-overlay.active .hint-picker { transform: translateY(0); }
+
+        .hint-picker h3 {
+            font-family: 'Bebas Neue', sans-serif;
+            letter-spacing: 1px;
+            color: var(--gold);
+            font-size: 1.4rem;
+            margin-bottom: 4px;
+            text-align: center;
+        }
+        .hint-picker .hint-picker-sub {
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 0.8rem;
+            margin-bottom: 16px;
+        }
+
+        .hint-picker-options {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin-bottom: 14px;
+        }
+
+        .hint-picker-option {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            background: #0b1120;
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            padding: 11px 14px;
+            color: var(--text-color);
+            font-weight: 700;
+            font-size: 0.92rem;
+            cursor: pointer;
+            transition: border-color 0.15s ease, background 0.15s ease;
+        }
+        .hint-picker-option:hover:not(:disabled) { border-color: var(--gold); background: #141d33; }
+        .hint-picker-option:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+            color: var(--correct-color);
+        }
+        .hint-picker-option .opt-value {
+            font-weight: 600;
+            font-size: 0.82rem;
+            color: var(--text-muted);
+        }
+        .hint-picker-option:disabled .opt-value { color: var(--correct-color); }
+
+        .hint-picker-close {
+            width: 100%;
+            background: transparent;
+            border: 1px solid var(--border-color);
+            color: var(--text-muted);
+            padding: 10px;
+            border-radius: 10px;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        /* --- Herní karta --- */
+        .game-container {
+            width: 100%;
+            background: linear-gradient(180deg, rgba(17,26,45,0.85), rgba(10,15,26,0.9));
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 22px 18px;
+            margin-bottom: 22px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.45), inset 0 1px 0 rgba(255,255,255,0.03);
+            position: relative;
+        }
+
+        .prompt {
+            text-align: center;
+            font-size: 1rem;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            margin-bottom: 16px;
+            color: var(--text-muted);
+        }
+
+        .secret-stage {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 14px;
+            margin-bottom: 20px;
+        }
+        .side-icon { opacity: 0.35; flex-shrink: 0; }
+        .side-icon.left { transform: scaleX(-1); }
+
+        .secret-card {
+            width: 108px;
+            height: 108px;
+            flex-shrink: 0;
+            background: radial-gradient(circle at 50% 30%, rgba(63,198,255,0.14), #0a0f1c 70%);
+            border: 2px solid var(--ice);
+            border-radius: 12px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 3.2rem;
+            color: var(--ice);
+            box-shadow: 0 0 24px rgba(63,198,255,0.35), inset 0 0 18px rgba(63,198,255,0.15);
+            animation: pulseGlow 2.6s ease-in-out infinite;
+        }
+        @keyframes pulseGlow {
+            0%, 100% { box-shadow: 0 0 20px rgba(63,198,255,0.3), inset 0 0 16px rgba(63,198,255,0.12); }
+            50% { box-shadow: 0 0 34px rgba(63,198,255,0.55), inset 0 0 22px rgba(63,198,255,0.22); }
+        }
+        @media (prefers-reduced-motion: reduce) {
+            .secret-card { animation: none; }
+        }
+
+        .hint-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 8px;
+            margin-bottom: 20px;
+        }
+        @media (min-width: 480px) {
+            .hint-grid { grid-template-columns: repeat(5, 1fr); }
+        }
+
+        .hint-box {
+            background: #0b1120;
+            border: 1px solid var(--border-color);
+            border-bottom: 3px solid var(--accent, var(--border-color));
+            border-radius: 8px;
+            padding: 9px 4px 8px;
+            text-align: center;
+            transition: box-shadow 0.2s ease, border-color 0.2s ease;
+        }
+        #boxTeam   { --accent: var(--red); }
+        #boxPos    { --accent: var(--correct-color); }
+        #boxAge    { --accent: var(--ice); }
+        #boxNumber { --accent: var(--gold); }
+        #boxNat    { --accent: #b98af0; }
+
+        .hint-box.correct  { border-color: var(--correct-color); box-shadow: 0 0 14px rgba(35,196,106,0.35); }
+        .hint-box.partial  { border-color: var(--partial-color); box-shadow: 0 0 14px rgba(234,179,8,0.3); }
+        .hint-box.incorrect{ border-color: var(--incorrect-color); box-shadow: 0 0 14px rgba(232,40,63,0.3); }
+
+        .hint-label {
+            font-size: 0.6rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 4px;
+            font-weight: 600;
+        }
+
+        .hint-value {
+            font-weight: 700;
+            font-size: 0.82rem;
+            word-break: break-word;
+            color: var(--text-color);
+        }
+
+        /* --- Input --- */
+        .input-container { position: relative; }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 13px 14px;
+            background-color: #0a0f1c;
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            color: white;
+            font-size: 1rem;
+            font-family: inherit;
+            outline: none;
+            transition: border-color 0.2s ease, box-shadow 0.2s ease;
+        }
+        input[type="text"]:focus {
+            border-color: var(--ice);
+            box-shadow: 0 0 0 3px rgba(63,198,255,0.15);
+        }
+        input[type="text"]::placeholder { color: #566179; }
+
+        .autocomplete-list {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background-color: #0a0f1c;
+            border: 1px solid var(--border-color);
+            border-top: none;
+            border-radius: 0 0 10px 10px;
+            max-height: 210px;
+            overflow-y: auto;
+            z-index: 10;
+            box-shadow: 0 14px 30px rgba(0,0,0,0.5);
+        }
+
+        .autocomplete-item {
+            padding: 11px 14px;
+            cursor: pointer;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            font-weight: 600;
+            font-size: 0.92rem;
+        }
+
+        .autocomplete-item:hover, .autocomplete-item.selected {
+            background-color: #131c30;
+            color: var(--ice);
+        }
+
+        /* --- Historie tipů --- */
+        .guesses-container { width: 100%; }
+
+        .guesses-header {
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            letter-spacing: 1.5px;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            font-weight: 600;
+        }
+
+        .guess-row {
+            display: grid;
+            grid-template-columns: 2fr repeat(5, 1fr);
+            gap: 6px;
+            margin-bottom: 8px;
+            animation: fadeIn 0.3s ease-in;
+        }
+
+        .guess-cell {
+            padding: 10px 4px;
+            border-radius: 8px;
+            text-align: center;
+            font-size: 0.8rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            word-break: break-word;
+        }
+
+        .cell-name {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            justify-content: flex-start;
+            padding-left: 10px;
+            color: var(--text-color);
+        }
+
+        .correct   { background-color: var(--correct-color); color: #04160c; }
+        .partial   { background-color: var(--partial-color); color: #221900; }
+        .incorrect { background-color: rgba(232,40,63,0.16); color: #ff8695; border: 1px solid rgba(232,40,63,0.3); }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-5px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* --- Modal --- */
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(3,5,10,0.78);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 100;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.25s ease;
+            padding: 20px;
+        }
+        .modal-overlay.active { opacity: 1; pointer-events: auto; }
+
+        .modal {
+            background: linear-gradient(180deg, #131c30, #0b1120);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 30px 26px;
+            width: 100%;
+            max-width: 380px;
+            text-align: center;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.6), 0 0 40px rgba(63,198,255,0.12);
+            transform: translateY(-16px);
+            transition: transform 0.25s ease;
+        }
+        .modal-overlay.active .modal { transform: translateY(0); }
+
+        .modal h2 {
+            font-family: 'Bebas Neue', sans-serif;
+            letter-spacing: 1px;
+            color: var(--ice);
+            margin-bottom: 12px;
+            font-size: 1.9rem;
+            text-shadow: 0 0 16px rgba(63,198,255,0.4);
+        }
+
+        .modal p { color: var(--text-muted); margin-bottom: 22px; font-size: 1rem; line-height: 1.4; }
+        .modal p strong { color: var(--text-color); }
+
+        .modal-btn {
+            background: linear-gradient(180deg, var(--red), var(--red-dark));
+            color: white;
+            border: none;
+            padding: 11px 20px;
+            border-radius: 999px;
+            font-weight: 700;
+            cursor: pointer;
+            font-size: 0.95rem;
+            transition: transform 0.15s ease;
+            margin: 5px;
+        }
+        .modal-btn:hover { transform: translateY(-1px); }
+
+        .modal-btn.secondary {
+            background: transparent;
+            border: 1px solid var(--border-color);
+            color: var(--text-color);
+        }
+
+        /* --- Footer / dekorace --- */
+        footer {
+            margin-top: 30px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            color: var(--text-muted);
+            font-size: 0.72rem;
+            text-align: center;
+            letter-spacing: 0.5px;
+        }
+        .footer-deco { opacity: 0.55; }
+    </style>
+</head>
+<body>
+
+    <div class="ice-field" id="iceField" aria-hidden="true"></div>
+
+    <!-- Tlačítko Zpět -->
+    <div class="back-nav">
+        <a href="league_menu.html?league=elh" class="back-btn-top">← Zpět na nabídku</a>
+    </div>
+
+    <div class="wrap">
+        <div class="hero">
+            <div class="rink-lines" aria-hidden="true"></div>
+            <div class="eyebrow">Extraliga ledního hokeje</div>
+            <h1 class="title"><span class="w1">ELH HRÁČ</span> <span class="w2">QUIZ</span></h1>
+            <div class="subtitle">Uhodni <strong>tajného hráče</strong> ELH — nekonečný mód</div>
+        </div>
+
+        <div class="stats-bar">
+            <div class="stats-group">
+                <div>
+                    <div class="stat-label">Skóre</div>
+                    <div class="stat-value" id="score">0</div>
+                </div>
+                <div>
+                    <div class="stat-label">Série</div>
+                    <div class="stat-value streak-value" id="streak">0</div>
+                </div>
+            </div>
+            <button class="give-up-btn" id="giveUpBtn">Vzdát se 🏳️</button>
+        </div>
+
+        <button class="hint-btn" id="hintBtn" style="align-self:center; margin-bottom:16px;">💡 Nápověda</button>
+
+        <div class="game-container">
+            <div class="prompt">Uhodni tajného hráče z aktuální soupisky ELH!</div>
+
+            <div class="secret-stage">
+                <svg class="side-icon left" width="34" height="34" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                    <path d="M3 21L15 5C16 3.5 18 3 19.5 4C21 5 20.7 7 19.5 8.3L9 20" stroke="#3fc6ff" stroke-width="1.4" stroke-linecap="round"/>
+                </svg>
+
+                <div class="secret-card" id="secretCard">?</div>
+
+                <svg class="side-icon" width="34" height="34" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                    <path d="M3 21L15 5C16 3.5 18 3 19.5 4C21 5 20.7 7 19.5 8.3L9 20" stroke="#e8283f" stroke-width="1.4" stroke-linecap="round"/>
+                </svg>
+            </div>
+
+            <div class="hint-grid">
+                <div class="hint-box" id="boxTeam">
+                    <div class="hint-label">Tým</div>
+                    <div class="hint-value" id="hintTeam">???</div>
+                </div>
+                <div class="hint-box" id="boxPos">
+                    <div class="hint-label">Pozice</div>
+                    <div class="hint-value" id="hintPos">???</div>
+                </div>
+                <div class="hint-box" id="boxAge">
+                    <div class="hint-label">Věk</div>
+                    <div class="hint-value" id="hintAge">???</div>
+                </div>
+                <div class="hint-box" id="boxNumber">
+                    <div class="hint-label">Číslo dresu</div>
+                    <div class="hint-value" id="hintNumber">???</div>
+                </div>
+                <div class="hint-box" id="boxNat">
+                    <div class="hint-label">Národnost</div>
+                    <div class="hint-value" id="hintNat">???</div>
+                </div>
+            </div>
+
+            <div class="input-container">
+                <input type="text" id="playerInput" placeholder="Začni psát jméno hráče..." autocomplete="off">
+                <div class="autocomplete-list" id="autocompleteList"></div>
+            </div>
+        </div>
+
+        <div class="guesses-container">
+            <div class="guesses-header">Tvoje tipy v tomto kole</div>
+            <div id="guessesList"></div>
+        </div>
+    </div>
+
+    <div class="hint-picker-overlay" id="hintPickerOverlay">
+        <div class="hint-picker">
+            <h3>Vyber si nápovědu</h3>
+            <div class="hint-picker-sub">Odhalí danou vlastnost tajného hráče</div>
+            <div class="hint-picker-options" id="hintPickerOptions">
+                <button class="hint-picker-option" data-field="team">Tým <span class="opt-value"></span></button>
+                <button class="hint-picker-option" data-field="pos">Pozice <span class="opt-value"></span></button>
+                <button class="hint-picker-option" data-field="age">Věk <span class="opt-value"></span></button>
+                <button class="hint-picker-option" data-field="number">Číslo dresu <span class="opt-value"></span></button>
+                <button class="hint-picker-option" data-field="nat">Národnost <span class="opt-value"></span></button>
+            </div>
+            <button class="hint-picker-close" id="hintPickerClose">Zavřít</button>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="modalOverlay">
+        <div class="modal">
+            <h2 id="modalTitle">Skvělá práce!</h2>
+            <p id="modalText">Hráč byl <strong>Ondřej Kacetl</strong>. Uhodl jsi ho na 3 pokusy.</p>
+            <div>
+                <button class="modal-btn" id="nextGameBtn">Další hráč 🏒</button>
+                <button class="modal-btn secondary" id="shareBtn">Sdílet 📋</button>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <svg class="footer-deco" width="160" height="46" viewBox="0 0 160 46" fill="none" aria-hidden="true">
+            <path d="M20 44L50 6C52 3 56 3 58 6C60 9 59 13 56 15L30 40" stroke="#f4c451" stroke-width="2" stroke-linecap="round"/>
+            <path d="M140 44L110 6C108 3 104 3 102 6C100 9 101 13 104 15L130 40" stroke="#3fc6ff" stroke-width="2" stroke-linecap="round"/>
+            <ellipse cx="80" cy="40" rx="12" ry="5" fill="#111a2d" stroke="#e8283f" stroke-width="1.5"/>
+        </svg>
+        Vytvořeno pro českou hokejovou komunitu
+    </footer>
+
+    <!-- Načtení databáze hráčů přímo z JS souboru -->
+    <script src="players_elh.js"></script>
+
+    <script>
+        // Plovoucí úlomky na pozadí
+        (function () {
+            var field = document.getElementById('iceField');
+            var count = window.innerWidth < 500 ? 10 : 18;
+            for (var i = 0; i < count; i++) {
+                var s = document.createElement('div');
+                s.className = 'shard';
+                s.style.left = (Math.random() * 100) + 'vw';
+                s.style.top = (Math.random() * 100) + 'vh';
+                s.style.animationDelay = (Math.random() * 8) + 's';
+                s.style.animationDuration = (10 + Math.random() * 8) + 's';
+                s.style.opacity = (0.2 + Math.random() * 0.4).toFixed(2);
+                field.appendChild(s);
+            }
+        })();
+    </script>
+
+    <script>
+        let playersDB = playersDBData;
+
+        const flagEmojis = {
+            "CZE": "🇨🇿", "SVK": "🇸🇰", "CAN": "🇨🇦", "USA": "🇺🇸", "SWE": "🇸🇪",
+            "FIN": "🇫🇮", "ITA": "🇮🇹", "NOR": "🇳🇴", "LV": "🇱🇻", "DNK": "🇩🇰",
+            "POL": "🇵🇱", "BGR": "🇧🇬", "SLO": "🇸🇮", "FRA": "🇫🇷"
+        };
+
+        function getFlag(nat) {
+            if (!nat) return '';
+            return flagEmojis[nat] || nat; 
+        }
+
+        let targetPlayer = null;
+        let score = parseInt(localStorage.getItem('elh_score')) || 0;
+        let streak = parseInt(localStorage.getItem('elh_streak')) || 0;
+        let guessedPlayers = [];
+        let guessDetails = [];
+
+        let bestHints = {
+            team: { val: "???", status: "" },
+            pos: { val: "???", status: "" },
+            age: { val: "???", status: "" },
+            number: { val: "???", status: "" },
+            nat: { val: "???", status: "" }
+        };
+
+        const input = document.getElementById('playerInput');
+        const autocompleteList = document.getElementById('autocompleteList');
+        const guessesList = document.getElementById('guessesList');
+        const scoreDisplay = document.getElementById('score');
+        const streakDisplay = document.getElementById('streak');
+        const giveUpBtn = document.getElementById('giveUpBtn');
+        const modalOverlay = document.getElementById('modalOverlay');
+        const modalTitle = document.getElementById('modalTitle');
+        const modalText = document.getElementById('modalText');
+        const nextGameBtn = document.getElementById('nextGameBtn');
+        const shareBtn = document.getElementById('shareBtn');
+
+        scoreDisplay.textContent = score;
+        streakDisplay.textContent = streak;
+
+        function updateTopHintsDisplay() {
+            const tElem = document.getElementById('hintTeam');
+            const bTeam = document.getElementById('boxTeam');
+            tElem.textContent = bestHints.team.val;
+            bTeam.className = 'hint-box ' + bestHints.team.status;
+
+            const pElem = document.getElementById('hintPos');
+            const bPos = document.getElementById('boxPos');
+            pElem.textContent = bestHints.pos.val;
+            bPos.className = 'hint-box ' + bestHints.pos.status;
+
+            const aElem = document.getElementById('hintAge');
+            const bAge = document.getElementById('boxAge');
+            aElem.textContent = bestHints.age.val;
+            bAge.className = 'hint-box ' + bestHints.age.status;
+
+            const nElem = document.getElementById('hintNumber');
+            const bNum = document.getElementById('boxNumber');
+            nElem.textContent = bestHints.number.val;
+            bNum.className = 'hint-box ' + bestHints.number.status;
+
+            const natElem = document.getElementById('hintNat');
+            const bNat = document.getElementById('boxNat');
+            natElem.textContent = bestHints.nat.val;
+            bNat.className = 'hint-box ' + bestHints.nat.status;
+        }
+
+        function startNewGame() {
+            if (!playersDB || !playersDB.length) return;
+            targetPlayer = playersDB[Math.floor(Math.random() * playersDB.length)];
+            guessedPlayers = [];
+            guessDetails = [];
+            guessesList.innerHTML = '';
+            input.value = '';
+            modalOverlay.classList.remove('active');
+            
+            bestHints = {
+                team: { val: "???", status: "" },
+                pos: { val: "???", status: "" },
+                age: { val: "???", status: "" },
+                number: { val: "???", status: "" },
+                nat: { val: "???", status: "" }
+            };
+            updateTopHintsDisplay();
+            document.getElementById('secretCard').textContent = '?';
+        }
+
+        input.addEventListener('input', function() {
+            renderAutocomplete(this.value);
+        });
+
+        input.addEventListener('keydown', function(e) {
+            const items = autocompleteList.getElementsByClassName('autocomplete-item');
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                if (items.length > 0) {
+                    items[0].click();
+                }
+            }
+        });
+
+        function renderAutocomplete(valQuery) {
+            autocompleteList.innerHTML = '';
+            const val = valQuery.toLowerCase().trim();
+            if (!val) return;
+
+            const matches = playersDB.filter(p => 
+                p.name.toLowerCase().includes(val) && 
+                !guessedPlayers.includes(p.name)
+            );
+
+            matches.forEach(player => {
+                const item = document.createElement('div');
+                item.className = 'autocomplete-item';
+                item.textContent = `${player.name} (${player.team})`;
+                item.addEventListener('click', () => {
+                    makeGuess(player);
+                    input.value = '';
+                    autocompleteList.innerHTML = '';
+                });
+                autocompleteList.appendChild(item);
+            });
+        }
+
+        function makeGuess(player) {
+            guessedPlayers.push(player.name);
+
+            const row = document.createElement('div');
+            row.className = 'guess-row';
+
+            // 1. Jméno
+            const nameCell = document.createElement('div');
+            nameCell.className = 'guess-cell cell-name';
+            nameCell.textContent = player.name;
+            row.appendChild(nameCell);
+
+            // 2. Tým
+            const isTeamCorrect = player.team === targetPlayer.team;
+            const teamStatus = isTeamCorrect ? 'correct' : 'incorrect';
+            const teamCell = document.createElement('div');
+            teamCell.className = `guess-cell ${teamStatus}`;
+            teamCell.textContent = player.team;
+            row.appendChild(teamCell);
+            
+            if (isTeamCorrect || bestHints.team.status !== 'correct') {
+                bestHints.team = { val: player.team, status: teamStatus };
+            }
+
+            // 3. Pozice
+            const isPosCorrect = player.pos === targetPlayer.pos;
+            const posStatus = isPosCorrect ? 'correct' : 'incorrect';
+            const posCell = document.createElement('div');
+            posCell.className = `guess-cell ${posStatus}`;
+            posCell.textContent = player.pos;
+            row.appendChild(posCell);
+
+            if (isPosCorrect || bestHints.pos.status !== 'correct') {
+                bestHints.pos = { val: player.pos, status: posStatus };
+            }
+
+            // 4. Věk
+            const isAgeCorrect = player.age === targetPlayer.age;
+            const ageDiff = Math.abs(player.age - targetPlayer.age);
+            let ageArrow = player.age < targetPlayer.age ? ' ⬆️' : (player.age > targetPlayer.age ? ' ⬇️' : '');
+            
+            let ageStatus = 'incorrect';
+            if (isAgeCorrect) ageStatus = 'correct';
+            else if (ageDiff <= 5) ageStatus = 'partial';
+
+            const ageCell = document.createElement('div');
+            ageCell.className = `guess-cell ${ageStatus}`;
+            ageCell.textContent = player.age + ageArrow;
+            row.appendChild(ageCell);
+
+            if (isAgeCorrect || (bestHints.age.status !== 'correct' && (ageStatus === 'partial' || bestHints.age.status === ''))) {
+                bestHints.age = { val: player.age + ageArrow, status: ageStatus };
+            }
+
+            // 5. Číslo dresu
+            const isNumCorrect = player.number === targetPlayer.number;
+            const numDiff = Math.abs(player.number - targetPlayer.number);
+            let numArrow = player.number < targetPlayer.number ? ' ⬆️' : (player.number > targetPlayer.number ? ' ⬇️' : '');
+            
+            let numStatus = 'incorrect';
+            if (isNumCorrect) numStatus = 'correct';
+            else if (numDiff <= 5) numStatus = 'partial';
+
+            const numCell = document.createElement('div');
+            numCell.className = `guess-cell ${numStatus}`;
+            numCell.textContent = player.number + numArrow;
+            row.appendChild(numCell);
+
+            if (isNumCorrect || (bestHints.number.status !== 'correct' && (numStatus === 'partial' || bestHints.number.status === ''))) {
+                bestHints.number = { val: player.number + numArrow, status: numStatus };
+            }
+
+            // 6. Národnost
+            const isNatCorrect = player.nat === targetPlayer.nat;
+            const natStatus = isNatCorrect ? 'correct' : 'incorrect';
+            const natCell = document.createElement('div');
+            natCell.className = `guess-cell ${natStatus}`;
+            natCell.textContent = getFlag(player.nat);
+            row.appendChild(natCell);
+
+            if (isNatCorrect || bestHints.nat.status !== 'correct') {
+                bestHints.nat = { val: getFlag(player.nat), status: natStatus };
+            }
+
+            guessDetails.push({
+                team: teamStatus,
+                pos: posStatus,
+                age: ageStatus,
+                number: numStatus,
+                nat: natStatus
+            });
+
+            updateTopHintsDisplay();
+            guessesList.insertBefore(row, guessesList.firstChild);
+
+            if (player.name === targetPlayer.name) {
+                revealTarget();
+                score++;
+                streak++;
+                saveStats();
+                showModal("Skvělá práce! 🏒", `Uhodl jsi hráče <strong>${targetPlayer.name}</strong> na ${guessedPlayers.length} pokus(y).`);
+            }
+        }
+
+        function revealTarget() {
+            document.getElementById('secretCard').textContent = '✔';
+            bestHints = {
+                team: { val: targetPlayer.team, status: 'correct' },
+                pos: { val: targetPlayer.pos, status: 'correct' },
+                age: { val: targetPlayer.age, status: 'correct' },
+                number: { val: targetPlayer.number, status: 'correct' },
+                nat: { val: getFlag(targetPlayer.nat), status: 'correct' }
+            };
+            updateTopHintsDisplay();
+        }
+
+        function saveStats() {
+            localStorage.setItem('elh_score', score);
+            localStorage.setItem('elh_streak', streak);
+            scoreDisplay.textContent = score;
+            streakDisplay.textContent = streak;
+        }
+
+        function showModal(title, text) {
+            modalTitle.textContent = title;
+            modalText.innerHTML = text;
+            modalOverlay.classList.add('active');
+        }
+
+        giveUpBtn.addEventListener('click', () => {
+            streak = 0;
+            saveStats();
+            revealTarget();
+            showModal("Vzdal jsi to 🏳️", `Hledaný hráč byl: <strong>${targetPlayer.name}</strong>.`);
+        });
+
+        nextGameBtn.addEventListener('click', startNewGame);
+
+        const hintBtn = document.getElementById('hintBtn');
+        const hintPickerOverlay = document.getElementById('hintPickerOverlay');
+        const hintPickerClose = document.getElementById('hintPickerClose');
+        const hintPickerOptions = document.querySelectorAll('.hint-picker-option');
+
+        function fieldDisplayValue(field) {
+            if (field === 'nat') return getFlag(targetPlayer.nat);
+            return targetPlayer[field];
+        }
+
+        function openHintPicker() {
+            hintPickerOptions.forEach(opt => {
+                const field = opt.dataset.field;
+                const alreadyRevealed = bestHints[field].status === 'correct';
+                opt.disabled = alreadyRevealed;
+                opt.querySelector('.opt-value').textContent = alreadyRevealed ? fieldDisplayValue(field) : '';
+            });
+            hintPickerOverlay.classList.add('active');
+        }
+
+        function closeHintPicker() {
+            hintPickerOverlay.classList.remove('active');
+        }
+
+        hintBtn.addEventListener('click', openHintPicker);
+        hintPickerClose.addEventListener('click', closeHintPicker);
+        hintPickerOverlay.addEventListener('click', (e) => {
+            if (e.target === hintPickerOverlay) closeHintPicker();
+        });
+
+        hintPickerOptions.forEach(opt => {
+            opt.addEventListener('click', () => {
+                const field = opt.dataset.field;
+                if (bestHints[field].status === 'correct') return;
+                bestHints[field] = { val: fieldDisplayValue(field), status: 'correct' };
+                updateTopHintsDisplay();
+                closeHintPicker();
+            });
+        });
+
+        shareBtn.addEventListener('click', () => {
+            const statusToEmoji = (status) => {
+                if (status === 'correct') return '🟩';
+                if (status === 'partial') return '🟨';
+                return '🟥';
+            };
+
+            let gridText = guessDetails.map(g => 
+                statusToEmoji(g.team) + 
+                statusToEmoji(g.pos) + 
+                statusToEmoji(g.age) + 
+                statusToEmoji(g.number) + 
+                statusToEmoji(g.nat)
+            ).join('\n');
+
+            const shareText = `ELH Hráč Quiz - Uhodnuto na ${guessedPlayers.length} pokusů! 🏒🇨🇿\n\n${gridText}`;
+            
+            navigator.clipboard.writeText(shareText).then(() => {
+                alert("Výsledek a mřížka zkopírovány do schránky!");
+            });
+        });
+
+        startNewGame();
+    </script>
+</body>
+</html>

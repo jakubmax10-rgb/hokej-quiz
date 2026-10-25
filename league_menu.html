@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Výběr Hry | Hockey Quiz</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #05070d;
+            --card-bg: #0e1524;
+            --border-color: #223049;
+            --text-color: #f4f7fb;
+            --text-muted: #8593ab;
+            --ice: #3fc6ff;
+            --red: #e8283f;
+            --gold: #f4c451;
+            font-family: 'Rajdhani', sans-serif;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            background:
+                radial-gradient(ellipse 900px 500px at 50% -10%, rgba(63,198,255,0.16), transparent 60%),
+                linear-gradient(180deg, #05070d 0%, #070a13 100%);
+            color: var(--text-color);
+            min-height: 100vh;
+            padding: 24px 16px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .wrap {
+            width: 100%;
+            max-width: 700px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .back-link {
+            align-self: flex-start;
+            color: var(--text-muted);
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 0.9rem;
+            margin-bottom: 20px;
+            transition: color 0.2s;
+        }
+        .back-link:hover { color: var(--ice); }
+
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .eyebrow {
+            font-size: 0.8rem;
+            letter-spacing: 4px;
+            color: var(--ice);
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        h1.title {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: clamp(2.5rem, 8vw, 3.8rem);
+            letter-spacing: 2px;
+            line-height: 1;
+            margin-top: 4px;
+        }
+
+        /* --- Mřížka s hrami --- */
+        .games-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 16px;
+            width: 100%;
+        }
+
+        @media (min-width: 550px) {
+            .games-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+
+        .game-card {
+            background: linear-gradient(180deg, rgba(14,21,36,0.9), rgba(10,15,26,0.9));
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            text-decoration: none;
+            color: inherit;
+            transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .game-card:hover {
+            transform: translateY(-4px);
+            border-color: var(--ice);
+            box-shadow: 0 10px 30px rgba(63,198,255,0.15);
+        }
+
+        .game-card.disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        .game-card.disabled:hover {
+            transform: none;
+            border-color: var(--border-color);
+            box-shadow: none;
+        }
+
+        .card-badge {
+            position: absolute;
+            top: 14px;
+            right: 14px;
+            background: rgba(255,255,255,0.06);
+            border: 1px solid var(--border-color);
+            padding: 3px 8px;
+            border-radius: 999px;
+            font-size: 0.65rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            color: var(--gold);
+        }
+
+        .card-icon {
+            font-size: 2.2rem;
+            margin-bottom: 12px;
+        }
+
+        .card-title {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.7rem;
+            letter-spacing: 1px;
+            color: #fff;
+            margin-bottom: 6px;
+        }
+
+        .card-desc {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            line-height: 1.4;
+            margin-bottom: 16px;
+        }
+
+        .card-btn {
+            background: #131c30;
+            border: 1px solid var(--border-color);
+            color: var(--ice);
+            padding: 8px 14px;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 0.85rem;
+            text-align: center;
+            align-self: flex-start;
+            transition: background 0.2s, color 0.2s;
+        }
+
+        .game-card:hover:not(.disabled) .card-btn {
+            background: var(--ice);
+            color: #05070d;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="wrap">
+        <a href="index.html" class="back-link">← Zpět na výběr ligy</a>
+
+        <div class="header">
+            <div class="eyebrow" id="leagueEyebrow">Vybraná liga</div>
+            <h1 class="title" id="leagueTitle">VYBER SI HER NÍ MÓD</h1>
+        </div>
+
+        <div class="games-grid">
+            <!-- 1. Hráč Quiz (Hotovo) -->
+            <a href="hokej.html" class="game-card" id="playerQuizLink">
+                <span class="card-badge">Aktivní</span>
+                <div class="card-icon">👤</div>
+                <div>
+                    <div class="card-title">Hráč Quiz</div>
+                    <div class="card-desc">Uhodni tajného hokejistu podle týmu, věku, pozice, čísla a vlajky.</div>
+                </div>
+                <div class="card-btn">Hrát nyní ➔</div>
+            </a>
+
+            <!-- 2. Higher or Lower (Připravuje se) -->
+            <div class="game-card disabled">
+                <span class="card-badge" style="color:var(--text-muted)">Brzy</span>
+                <div class="card-icon">📊</div>
+                <div>
+                    <div class="card-title">Vyšší vs Nižší</div>
+                    <div class="card-desc">Porovnej dva hráče. Kdo nasbíral víc bodů nebo má vyšší plat?</div>
+                </div>
+                <div class="card-btn">Připravujeme</div>
+            </div>
+
+            <!-- 3. Hádání klubů/log -->
+            <div class="game-card disabled">
+                <span class="card-badge" style="color:var(--text-muted)">Brzy</span>
+                <div class="card-icon">🛡️</div>
+                <div>
+                    <div class="card-title">Poznej Logo</div>
+                    <div class="card-desc">Poznej hokejový klub podle detailu loga nebo výřezu dresu.</div>
+                </div>
+                <div class="card-btn">Připravujeme</div>
+            </div>
+
+            <!-- 4. Kariéra hráče -->
+            <div class="game-card disabled">
+                <span class="card-badge" style="color:var(--text-muted)">Brzy</span>
+                <div class="card-icon">🗺️</div>
+                <div>
+                    <div class="card-title">Cesta Kariérou</div>
+                    <div class="card-desc">Uhodni legendu nebo současného hráče podle historie jeho klubů.</div>
+                </div>
+                <div class="card-btn">Připravujeme</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Načtení ligy z URL parametru (např. league_menu.html?league=elh)
+        const urlParams = new URLSearchParams(window.location.search);
+        const league = urlParams.get('league') || 'elh';
+
+        const eyebrow = document.getElementById('leagueEyebrow');
+        const title = document.getElementById('leagueTitle');
+        const playerQuizLink = document.getElementById('playerQuizLink');
+
+        if (league === 'nhl') {
+            eyebrow.textContent = 'National Hockey League';
+            title.textContent = 'NHL HER NÍ MÓDY';
+            // Zde v budoucnu odkážeš na nhl_player_quiz.html
+            playerQuizLink.href = 'nhl_hokej.html'; 
+        } else {
+            eyebrow.textContent = 'Tipsport Extraliga';
+            title.textContent = 'ELH HERNÍ MÓDY';
+            playerQuizLink.href = 'hokej.html'; // Tvoje stávající hra pro ELH
+        }
+    </script>
+</body>
+</html>
