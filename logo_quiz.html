@@ -71,7 +71,7 @@
     </footer>
 
     <script>
-        // Přesná databáze odpovídající názvům ve Windows složkách
+        // Opravená databáze přesně odpovídající názvům složek na GitHubu
         const teamsDatabase = [
             { name: "HC Dynamo Pardubice", folder: "pardubice", prefix: "pardubice", count: 5 },
             { name: "HC Energie Karlovy Vary", folder: "vary", prefix: "vary", count: 5 },
@@ -79,12 +79,12 @@
             { name: "Rytíři Kladno", folder: "kladno", prefix: "kladno", count: 5 },
             { name: "HC Škoda Plzeň", folder: "plzen", prefix: "plzen", count: 5 },
             { name: "HC Olomouc", folder: "olomouc", prefix: "olomouc", count: 5 },
-            { name: "Mountfield HK", folder: "hardec", prefix: "hradec", count: 6 },
+            { name: "Mountfield HK", folder: "hradec", prefix: "hradec", count: 6 }, // Opraveno z hardec
             { name: "BK Mladá Boleslav", folder: "boleslav", prefix: "boleslav", count: 5 },
             { name: "HC Vítkovice Ridera", folder: "vitkovice", prefix: "vitkovice", count: 5 },
-            { name: "HC Verva Litvínov", folder: "litvinoc", prefix: "litvinov", count: 5 },
+            { name: "HC Verva Litvínov", folder: "litvinov", prefix: "litvinov", count: 5 }, // Opraveno z litvinoc
             { name: "Bílí Tygři Liberec", folder: "liberec", prefix: "liberec", count: 5 },
-            { name: "HC Sparta Praha", folder: "praha", prefix: "sparta", count: 5 },
+            { name: "HC Sparta Praha", folder: "praha", prefix: "praha", count: 5 },
             { name: "HC Kometa Brno", folder: "brno", prefix: "brno", count: 5 },
             { name: "Banes Motor České Budějovice", folder: "budejovice", prefix: "budejovice", count: 5 }
         ];
@@ -109,7 +109,7 @@
 
             const currentTeam = questions[currentIndex];
             
-            // Náhodný výběr fotky (např. Headec Králové/Hradec Králové (3).png)
+            // Náhodný výběr fotky ze složky
             const randomPhotoIndex = Math.floor(Math.random() * currentTeam.count) + 1;
             const imagePath = `${currentTeam.folder}/${currentTeam.prefix} (${randomPhotoIndex}).png`;
 
