@@ -738,6 +738,11 @@
             return flagEmojis[nat] || nat; 
         }
 
+        // Pomocná funkce pro odstranění diakritiky a převod na malá písmena
+        function normalizeStr(str) {
+            return str.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+        }
+
         let targetPlayer = null;
         let score = parseInt(localStorage.getItem('elh_score')) || 0;
         let streak = parseInt(localStorage.getItem('elh_streak')) || 0;
@@ -830,13 +835,15 @@
 
         function renderAutocomplete(valQuery) {
             autocompleteList.innerHTML = '';
-            const val = valQuery.toLowerCase().trim();
+            const val = valQuery.trim();
             if (!val) return;
 
-            const matches = playersDB.filter(p => 
-                p.name.toLowerCase().includes(val) && 
-                !guessedPlayers.includes(p.name)
-            );
+            const normalizedQuery = normalizeStr(val);
+            const matches = playersDB.filter(p => {
+                if (!p || !p.name) return false;
+                if (guessedPlayers.includes(p.name)) return false;
+                return normalizeStr(p.name).includes(normalizedQuery);
+            });
 
             matches.forEach(player => {
                 const item = document.createElement('div');
