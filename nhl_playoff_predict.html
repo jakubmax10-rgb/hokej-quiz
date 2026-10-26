@@ -1,0 +1,991 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NHL Playoff Predictor</title>
+    <link href="https://fonts.googleapis.com/css2?family=Teko:wght@500;700&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-main: #0a0f1d;
+            --bg-card: rgba(18, 26, 47, 0.85);
+            --bg-card-hover: rgba(28, 40, 70, 0.95);
+            --accent-cyan: #00f2fe;
+            --accent-blue: #4facfe;
+            --accent-gold: #ffd700;
+            --text-main: #ffffff;
+            --text-muted: #8e9bb0;
+            --border: rgba(255, 255, 255, 0.1);
+            --border-glow: rgba(0, 242, 254, 0.4);
+            --playoff-direct: #2ec4b6;
+            --playoff-wc: #ff9f1c;
+            --non-playoff: #e63946;
+        }
+
+        * {
+            box-sizing: border-box;
+            user-select: none;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-main);
+            background-image: 
+                radial-gradient(circle at 15% 15%, rgba(0, 242, 254, 0.05) 0%, transparent 40%),
+                radial-gradient(circle at 85% 85%, rgba(79, 172, 254, 0.05) 0%, transparent 40%);
+            color: var(--text-main);
+            margin: 0;
+            padding: 12px;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .container {
+            max-width: 1600px;
+            width: 100%;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px 16px;
+            background: rgba(18, 26, 47, 0.6);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            margin-bottom: 10px;
+            flex-shrink: 0;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        header h1 {
+            font-family: 'Teko', sans-serif;
+            font-size: 2rem;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            margin: 0;
+            background: linear-gradient(135deg, #ffffff 0%, var(--accent-cyan) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            line-height: 1;
+        }
+
+        .view-tabs {
+            display: flex;
+            gap: 6px;
+            background: rgba(10, 15, 29, 0.8);
+            padding: 4px;
+            border-radius: 6px;
+            border: 1px solid var(--border);
+        }
+
+        .tab-btn {
+            background: transparent;
+            border: none;
+            color: var(--text-muted);
+            padding: 6px 16px;
+            font-family: 'Teko', sans-serif;
+            font-size: 1.2rem;
+            letter-spacing: 1px;
+            cursor: pointer;
+            border-radius: 4px;
+            transition: all 0.2s ease;
+            text-transform: uppercase;
+        }
+
+        .tab-btn.active {
+            background: var(--accent-blue);
+            color: #040914;
+            font-weight: bold;
+        }
+
+        #regular-season-section {
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+            min-height: 0;
+        }
+
+        .guide-bar {
+            background: rgba(0, 242, 254, 0.05);
+            border: 1px solid rgba(0, 242, 254, 0.2);
+            border-radius: 6px;
+            padding: 6px 12px;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .badge-info {
+            display: inline-flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .badge-dot {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            font-size: 0.75rem;
+        }
+
+        .dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+        }
+
+        .grid-view {
+            display: grid;
+            gap: 12px;
+            flex-grow: 1;
+        }
+
+        .grid-view.two-cols {
+            grid-template-columns: repeat(2, 1fr);
+        }
+
+        .grid-view.four-cols {
+            grid-template-columns: repeat(4, 1fr);
+        }
+
+        @media (max-width: 900px) {
+            .grid-view.two-cols, .grid-view.four-cols {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .conf-column {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            min-height: 0;
+        }
+
+        .conf-header {
+            font-family: 'Teko', sans-serif;
+            font-size: 1.3rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--accent-cyan);
+            border-bottom: 2px solid var(--border);
+            padding-bottom: 2px;
+            text-align: center;
+            background: rgba(0, 242, 254, 0.05);
+            border-radius: 4px;
+        }
+
+        .card-box {
+            background: var(--bg-card);
+            backdrop-filter: blur(12px);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 10px;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+            flex-grow: 1;
+        }
+
+        .team-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            overflow-y: auto;
+            flex-grow: 1;
+        }
+
+        /* Plynulý Drag & Drop a styl týmu */
+        .team-item {
+            display: flex;
+            align-items: center;
+            background: rgba(10, 15, 29, 0.7);
+            padding: 4px 8px;
+            border-radius: 5px;
+            border: 1px solid var(--border);
+            cursor: grab;
+            transition: transform 0.2s cubic-bezier(0.2, 0, 0, 1),
+                        background-color 0.2s ease,
+                        border-color 0.2s ease,
+                        box-shadow 0.2s ease,
+                        opacity 0.2s ease;
+            font-size: 0.82rem;
+            position: relative;
+        }
+
+        .team-item:hover {
+            background: var(--bg-card-hover);
+            border-color: var(--border-glow);
+            transform: translateX(2px);
+        }
+
+        .team-item.dragging {
+            opacity: 0.4;
+            border: 1px dashed var(--accent-cyan);
+            transform: scale(0.98);
+        }
+
+        .team-item.drag-over {
+            border-top: 2px solid var(--accent-cyan);
+            transform: translateY(2px);
+        }
+
+        .drag-handle {
+            color: var(--text-muted);
+            margin-right: 8px;
+            font-size: 0.8rem;
+            cursor: grab;
+        }
+
+        .rank {
+            font-family: 'Teko', sans-serif;
+            font-size: 1.1rem;
+            width: 22px;
+            color: var(--text-muted);
+        }
+
+        .div-badge {
+            font-size: 0.65rem;
+            font-weight: 700;
+            padding: 1px 4px;
+            border-radius: 3px;
+            background: rgba(255, 255, 255, 0.08);
+            color: var(--accent-blue);
+            margin-right: 6px;
+        }
+
+        .team-name {
+            flex-grow: 1;
+            font-weight: 600;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .status-tag {
+            font-size: 0.65rem;
+            font-weight: 700;
+            padding: 2px 6px;
+            border-radius: 4px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-right: 6px;
+        }
+
+        .tag-direct {
+            background: rgba(46, 196, 182, 0.2);
+            color: var(--playoff-direct);
+            border: 1px solid var(--playoff-direct);
+        }
+
+        .tag-wc {
+            background: rgba(255, 159, 28, 0.2);
+            color: var(--playoff-wc);
+            border: 1px solid var(--playoff-wc);
+        }
+
+        .tag-out {
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--text-muted);
+            border: 1px solid var(--border);
+        }
+
+        .controls {
+            display: flex;
+            gap: 2px;
+        }
+
+        .controls button {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border);
+            color: var(--text-main);
+            border-radius: 3px;
+            cursor: pointer;
+            padding: 0 5px;
+            font-size: 0.7rem;
+            height: 20px;
+        }
+
+        .controls button:hover {
+            background: var(--accent-blue);
+            color: #000;
+        }
+
+        .divider {
+            text-align: center;
+            font-size: 0.65rem;
+            color: var(--playoff-direct);
+            margin: 3px 0;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border-bottom: 1px dashed rgba(46, 196, 182, 0.4);
+            line-height: 0.1em;
+        }
+
+        .btn-submit {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            margin-top: 10px;
+            background: linear-gradient(135deg, var(--accent-blue) 0%, var(--accent-cyan) 100%);
+            color: #040914;
+            font-family: 'Teko', sans-serif;
+            font-size: 1.5rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            box-shadow: 0 2px 10px rgba(0, 242, 254, 0.25);
+            transition: all 0.2s;
+            flex-shrink: 0;
+        }
+
+        .btn-submit:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 15px rgba(0, 242, 254, 0.4);
+        }
+
+        /* PLAYOFF PAVOUK & CONNECTIONS */
+        #playoff-section {
+            display: none;
+            flex-direction: column;
+            justify-content: space-between;
+            flex-grow: 1;
+        }
+
+        .bracket-wrapper {
+            display: grid;
+            grid-template-columns: repeat(7, minmax(170px, 1fr));
+            gap: 16px;
+            align-items: center;
+            overflow-x: auto;
+            padding: 12px 6px;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .bracket-column {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+            height: 100%;
+            min-height: 480px;
+        }
+
+        .bracket-column h3 {
+            font-family: 'Teko', sans-serif;
+            font-size: 1.1rem;
+            color: var(--accent-cyan);
+            text-align: center;
+            margin: 0 0 8px 0;
+            text-transform: uppercase;
+        }
+
+        .matchup {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            overflow: hidden;
+            position: relative;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Spojovací čáry pro levou stranu pavouka */
+        .left-branch .matchup::after {
+            content: '';
+            position: absolute;
+            right: -16px;
+            top: 50%;
+            width: 16px;
+            height: 2px;
+            background: var(--border);
+            z-index: 1;
+        }
+
+        /* Spojovací čáry pro pravou stranu pavouka */
+        .right-branch .matchup::before {
+            content: '';
+            position: absolute;
+            left: -16px;
+            top: 50%;
+            width: 16px;
+            height: 2px;
+            background: var(--border);
+            z-index: 1;
+        }
+
+        .matchup-team {
+            padding: 6px 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            border-bottom: 1px solid var(--border);
+            font-size: 0.78rem;
+            height: 32px;
+            transition: opacity 0.25s ease, background-color 0.25s ease, box-shadow 0.25s ease;
+        }
+
+        .matchup-team:last-child {
+            border-bottom: none;
+        }
+
+        .matchup-team:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .matchup-team.winner {
+            background: rgba(0, 242, 254, 0.15);
+            border-left: 3px solid var(--accent-cyan);
+            box-shadow: inset 0 0 10px rgba(0, 242, 254, 0.25);
+            font-weight: 700;
+            opacity: 1;
+        }
+
+        .matchup-team.loser {
+            opacity: 0.35;
+            filter: grayscale(40%);
+        }
+
+        .seed {
+            font-size: 0.65rem;
+            color: var(--text-muted);
+            margin-right: 4px;
+        }
+
+        .champion-box {
+            text-align: center;
+            padding: 12px;
+            background: linear-gradient(135deg, rgba(255, 215, 0, 0.15) 0%, rgba(255, 159, 28, 0.15) 100%);
+            border: 1px solid var(--accent-gold);
+            border-radius: 8px;
+            display: none;
+            box-shadow: 0 0 15px rgba(255, 215, 0, 0.2);
+        }
+
+        .champion-box span {
+            font-family: 'Teko', sans-serif;
+            font-size: 1.1rem;
+            color: var(--accent-gold);
+        }
+
+        .champion-box h2 {
+            font-family: 'Teko', sans-serif;
+            font-size: 1.8rem;
+            margin: 0;
+            color: #fff;
+        }
+
+/* ===== GRAFIKA: aréna, led, neon ===== */
+body{background-image:radial-gradient(ellipse at 20% 0%,rgba(0,242,254,.12),transparent 45%),radial-gradient(ellipse at 80% 0%,rgba(79,172,254,.12),transparent 45%),linear-gradient(180deg,#050912 0%,#0b1426 60%,#101d33 100%)}
+.rink-bg{position:fixed;inset:0;width:100%;height:100%;z-index:-2;opacity:.55;pointer-events:none}
+body::after{content:'';position:fixed;inset:0;z-index:-1;pointer-events:none;background:radial-gradient(ellipse at 50% 55%,transparent 30%,rgba(3,6,14,.85) 100%)}
+.container{position:relative;z-index:1}
+header{border-color:rgba(0,242,254,.35);box-shadow:0 0 22px rgba(0,242,254,.15),inset 0 0 18px rgba(0,242,254,.06);clip-path:polygon(0 0,100% 0,100% 100%,0 100%)}
+header h1{display:flex;align-items:center;gap:10px;font-size:2.4rem;filter:drop-shadow(0 0 8px rgba(0,242,254,.45))}
+.puck{width:38px;height:24px;flex-shrink:0}
+.tab-btn:hover:not(.active){color:#fff;background:rgba(0,242,254,.1)}
+.tab-btn.active{box-shadow:0 0 14px rgba(0,242,254,.6);background:linear-gradient(135deg,var(--accent-blue),var(--accent-cyan))}
+.conf-header{background:linear-gradient(90deg,transparent,rgba(0,242,254,.18),transparent);border-bottom:2px solid var(--border-glow);text-shadow:0 0 10px rgba(0,242,254,.6);font-size:1.5rem}
+.card-box{border-color:rgba(0,242,254,.25);box-shadow:0 0 18px rgba(0,242,254,.08),0 4px 16px rgba(0,0,0,.35)}
+.team-item:hover{box-shadow:0 0 10px rgba(0,242,254,.3)}
+.crest{--c1:#345;--c2:#123;width:24px;height:24px;border-radius:50%;flex-shrink:0;margin-right:7px;display:inline-flex;align-items:center;justify-content:center;font:800 .5rem Inter,sans-serif;letter-spacing:-.2px;color:#fff;text-shadow:0 0 3px #000,0 0 3px #000;background:linear-gradient(135deg,var(--c1) 52%,var(--c2) 52%);border:1.5px solid rgba(255,255,255,.75);box-shadow:0 0 6px rgba(0,0,0,.6)}
+.matchup{border-color:rgba(0,242,254,.35);box-shadow:0 0 12px rgba(0,242,254,.12),0 4px 12px rgba(0,0,0,.4)}
+.left-branch .matchup::after,.right-branch .matchup::before{content:none}
+.matchup-team span{display:flex;align-items:center}
+.bracket-wrapper{position:relative;align-items:stretch}
+#bracket-lines{position:absolute;top:0;left:0;pointer-events:none;overflow:visible}
+#bracket-lines path{fill:none;stroke-width:2}
+#ln-base{stroke:rgba(0,242,254,.28)}
+#ln-win{stroke:#00f2fe;filter:drop-shadow(0 0 4px #00f2fe)}
+.trophy{width:64px;height:96px;margin:0 auto;opacity:.45;filter:grayscale(.6);transition:.4s}
+.trophy.lit{opacity:1;filter:drop-shadow(0 0 14px #ffd700);animation:glow 1.8s ease-in-out infinite alternate}
+@keyframes glow{to{filter:drop-shadow(0 0 26px #ffd700)}}
+.champion-box .crest{width:34px;height:34px;font-size:.65rem;margin:0 auto 4px}
+.btn-row{display:flex;gap:10px;margin-top:10px}
+.btn-row .btn-submit{margin-top:0}
+.btn-ghost{background:rgba(255,255,255,.08)!important;color:#fff!important;flex:0 0 30%;border:1px solid var(--border)!important;box-shadow:none!important}
+.confetti{position:fixed;top:-12px;width:8px;height:14px;z-index:99;pointer-events:none;animation:fall linear forwards}
+@keyframes fall{to{transform:translateY(105vh) rotate(720deg)}}
+    </style>
+</head>
+<body>
+
+<svg class="rink-bg" viewBox="0 0 200 85" preserveAspectRatio="xMidYMid slice" fill="none"><rect x="2" y="2" width="196" height="81" rx="28" stroke="#7fd6ff" stroke-opacity=".5" stroke-width="1"/><line x1="100" y1="2" x2="100" y2="83" stroke="#e63946" stroke-width="1.4" stroke-dasharray="3 1.5"/><line x1="75" y1="2" x2="75" y2="83" stroke="#4facfe" stroke-width="1.6"/><line x1="125" y1="2" x2="125" y2="83" stroke="#4facfe" stroke-width="1.6"/><line x1="11" y1="5" x2="11" y2="80" stroke="#e63946" stroke-width=".5"/><line x1="189" y1="5" x2="189" y2="80" stroke="#e63946" stroke-width=".5"/><circle cx="100" cy="42.5" r="15" stroke="#4facfe" stroke-width="1"/><circle cx="100" cy="42.5" r="1.5" fill="#4facfe"/><g stroke="#e63946" stroke-width=".7"><circle cx="31" cy="22" r="10"/><circle cx="31" cy="63" r="10"/><circle cx="169" cy="22" r="10"/><circle cx="169" cy="63" r="10"/></g><path d="M11 37a6 6 0 0 1 0 11M189 37a6 6 0 0 0 0 11" stroke="#4facfe" stroke-width=".7"/></svg>
+<div class="container">
+    <header>
+        <h1><svg class="puck" viewBox="0 0 32 20"><path d="M2 6v8c0 3 6 5 14 5s14-2 14-5V6" fill="#0a0f1d" stroke="#00f2fe" stroke-width="1.5"/><ellipse cx="16" cy="6" rx="14" ry="5" fill="#16233d" stroke="#00f2fe" stroke-width="1.5"/></svg>NHL Playoff Predictor</h1>
+        <div class="view-tabs">
+            <button class="tab-btn active" id="tab-conf" onclick="switchTab('conf')">1. Tabulky Konferencí</button>
+            <button class="tab-btn" id="tab-check" onclick="switchTab('check')">2. Kontrola Divizí & Wild Card</button>
+            <button class="tab-btn" id="tab-bracket" onclick="switchTab('bracket')">3. Playoff Pavouk</button>
+        </div>
+    </header>
+
+    <div id="regular-season-section">
+        <div class="guide-bar">
+            <span id="guide-text">💡 Seřaď celou Západní a Východní konferenci. Systém sám určí postupy podle divizí a Wild Card!</span>
+            <div class="badge-info">
+                <span class="badge-dot"><i class="dot" style="background: var(--playoff-direct)"></i> Přímý postup (Top 3 Divize)</span>
+                <span class="badge-dot"><i class="dot" style="background: var(--playoff-wc)"></i> Wild Card</span>
+                <span class="badge-dot"><i class="dot" style="background: var(--text-muted)"></i> Mimo postup</span>
+            </div>
+        </div>
+
+        <!-- 1. ZÁLOŽKA: TABULKY KONFERENCÍ -->
+        <div id="view-conferences" class="grid-view two-cols">
+            <div class="conf-column">
+                <div class="conf-header">Západní Konference (16 týmů)</div>
+                <div class="card-box">
+                    <ul class="team-list" id="west-conf-list"></ul>
+                </div>
+            </div>
+
+            <div class="conf-column">
+                <div class="conf-header">Východní Konference (16 týmů)</div>
+                <div class="card-box">
+                    <ul class="team-list" id="east-conf-list"></ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- 2. ZÁLOŽKA: KONTROLA DIVIZÍ A WILD CARD -->
+        <div id="view-check" class="grid-view four-cols" style="display: none;">
+            <div class="conf-column">
+                <div class="conf-header">Pacific Division</div>
+                <div class="card-box"><ul class="team-list" id="check-pacific"></ul></div>
+            </div>
+            <div class="conf-column">
+                <div class="conf-header">Central Division</div>
+                <div class="card-box"><ul class="team-list" id="check-central"></ul></div>
+            </div>
+            <div class="conf-column">
+                <div class="conf-header">Atlantic Division</div>
+                <div class="card-box"><ul class="team-list" id="check-atlantic"></ul></div>
+            </div>
+            <div class="conf-column">
+                <div class="conf-header">Metropolitan Division</div>
+                <div class="card-box"><ul class="team-list" id="check-metro"></ul></div>
+            </div>
+        </div>
+
+        <div class="btn-row"><button class="btn-submit btn-ghost" onclick="resetStandings()">Reset pořadí</button><button class="btn-submit" onclick="generatePlayoff()">Potvrdit pořadí a simulovat Playoff &rarr;</button></div>
+    </div>
+
+    <!-- PLAYOFF PAVOUK -->
+    <div id="playoff-section">
+        <div class="bracket-wrapper"><svg id="bracket-lines"><path id="ln-base"/><path id="ln-win"/></svg>
+            <div class="bracket-column left-branch" id="west-r1"><h3>Západ 1. kolo</h3></div>
+            <div class="bracket-column left-branch" id="west-r2"><h3>Západ 2. kolo</h3></div>
+            <div class="bracket-column left-branch" id="west-r3"><h3>Finále Západu</h3></div>
+
+            <div class="bracket-column" id="cup-finals">
+                <h3>Stanley Cup</h3>
+                <svg class="trophy keep" viewBox="0 0 60 90"><defs><linearGradient id="gold" x1="0" x2="1"><stop offset="0" stop-color="#b8860b"/><stop offset=".5" stop-color="#ffe680"/><stop offset="1" stop-color="#b8860b"/></linearGradient></defs><path d="M10 6h40v5H10z" fill="url(#gold)"/><path d="M14 11h32l-4 20c-1 8-5 12-12 14-7-2-11-6-12-14z" fill="url(#gold)"/><path d="M26 45h8l3 15H23z" fill="url(#gold)"/><path d="M18 60h24l3 8H15z" fill="url(#gold)"/><path d="M12 68h36v10H12z" fill="#8a6a10"/><path d="M8 78h44v6H8z" fill="url(#gold)"/></svg>
+                <div id="champion-display" class="champion-box">
+                    <span>Vítěz Stanley Cupu</span>
+                    <h2 id="champion-name"></h2>
+                </div>
+            </div>
+
+            <div class="bracket-column right-branch" id="east-r3"><h3>Finále Východu</h3></div>
+            <div class="bracket-column right-branch" id="east-r2"><h3>Východ 2. kolo</h3></div>
+            <div class="bracket-column right-branch" id="east-r1"><h3>Východ 1. kolo</h3></div>
+        </div>
+
+        <button class="btn-submit" style="background: rgba(255, 255, 255, 0.1); color: #fff;" onclick="resetPlayoff()">&larr; Upravit základní část</button>
+    </div>
+</div>
+
+<script>
+    const teamDivisions = {
+        "Anaheim Ducks": "PAC", "Calgary Flames": "PAC", "Edmonton Oilers": "PAC", "Los Angeles Kings": "PAC",
+        "San Jose Sharks": "PAC", "Seattle Kraken": "PAC", "Vancouver Canucks": "PAC", "Vegas Golden Knights": "PAC",
+        
+        "Chicago Blackhawks": "CEN", "Colorado Avalanche": "CEN", "Dallas Stars": "CEN", "Minnesota Wild": "CEN",
+        "Nashville Predators": "CEN", "St. Louis Blues": "CEN", "Utah Mammoth": "CEN", "Winnipeg Jets": "CEN",
+
+        "Boston Bruins": "ATL", "Buffalo Sabres": "ATL", "Detroit Red Wings": "ATL", "Florida Panthers": "ATL",
+        "Montreal Canadiens": "ATL", "Ottawa Senators": "ATL", "Tampa Bay Lightning": "ATL", "Toronto Maple Leafs": "ATL",
+
+        "Carolina Hurricanes": "MET", "Columbus Blue Jackets": "MET", "New Jersey Devils": "MET", "New York Islanders": "MET",
+        "New York Rangers": "MET", "Philadelphia Flyers": "MET", "Pittsburgh Penguins": "MET", "Washington Capitals": "MET"
+    };
+
+    // Opravená pole týmů (východní konference bez duplicate Canucks, nahrazeno Florida Panthers / Tampa Bay)
+    let conferenceStandings = {
+        west: [
+            "Edmonton Oilers", "Dallas Stars", "Vancouver Canucks", "Colorado Avalanche",
+            "Vegas Golden Knights", "Winnipeg Jets", "Los Angeles Kings", "Nashville Predators",
+            "St. Louis Blues", "Minnesota Wild", "Calgary Flames", "Seattle Kraken",
+            "Utah Mammoth", "Anaheim Ducks", "Chicago Blackhawks", "San Jose Sharks"
+        ],
+        east: [
+            "Florida Panthers", "New York Rangers", "Carolina Hurricanes", "Boston Bruins",
+            "Tampa Bay Lightning", "Toronto Maple Leafs", "New York Islanders", "Washington Capitals",
+            "Pittsburgh Penguins", "Detroit Red Wings", "Philadelphia Flyers", "Buffalo Sabres",
+            "New Jersey Devils", "Ottawa Senators", "Montreal Canadiens", "Columbus Blue Jackets"
+        ]
+    };
+
+    window.onload = () => {
+        renderAll();
+    };
+
+    function switchTab(tab) {
+        ['conf','check','bracket'].forEach(t => document.getElementById('tab-' + t).classList.toggle('active', t === tab));
+        const br = tab === 'bracket';
+        document.getElementById('regular-season-section').style.display = br ? 'none' : 'flex';
+        document.getElementById('playoff-section').style.display = br ? 'flex' : 'none';
+        document.getElementById('view-conferences').style.display = tab === 'conf' ? 'grid' : 'none';
+        document.getElementById('view-check').style.display = tab === 'check' ? 'grid' : 'none';
+        document.getElementById('guide-text').innerText = tab === 'check'
+            ? '💡 Zde vidíš, jak tvoje pořadí v konferenci automaticky rozřadilo týmy do divizí a Wild Card.'
+            : '💡 Seřaď celou Západní a Východní konferenci. Systém sám určí postupy podle divizí a Wild Card!';
+        if (br) {
+            if (!bracketReady || standingsSig !== JSON.stringify(conferenceStandings)) buildBracket();
+            renderBracket();
+        }
+    }
+
+    function calculatePlayoffQualified(conf) {
+        const teams = conferenceStandings[conf];
+        const divCounts = {};
+        const qualified = [];
+        const wildCardPool = [];
+
+        teams.forEach(team => {
+            const div = teamDivisions[team];
+            divCounts[div] = (divCounts[div] || 0) + 1;
+
+            if (divCounts[div] <= 3) {
+                qualified.push({ name: team, div: div, type: 'DIRECT', divRank: divCounts[div] });
+            } else {
+                wildCardPool.push({ name: team, div: div });
+            }
+        });
+
+        const wc1 = { ...wildCardPool[0], type: 'WC1' };
+        const wc2 = { ...wildCardPool[1], type: 'WC2' };
+
+        return { qualified, wildCardPool, wc1, wc2 };
+    }
+
+    function renderAll() {
+        renderConfList('west-conf-list', 'west');
+        renderConfList('east-conf-list', 'east');
+        renderCheckView();
+    }
+
+    let draggedIdx = null;
+
+    function renderConfList(elementId, conf) {
+        const list = document.getElementById(elementId);
+        list.innerHTML = '';
+        const teams = conferenceStandings[conf];
+        const calc = calculatePlayoffQualified(conf);
+
+        teams.forEach((team, index) => {
+            const li = document.createElement('li');
+            li.className = 'team-item';
+            li.draggable = true;
+            li.dataset.index = index;
+
+            const isDirect = calc.qualified.some(q => q.name === team);
+            const isWc1 = calc.wc1.name === team;
+            const isWc2 = calc.wc2.name === team;
+
+            let tagClass = 'tag-out';
+            let tagLabel = 'OUT';
+
+            if (isDirect) {
+                tagClass = 'tag-direct';
+                tagLabel = 'TOP 3';
+            } else if (isWc1) {
+                tagClass = 'tag-wc';
+                tagLabel = 'WC 1';
+            } else if (isWc2) {
+                tagClass = 'tag-wc';
+                tagLabel = 'WC 2';
+            }
+
+            li.innerHTML = `
+                <span class="drag-handle">⋮⋮</span>
+                <span class="rank">${index + 1}.</span>
+                <span class="div-badge">${teamDivisions[team]}</span>
+                ${crest(team)}<span class="team-name">${team}</span>
+                <span class="status-tag ${tagClass}">${tagLabel}</span>
+                <div class="controls">
+                    <button onclick="moveConfTeam('${conf}', ${index}, -1)">▲</button>
+                    <button onclick="moveConfTeam('${conf}', ${index}, 1)">▼</button>
+                </div>
+            `;
+
+            // Plynulý Drag & Drop event handler
+            li.addEventListener('dragstart', (e) => {
+                draggedIdx = index;
+                li.classList.add('dragging');
+                e.dataTransfer.effectAllowed = 'move';
+            });
+
+            li.addEventListener('dragend', () => {
+                li.classList.remove('dragging'); draggedIdx = null;
+                document.querySelectorAll('.team-item').forEach(el => el.classList.remove('drag-over'));
+            });
+
+            li.addEventListener('dragover', (e) => {
+                e.preventDefault();
+                document.querySelectorAll('.team-item').forEach(el => el.classList.remove('drag-over'));
+                li.classList.add('drag-over');
+            });
+
+            li.addEventListener('drop', (e) => {
+                e.preventDefault();
+                const targetIdx = Number(li.dataset.index);
+                if (draggedIdx === null || draggedIdx === targetIdx) return;
+                
+                const confList = conferenceStandings[conf];
+                const [movedItem] = confList.splice(draggedIdx, 1);
+                confList.splice(targetIdx, 0, movedItem);
+
+                renderAll();
+            });
+
+            list.appendChild(li);
+        });
+    }
+
+    function renderCheckView() {
+        const divs = { PAC: 'check-pacific', CEN: 'check-central', ATL: 'check-atlantic', MET: 'check-metro' };
+
+        Object.keys(divs).forEach(divCode => {
+            const list = document.getElementById(divs[divCode]);
+            list.innerHTML = '';
+
+            const conf = (divCode === 'PAC' || divCode === 'CEN') ? 'west' : 'east';
+            const confTeams = conferenceStandings[conf];
+            const divTeams = confTeams.filter(t => teamDivisions[t] === divCode);
+            const calc = calculatePlayoffQualified(conf);
+
+            divTeams.forEach((team, idx) => {
+                const li = document.createElement('li');
+                li.className = 'team-item';
+
+                const isDirect = idx < 3;
+                const isWc = calc.wc1.name === team || calc.wc2.name === team;
+
+                let tagClass = 'tag-out';
+                let tagLabel = 'OUT';
+
+                if (isDirect) {
+                    tagClass = 'tag-direct';
+                    tagLabel = `DIV ${idx + 1}`;
+                } else if (isWc) {
+                    tagClass = 'tag-wc';
+                    tagLabel = calc.wc1.name === team ? 'WC 1' : 'WC 2';
+                }
+
+                li.innerHTML = `
+                    <span class="rank">${idx + 1}.</span>
+                    ${crest(team)}<span class="team-name">${team}</span>
+                    <span class="status-tag ${tagClass}">${tagLabel}</span>
+                `;
+                list.appendChild(li);
+
+                if (idx === 2) {
+                    const div = document.createElement('div');
+                    div.className = 'divider';
+                    list.appendChild(div);
+                }
+            });
+        });
+    }
+
+    function moveConfTeam(conf, index, dir) {
+        const list = conferenceStandings[conf];
+        const newIdx = index + dir;
+        if (newIdx >= 0 && newIdx < list.length) {
+            const temp = list[index];
+            list[index] = list[newIdx];
+            list[newIdx] = temp;
+            renderAll();
+        }
+    }
+
+    /* PLAYOFF SIMULACE */
+    let state = { west: { r1: [], r2: [], r3: [] }, east: { r1: [], r2: [], r3: [] }, cup: [] };
+
+    let bracketReady = false, standingsSig = '';
+
+    function buildBracket() {
+        state.west.r1 = buildConferenceR1('west', 'PAC', 'CEN');
+        state.east.r1 = buildConferenceR1('east', 'ATL', 'MET');
+        const empty = () => ({ t1: null, t2: null, winner: null });
+        state.west.r2 = [empty(), empty()]; state.east.r2 = [empty(), empty()];
+        state.west.r3 = [empty()]; state.east.r3 = [empty()];
+        state.cup = [empty()];
+        standingsSig = JSON.stringify(conferenceStandings);
+        bracketReady = true;
+    }
+
+    function generatePlayoff() {
+        bracketReady = false;   // tlačítko vždy vygeneruje pavouk znovu
+        switchTab('bracket');
+    }
+
+    // Dynamické párování WC1 a WC2 podle toho, který vítěz divize má lepší umístění v konferenci
+    function buildConferenceR1(conf, div1Key, div2Key) {
+        const teams = conferenceStandings[conf];
+        const calc = calculatePlayoffQualified(conf);
+
+        const d1_teams = teams.filter(t => teamDivisions[t] === div1Key).slice(0, 3).map((name, i) => ({ name, seed: `${div1Key}#${i+1}` }));
+        const d2_teams = teams.filter(t => teamDivisions[t] === div2Key).slice(0, 3).map((name, i) => ({ name, seed: `${div2Key}#${i+1}` }));
+
+        const wc1 = { name: calc.wc1.name, seed: 'WC1' };
+        const wc2 = { name: calc.wc2.name, seed: 'WC2' };
+
+        // Porovnání umístění vítězů divizí
+        const div1WinnerIndex = teams.indexOf(d1_teams[0].name);
+        const div2WinnerIndex = teams.indexOf(d2_teams[0].name);
+
+        const div1IsTop = div1WinnerIndex < div2WinnerIndex;
+
+        return [
+            { id: `${conf}-m1`, t1: d1_teams[0], t2: div1IsTop ? wc2 : wc1, winner: null },
+            { id: `${conf}-m2`, t1: d1_teams[1], t2: d1_teams[2], winner: null },
+            { id: `${conf}-m3`, t1: d2_teams[0], t2: div1IsTop ? wc1 : wc2, winner: null },
+            { id: `${conf}-m4`, t1: d2_teams[1], t2: d2_teams[2], winner: null }
+        ];
+    }
+
+    function renderBracket() {
+        ['west', 'east'].forEach(c => ['r1', 'r2', 'r3'].forEach(r => renderRound(`${c}-${r}`, state[c][r])));
+        renderRound('cup-finals', state.cup);
+        const w = state.cup[0].winner;
+        document.getElementById('champion-display').style.display = w ? 'block' : 'none';
+        document.getElementById('champion-name').innerHTML = w ? crest(w.name) + w.name : '';
+        document.querySelector('.trophy').classList.toggle('lit', !!w);
+        requestAnimationFrame(drawLines);
+    }
+
+    function renderRound(elementId, matchups) {
+        const col = document.getElementById(elementId);
+        const head = [...col.querySelectorAll('h3,.keep')].map(e => e.outerHTML).join('');
+        const champ = col.querySelector('.champion-box') ? col.querySelector('.champion-box').outerHTML : '';
+        col.innerHTML = head;
+
+        matchups.forEach((m, idx) => {
+            const div = document.createElement('div');
+            div.className = 'matchup';
+            const has = m.winner !== null;
+            const cls = t => (m.winner && t && m.winner.name === t.name) ? 'winner' : (has ? 'loser' : '');
+            const row = (t, n) => `<div class="matchup-team ${cls(t)}" onclick="${t ? `window.bracketClick('${elementId}',${idx},${n})` : ''}"><span>${t ? `${crest(t.name)}<span class="seed">(${t.seed})</span>${t.name}` : 'TBD'}</span></div>`;
+            div.innerHTML = row(m.t1, 1) + row(m.t2, 2);
+            col.appendChild(div);
+        });
+        if (champ) col.insertAdjacentHTML('beforeend', champ);
+    }
+
+    window.bracketClick = (elementId, matchIndex, teamNum) => {
+        const [conf, round] = elementId.split('-');
+        const match = conf === 'cup' ? state.cup[0] : state[conf][round][matchIndex];
+        const team = teamNum === 1 ? match.t1 : match.t2;
+        if (!team) return;
+        setWinner(conf, round, matchIndex, team);
+        renderBracket();
+        if (conf === 'cup') confetti();
+    };
+
+    // Vítěz postupuje dál; když se změní, smaže se jen to, co na něm závisí (druhá půlka pavouka zůstane)
+    function setWinner(conf, round, i, team) {
+        if (conf === 'cup') { state.cup[0].winner = team; return; }
+        state[conf][round][i].winner = team;
+        let n;
+        if (round === 'r1') n = { m: state[conf].r2[i >> 1], pos: i % 2 ? 't2' : 't1', round: 'r2', i: i >> 1 };
+        else if (round === 'r2') n = { m: state[conf].r3[0], pos: i ? 't2' : 't1', round: 'r3', i: 0 };
+        else n = { m: state.cup[0], pos: conf === 'west' ? 't1' : 't2', cup: true };
+        n.m[n.pos] = team;
+        if (n.m.winner && (!team || n.m.winner.name !== team.name)) {
+            if (n.cup) n.m.winner = null; else setWinner(conf, n.round, n.i, null);
+        }
+    }
+
+    function drawLines() {
+        const wrap = document.querySelector('.bracket-wrapper');
+        const svg = document.getElementById('bracket-lines');
+        svg.setAttribute('width', 0); svg.setAttribute('height', 0);
+        svg.setAttribute('width', wrap.scrollWidth); svg.setAttribute('height', wrap.scrollHeight);
+        const wr = wrap.getBoundingClientRect();
+        const box = el => { const r = el.getBoundingClientRect(); return { l: r.left - wr.left + wrap.scrollLeft, r: r.right - wr.left + wrap.scrollLeft, y: r.top - wr.top + wrap.scrollTop + r.height / 2 }; };
+        let base = '', win = '';
+        const link = (a, b, left) => {
+            const A = box(a), B = box(b), x1 = left ? A.r : A.l, x2 = left ? B.l : B.r, mx = (x1 + x2) / 2;
+            const d = `M${x1} ${A.y}H${mx}V${B.y}H${x2}`;
+            if (a.querySelector('.winner')) win += d; else base += d;
+        };
+        const cup = document.querySelector('#cup-finals .matchup');
+        ['west', 'east'].forEach(c => {
+            const left = c === 'west', q = r => [...document.querySelectorAll(`#${c}-${r} .matchup`)];
+            const r1 = q('r1'), r2 = q('r2'), r3 = q('r3');
+            r1.forEach((m, i) => r2[i >> 1] && link(m, r2[i >> 1], left));
+            r2.forEach(m => r3[0] && link(m, r3[0], left));
+            if (r3[0] && cup) link(r3[0], cup, left);
+        });
+        document.getElementById('ln-base').setAttribute('d', base);
+        document.getElementById('ln-win').setAttribute('d', win);
+    }
+    window.addEventListener('resize', () => { if (bracketReady) drawLines(); });
+
+    function resetPlayoff() { switchTab('conf'); }
+
+    const defaultStandings = JSON.parse(JSON.stringify(conferenceStandings));
+    function resetStandings() {
+        conferenceStandings = JSON.parse(JSON.stringify(defaultStandings));
+        renderAll();
+    }
+
+    /* Odznaky týmů (vlastní kresba v barvách týmu – ne oficiální loga) */
+    const TEAMS = {
+        "Anaheim Ducks":["ANA","#F47A38","#111"],"Calgary Flames":["CGY","#D2001C","#F1BE48"],"Edmonton Oilers":["EDM","#0a2a66","#FF4C00"],"Los Angeles Kings":["LAK","#111","#A2AAAD"],
+        "San Jose Sharks":["SJS","#006D75","#111"],"Seattle Kraken":["SEA","#001628","#3fb8c4"],"Vancouver Canucks":["VAN","#00205B","#00843D"],"Vegas Golden Knights":["VGK","#B4975A","#333F42"],
+        "Chicago Blackhawks":["CHI","#CF0A2C","#111"],"Colorado Avalanche":["COL","#6F263D","#236192"],"Dallas Stars":["DAL","#006847","#8F8F8C"],"Minnesota Wild":["MIN","#154734","#A6192E"],
+        "Nashville Predators":["NSH","#d99a00","#041E42"],"St. Louis Blues":["STL","#002F87","#d99a00"],"Utah Mammoth":["UTA","#6CACE4","#111"],"Winnipeg Jets":["WPG","#041E42","#004C97"],
+        "Boston Bruins":["BOS","#d99a00","#111"],"Buffalo Sabres":["BUF","#002654","#d99a00"],"Detroit Red Wings":["DET","#CE1126","#7a0c1c"],"Florida Panthers":["FLA","#C8102E","#041E42"],
+        "Montreal Canadiens":["MTL","#AF1E2D","#192168"],"Ottawa Senators":["OTT","#C52032","#111"],"Tampa Bay Lightning":["TBL","#002868","#3a5fb0"],"Toronto Maple Leafs":["TOR","#00205B","#3a5fb0"],
+        "Carolina Hurricanes":["CAR","#CC0000","#111"],"Columbus Blue Jackets":["CBJ","#002654","#CE1126"],"New Jersey Devils":["NJD","#CE1126","#111"],"New York Islanders":["NYI","#00539B","#F47D30"],
+        "New York Rangers":["NYR","#0038A8","#CE1126"],"Philadelphia Flyers":["PHI","#F74902","#111"],"Pittsburgh Penguins":["PIT","#d99a00","#111"],"Washington Capitals":["WSH","#C8102E","#041E42"]
+    };
+    function crest(name) {
+        const t = TEAMS[name] || [name.slice(0, 3).toUpperCase(), '#345', '#123'];
+        return `<span class="crest" style="--c1:${t[1]};--c2:${t[2]}">${t[0]}</span>`;
+    }
+
+    function confetti() {
+        const cols = ['#ffd700', '#00f2fe', '#ffffff', '#ff9f1c'];
+        for (let i = 0; i < 70; i++) {
+            const e = document.createElement('i');
+            e.className = 'confetti';
+            e.style.cssText = `left:${Math.random() * 100}vw;background:${cols[i % 4]};animation-delay:${Math.random() * .6}s;animation-duration:${2 + Math.random() * 2}s`;
+            document.body.appendChild(e);
+            setTimeout(() => e.remove(), 4800);
+        }
+    }
+</script>
+
+</body>
+</html>

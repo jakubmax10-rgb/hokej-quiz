@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>Výběr Hry | Hockey Quiz</title>
+    <title>Výběr Hry | Hockey Hub</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
@@ -36,7 +36,7 @@
 
         .wrap {
             width: 100%;
-            max-width: 700px;
+            max-width: 800px;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -107,16 +107,6 @@
             box-shadow: 0 10px 30px rgba(63,198,255,0.15);
         }
 
-        .game-card.disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-        }
-        .game-card.disabled:hover {
-            transform: none;
-            border-color: var(--border-color);
-            box-shadow: none;
-        }
-
         .card-badge {
             position: absolute;
             top: 14px;
@@ -135,6 +125,8 @@
         .card-icon {
             font-size: 2.2rem;
             margin-bottom: 12px;
+            display: flex;
+            align-items: center;
         }
 
         .card-title {
@@ -165,7 +157,7 @@
             transition: background 0.2s, color 0.2s;
         }
 
-        .game-card:hover:not(.disabled) .card-btn {
+        .game-card:hover .card-btn {
             background: var(--ice);
             color: #05070d;
         }
@@ -181,50 +173,8 @@
             <h1 class="title" id="leagueTitle">VYBER SI HERNÍ MÓD</h1>
         </div>
 
-        <div class="games-grid">
-            <!-- 1. Hráč Quiz -->
-            <a href="hokej.html" class="game-card" id="playerQuizLink">
-                <span class="card-badge">Aktivní</span>
-                <div class="card-icon">👤</div>
-                <div>
-                    <div class="card-title">Hráč Quiz</div>
-                    <div class="card-desc">Uhodni tajného hokejistu podle týmu, věku, pozice, čísla a vlajky.</div>
-                </div>
-                <div class="card-btn">Hrát nyní ➔</div>
-            </a>
-
-            <!-- 2. Vyšší vs Nižší (Aktivní) -->
-            <a href="higher_lower.html" class="game-card" id="higherLowerLink">
-                <span class="card-badge">Aktivní</span>
-                <div class="card-icon">📊</div>
-                <div>
-                    <div class="card-title">Vyšší vs Nižší</div>
-                    <div class="card-desc">Porovnej dva hráče. Kdo má víc bodů, vyšší Radegast index nebo věk?</div>
-                </div>
-                <div class="card-btn">Hrát nyní ➔</div>
-            </a>
-
-            <!-- 3. Hádání klubů/log -->
-            <div class="game-card disabled">
-                <span class="card-badge" style="color:var(--text-muted)">Brzy</span>
-                <div class="card-icon">🛡️</div>
-                <div>
-                    <div class="card-title">Poznej Logo</div>
-                    <div class="card-desc">Poznej hokejový klub podle detailu loga nebo výřezu dresu.</div>
-                </div>
-                <div class="card-btn">Připravujeme</div>
-            </div>
-
-            <!-- 4. Kariéra hráče -->
-            <div class="game-card disabled">
-                <span class="card-badge" style="color:var(--text-muted)">Brzy</span>
-                <div class="card-icon">🗺️</div>
-                <div>
-                    <div class="card-title">Cesta Kariérou</div>
-                    <div class="card-desc">Uhodni legendu nebo současného hráče podle historie jeho klubů.</div>
-                </div>
-                <div class="card-btn">Připravujeme</div>
-            </div>
+        <div class="games-grid" id="gamesGrid">
+            <!-- Dynamicky naplněno podle ligy -->
         </div>
     </div>
 
@@ -234,17 +184,97 @@
 
         const eyebrow = document.getElementById('leagueEyebrow');
         const title = document.getElementById('leagueTitle');
-        const playerQuizLink = document.getElementById('playerQuizLink');
+        const gamesGrid = document.getElementById('gamesGrid');
 
-        if (league === 'nhl') {
-            eyebrow.textContent = 'National Hockey League';
-            title.textContent = 'NHL HERNÍ MÓDY';
-            playerQuizLink.href = 'nhl_hokej.html'; 
-        } else {
-            eyebrow.textContent = 'Tipsport Extraliga';
-            title.textContent = 'ELH HERNÍ MÓDY';
-            playerQuizLink.href = 'hokej.html';
-        }
+        // Konfigurace her pro Extraligu (ELH) vs NHL
+        const contents = {
+            elh: {
+                eyebrow: 'Tipsport Extraliga',
+                title: 'ELH HERNÍ MÓDY',
+                cards: [
+                    {
+                        href: 'hokej.html',
+                        badge: 'Aktivní',
+                        icon: '👤',
+                        title: 'Hráč Quiz',
+                        desc: 'Uhodni tajného hokejistu podle týmu, věku, pozice, čísla a vlajky.'
+                    },
+                    {
+                        href: 'index1.html',
+                        badge: 'Multiplayer',
+                        icon: '🏒',
+                        title: 'Hokejový Manažer',
+                        desc: 'Postav tým, draftuj 21 hráčů, zvol trenéra a koučuj zápas s xG simulací.'
+                    },
+                    {
+                        href: 'logo_quiz.html',
+                        badge: 'Aktivní',
+                        icon: '🛡️',
+                        title: 'Poznej Logo',
+                        desc: 'Poznej hokejový klub podle detailu loga nebo siluety.'
+                    },
+                    {
+                        href: 'playoff_predict.html',
+                        badge: 'Simulace',
+                        icon: '🏆',
+                        title: 'Predikce Tabulky & Play-off',
+                        desc: 'Tipni si umístění po základní části a simuluj cestu vyřazovací fází až do finále.'
+                    }
+                ]
+            },
+            nhl: {
+                eyebrow: 'National Hockey League',
+                title: 'NHL HERNÍ MÓDY',
+                cards: [
+                    {
+                        href: 'nhl_hokej.html',
+                        badge: 'Aktivní',
+                        icon: '👤',
+                        title: 'NHL Hráč Quiz',
+                        desc: 'Uhodni tajnou hvězdu NHL podle týmu, divize, věku a statistik.'
+                    },
+                    {
+                        href: 'nhl_higher_lower.html',
+                        badge: 'NHL API',
+                        icon: '📊',
+                        title: 'Vyšší vs Nižší (NHL)',
+                        desc: 'Porovnej dvě hvězdy NHL. Kdo má víc gólů, bodů nebo odehraných zápasů?'
+                    },
+                    {
+                        href: 'nhl_logo_quiz.html',
+                        badge: 'Aktivní',
+                        icon: '⭐',
+                        title: 'NHL Poznej Logo',
+                        desc: 'Otestuj své znalosti klubových log a arén všech 32 týmů NHL.'
+                    },
+                    {
+                        href: 'nhl_playoff_predict.html',
+                        badge: 'Stanley Cup',
+                        icon: '🏆',
+                        title: 'Stanley Cup Predikce',
+                        desc: 'Predikuj výsledky konferencí a kompletní vyřazovací pavouk o Stanley Cup.'
+                    }
+                ]
+            }
+        };
+
+        const activeContent = contents[league] || contents.elh;
+
+        eyebrow.textContent = activeContent.eyebrow;
+        title.textContent = activeContent.title;
+
+        // Vykreslení karet
+        gamesGrid.innerHTML = activeContent.cards.map(card => `
+            <a href="${card.href}" class="game-card">
+                <span class="card-badge">${card.badge}</span>
+                <div class="card-icon">${card.icon}</div>
+                <div>
+                    <div class="card-title">${card.title}</div>
+                    <div class="card-desc">${card.desc}</div>
+                </div>
+                <div class="card-btn">Hrát nyní ➔</div>
+            </a>
+        `).join('');
     </script>
 </body>
 </html>

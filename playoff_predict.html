@@ -1,0 +1,861 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ELH Playoff Predictor</title>
+    <link href="https://fonts.googleapis.com/css2?family=Teko:wght@500;700&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-main: #0a0f1d;
+            --bg-card: rgba(18, 26, 47, 0.85);
+            --bg-card-hover: rgba(28, 40, 70, 0.95);
+            --accent-cyan: #00f2fe;
+            --accent-blue: #4facfe;
+            --accent-gold: #ffd700;
+            --text-main: #ffffff;
+            --text-muted: #8e9bb0;
+            --border: rgba(255, 255, 255, 0.1);
+            --border-glow: rgba(0, 242, 254, 0.4);
+            --playoff-direct: #2ec4b6;
+            --playoff-wc: #ff9f1c;
+            --non-playoff: #e63946;
+        }
+
+        * {
+            box-sizing: border-box;
+            user-select: none;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-main);
+            background-image: 
+                radial-gradient(circle at 15% 15%, rgba(0, 242, 254, 0.05) 0%, transparent 40%),
+                radial-gradient(circle at 85% 85%, rgba(79, 172, 254, 0.05) 0%, transparent 40%);
+            color: var(--text-main);
+            margin: 0;
+            padding: 12px;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .container {
+            max-width: 1400px;
+            width: 100%;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+        }
+
+        /* --- Tlačítko Zpět do menu --- */
+        .back-nav {
+            width: 100%;
+            max-width: 1400px;
+            display: flex;
+            justify-content: flex-start;
+            margin-bottom: 10px;
+            z-index: 10;
+        }
+        .back-btn-top {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            color: var(--text-muted);
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 0.88rem;
+            padding: 8px 14px;
+            border-radius: 999px;
+            background: rgba(18, 26, 47, 0.7);
+            border: 1px solid var(--border);
+            transition: all 0.2s ease;
+        }
+        .back-btn-top:hover {
+            color: var(--accent-cyan);
+            border-color: var(--accent-cyan);
+            background: rgba(28, 40, 70, 0.9);
+            transform: translateX(-3px);
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px 16px;
+            background: rgba(18, 26, 47, 0.6);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            margin-bottom: 10px;
+            flex-shrink: 0;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        header h1 {
+            font-family: 'Teko', sans-serif;
+            font-size: 2rem;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            margin: 0;
+            background: linear-gradient(135deg, #ffffff 0%, var(--accent-cyan) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            line-height: 1;
+        }
+
+        .view-tabs {
+            display: flex;
+            gap: 6px;
+            background: rgba(10, 15, 29, 0.8);
+            padding: 4px;
+            border-radius: 6px;
+            border: 1px solid var(--border);
+        }
+
+        .tab-btn {
+            background: transparent;
+            border: none;
+            color: var(--text-muted);
+            padding: 6px 16px;
+            font-family: 'Teko', sans-serif;
+            font-size: 1.2rem;
+            letter-spacing: 1px;
+            cursor: pointer;
+            border-radius: 4px;
+            transition: all 0.2s ease;
+            text-transform: uppercase;
+        }
+
+        .tab-btn.active {
+            background: var(--accent-blue);
+            color: #040914;
+            font-weight: bold;
+        }
+
+        #regular-season-section {
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+            min-height: 0;
+        }
+
+        .guide-bar {
+            background: rgba(0, 242, 254, 0.05);
+            border: 1px solid rgba(0, 242, 254, 0.2);
+            border-radius: 6px;
+            padding: 6px 12px;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .badge-info {
+            display: inline-flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .badge-dot {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            font-size: 0.75rem;
+        }
+
+        .dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+        }
+
+        .grid-view {
+            display: grid;
+            gap: 12px;
+            flex-grow: 1;
+            max-width: 800px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        .conf-column {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            min-height: 0;
+        }
+
+        .conf-header {
+            font-family: 'Teko', sans-serif;
+            font-size: 1.4rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--accent-cyan);
+            border-bottom: 2px solid var(--border);
+            padding-bottom: 2px;
+            text-align: center;
+            background: rgba(0, 242, 254, 0.05);
+            border-radius: 4px;
+        }
+
+        .card-box {
+            background: var(--bg-card);
+            backdrop-filter: blur(12px);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 10px;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+            flex-grow: 1;
+        }
+
+        .team-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            overflow-y: auto;
+            flex-grow: 1;
+        }
+
+        .team-item {
+            display: flex;
+            align-items: center;
+            background: rgba(10, 15, 29, 0.7);
+            padding: 6px 10px;
+            border-radius: 5px;
+            border: 1px solid var(--border);
+            cursor: grab;
+            transition: transform 0.2s cubic-bezier(0.2, 0, 0, 1),
+                        background-color 0.2s ease,
+                        border-color 0.2s ease,
+                        box-shadow 0.2s ease,
+                        opacity 0.2s ease;
+            font-size: 0.85rem;
+            position: relative;
+        }
+
+        .team-item:hover {
+            background: var(--bg-card-hover);
+            border-color: var(--border-glow);
+            transform: translateX(2px);
+        }
+
+        .team-item.dragging {
+            opacity: 0.4;
+            border: 1px dashed var(--accent-cyan);
+            transform: scale(0.98);
+        }
+
+        .team-item.drag-over {
+            border-top: 2px solid var(--accent-cyan);
+            transform: translateY(2px);
+        }
+
+        .drag-handle {
+            color: var(--text-muted);
+            margin-right: 8px;
+            font-size: 0.8rem;
+            cursor: grab;
+        }
+
+        .rank {
+            font-family: 'Teko', sans-serif;
+            font-size: 1.2rem;
+            width: 25px;
+            color: var(--text-muted);
+        }
+
+        .team-name {
+            flex-grow: 1;
+            font-weight: 600;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .status-tag {
+            font-size: 0.65rem;
+            font-weight: 700;
+            padding: 2px 6px;
+            border-radius: 4px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-right: 6px;
+        }
+
+        .tag-direct {
+            background: rgba(46, 196, 182, 0.2);
+            color: var(--playoff-direct);
+            border: 1px solid var(--playoff-direct);
+        }
+
+        .tag-wc {
+            background: rgba(255, 159, 28, 0.2);
+            color: var(--playoff-wc);
+            border: 1px solid var(--playoff-wc);
+        }
+
+        .tag-out {
+            background: rgba(230, 57, 70, 0.15);
+            color: var(--non-playoff);
+            border: 1px solid var(--non-playoff);
+        }
+
+        .controls {
+            display: flex;
+            gap: 2px;
+        }
+
+        .controls button {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border);
+            color: var(--text-main);
+            border-radius: 3px;
+            cursor: pointer;
+            padding: 0 6px;
+            font-size: 0.75rem;
+            height: 22px;
+        }
+
+        .controls button:hover {
+            background: var(--accent-blue);
+            color: #000;
+        }
+
+        .divider {
+            text-align: center;
+            font-size: 0.65rem;
+            color: var(--playoff-direct);
+            margin: 4px 0;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border-bottom: 1px dashed rgba(46, 196, 182, 0.4);
+            line-height: 0.1em;
+        }
+
+        .btn-submit {
+            display: block;
+            width: 100%;
+            max-width: 800px;
+            margin: 12px auto 0 auto;
+            padding: 10px;
+            background: linear-gradient(135deg, var(--accent-blue) 0%, var(--accent-cyan) 100%);
+            color: #040914;
+            font-family: 'Teko', sans-serif;
+            font-size: 1.5rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            box-shadow: 0 2px 10px rgba(0, 242, 254, 0.25);
+            transition: all 0.2s;
+            flex-shrink: 0;
+        }
+
+        .btn-submit:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 15px rgba(0, 242, 254, 0.4);
+        }
+
+        /* PLAYOFF PAVOUK */
+        #playoff-section {
+            display: none;
+            flex-direction: column;
+            justify-content: space-between;
+            flex-grow: 1;
+        }
+
+        .bracket-wrapper {
+            display: grid;
+            grid-template-columns: repeat(5, minmax(180px, 1fr));
+            gap: 16px;
+            align-items: center;
+            overflow-x: auto;
+            padding: 12px 6px;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .bracket-column {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+            height: 100%;
+            min-height: 500px;
+        }
+
+        .bracket-column h3 {
+            font-family: 'Teko', sans-serif;
+            font-size: 1.2rem;
+            color: var(--accent-cyan);
+            text-align: center;
+            margin: 0 0 8px 0;
+            text-transform: uppercase;
+        }
+
+        .matchup {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            overflow: hidden;
+            position: relative;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            margin: 6px 0;
+        }
+
+        .matchup-team {
+            padding: 6px 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            border-bottom: 1px solid var(--border);
+            font-size: 0.8rem;
+            height: 34px;
+            transition: opacity 0.25s ease, background-color 0.25s ease, box-shadow 0.25s ease;
+        }
+
+        .matchup-team:last-child {
+            border-bottom: none;
+        }
+
+        .matchup-team:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .matchup-team.winner {
+            background: rgba(0, 242, 254, 0.15);
+            border-left: 3px solid var(--accent-cyan);
+            box-shadow: inset 0 0 10px rgba(0, 242, 254, 0.25);
+            font-weight: 700;
+            opacity: 1;
+        }
+
+        .matchup-team.loser {
+            opacity: 0.35;
+            filter: grayscale(40%);
+        }
+
+        .seed {
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            margin-right: 6px;
+        }
+
+        .champion-box {
+            text-align: center;
+            padding: 12px;
+            background: linear-gradient(135deg, rgba(255, 215, 0, 0.15) 0%, rgba(255, 159, 28, 0.15) 100%);
+            border: 1px solid var(--accent-gold);
+            border-radius: 8px;
+            display: none;
+            box-shadow: 0 0 15px rgba(255, 215, 0, 0.2);
+            margin-top: 15px;
+        }
+
+        .champion-box span {
+            font-family: 'Teko', sans-serif;
+            font-size: 1.1rem;
+            color: var(--accent-gold);
+        }
+
+        .champion-box h2 {
+            font-family: 'Teko', sans-serif;
+            font-size: 1.8rem;
+            margin: 0;
+            color: #fff;
+        }
+
+        /* GRAFIKA A POZADÍ */
+        body {
+            background-image: radial-gradient(ellipse at 20% 0%, rgba(0,242,254,.12), transparent 45%),
+                              radial-gradient(ellipse at 80% 0%, rgba(79,172,254,.12), transparent 45%),
+                              linear-gradient(180deg, #050912 0%, #0b1426 60%, #101d33 100%);
+        }
+        .rink-bg {
+            position: fixed; inset: 0; width: 100%; height: 100%; z-index: -2; opacity: .45; pointer-events: none;
+        }
+        header h1 {
+            display: flex; align-items: center; gap: 10px; font-size: 2.2rem;
+            filter: drop-shadow(0 0 8px rgba(0,242,254,.45));
+        }
+        .puck { width: 38px; height: 24px; flex-shrink: 0; }
+        .crest {
+            width: 24px; height: 24px; border-radius: 50%; flex-shrink: 0; margin-right: 8px;
+            display: inline-flex; align-items: center; justify-content: center;
+            font: 800 .55rem Inter, sans-serif; color: #fff; text-shadow: 0 0 3px #000;
+            background: linear-gradient(135deg, var(--c1) 52%, var(--c2) 52%);
+            border: 1.5px solid rgba(255,255,255,.75); box-shadow: 0 0 6px rgba(0,0,0,.6);
+        }
+        .trophy { width: 56px; height: 84px; margin: 0 auto; opacity: .45; filter: grayscale(.6); transition: .4s; }
+        .trophy.lit { opacity: 1; filter: drop-shadow(0 0 14px #ffd700); animation: glow 1.8s ease-in-out infinite alternate; }
+        @keyframes glow { to { filter: drop-shadow(0 0 26px #ffd700); } }
+        .confetti {
+            position: fixed; top: -12px; width: 8px; height: 14px; z-index: 99; pointer-events: none;
+            animation: fall linear forwards;
+        }
+        @keyframes fall { to { transform: translateY(105vh) rotate(720deg); } }
+    </style>
+</head>
+<body>
+
+<svg class="rink-bg" viewBox="0 0 200 85" preserveAspectRatio="xMidYMid slice" fill="none">
+    <rect x="2" y="2" width="196" height="81" rx="28" stroke="#7fd6ff" stroke-opacity=".5" stroke-width="1"/>
+    <line x1="100" y1="2" x2="100" y2="83" stroke="#e63946" stroke-width="1.4" stroke-dasharray="3 1.5"/>
+    <line x1="75" y1="2" x2="75" y2="83" stroke="#4facfe" stroke-width="1.6"/>
+    <line x1="125" y1="2" x2="125" y2="83" stroke="#4facfe" stroke-width="1.6"/>
+</svg>
+
+<div class="container">
+    <!-- Tlačítko Zpět do menu -->
+    <div class="back-nav">
+        <a href="league_menu.html?league=elh" class="back-btn-top">← Zpět na nabídku</a>
+    </div>
+
+    <header>
+        <h1><svg class="puck" viewBox="0 0 32 20"><path d="M2 6v8c0 3 6 5 14 5s14-2 14-5V6" fill="#0a0f1d" stroke="#00f2fe" stroke-width="1.5"/><ellipse cx="16" cy="6" rx="14" ry="5" fill="#16233d" stroke="#00f2fe" stroke-width="1.5"/></svg>Tipsport Extraliga – Playoff Predictor</h1>
+        <div class="view-tabs">
+            <button class="tab-btn active" id="tab-standings" onclick="switchTab('standings')">1. Základní část</button>
+            <button class="tab-btn" id="tab-bracket" onclick="switchTab('bracket')">2. Pavouk Play-off</button>
+        </div>
+    </header>
+
+    <div id="regular-season-section">
+        <div class="guide-bar" style="max-width: 800px; margin: 0 auto 10px auto; width: 100%;">
+            <span>💡 Seřaď všech 14 týmů ELH. Týmy 1–4 jdou přímo do čtvrtfinále, 5–12 hrají předkolo.</span>
+            <div class="badge-info">
+                <span class="badge-dot"><i class="dot" style="background: var(--playoff-direct)"></i> Čtvrtfinále (1–4)</span>
+                <span class="badge-dot"><i class="dot" style="background: var(--playoff-wc)"></i> Předkolo (5–12)</span>
+                <span class="badge-dot"><i class="dot" style="background: var(--non-playoff)"></i> Mimo (13–14)</span>
+            </div>
+        </div>
+
+        <div class="grid-view">
+            <div class="conf-column">
+                <div class="conf-header">Tabulka Tipsport Extraligy (14 týmů)</div>
+                <div class="card-box">
+                    <ul class="team-list" id="elh-teams-list"></ul>
+                </div>
+            </div>
+        </div>
+
+        <button class="btn-submit" onclick="generatePlayoff()">Potvrdit pořadí a spustit Play-off &rarr;</button>
+    </div>
+
+    <!-- PLAYOFF PAVOUK -->
+    <div id="playoff-section">
+        <div class="bracket-wrapper">
+            <!-- Předkolo -->
+            <div class="bracket-column">
+                <h3>Předkolo</h3>
+                <div id="predkolo-col"></div>
+            </div>
+            <!-- Čtvrtfinále -->
+            <div class="bracket-column">
+                <h3>Čtvrtfinále</h3>
+                <div id="qf-col"></div>
+            </div>
+            <!-- Semifinále -->
+            <div class="bracket-column">
+                <h3>Semifinále</h3>
+                <div id="sf-col"></div>
+            </div>
+            <!-- Finále + Pohár -->
+            <div class="bracket-column">
+                <h3>Finále & Mistr</h3>
+                <div id="final-col"></div>
+                <div style="text-align: center; margin-top: 20px;">
+                    <svg class="trophy" viewBox="0 0 60 90">
+                        <defs><linearGradient id="gold" x1="0" x2="1"><stop offset="0" stop-color="#b8860b"/><stop offset=".5" stop-color="#ffe680"/><stop offset="1" stop-color="#b8860b"/></linearGradient></defs>
+                        <path d="M10 6h40v5H10z" fill="url(#gold)"/><path d="M14 11h32l-4 20c-1 8-5 12-12 14-7-2-11-6-12-14z" fill="url(#gold)"/><path d="M26 45h8l3 15H23z" fill="url(#gold)"/><path d="M18 60h24l3 8H15z" fill="url(#gold)"/><path d="M12 68h36v10H12z" fill="#8a6a10"/><path d="M8 78h44v6H8z" fill="url(#gold)"/>
+                    </svg>
+                    <div id="champion-display" class="champion-box">
+                        <span>Mistr Extraligy 🏆</span>
+                        <h2 id="champion-name"></h2>
+                    </div>
+                </div>
+            </div>
+            <div class="bracket-column" style="justify-content: flex-end; padding-bottom: 20px;">
+                <button class="btn-submit" style="background: rgba(255,255,255,0.1); color: #fff; margin: 0;" onclick="resetPlayoff()">&larr; Upravit pořadí</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Seznam 14 extraligových týmů
+    let elhStandings = [
+        "HC Dynamo Pardubice",
+        "HC Sparta Praha",
+        "HC Oceláři Třinec",
+        "Bílí Tygři Liberec",
+        "HC Kometa Brno",
+        "Mountfield HK",
+        "HC Verva Litvínov",
+        "BK Mladá Boleslav",
+        "HC Energie Karlovy Vary",
+        "HC Vítkovice Ridera",
+        "Rytíři Kladno",
+        "HC Olomouc",
+        "HC Škoda Plzeň",
+        "Motor České Budějovice"
+    ];
+
+    // Barvy a zkratky pro vlastní znaky klubů
+    const TEAM_STYLES = {
+        "HC Dynamo Pardubice": ["PCE", "#CE1126", "#FFFFFF"],
+        "HC Sparta Praha": ["SPA", "#7A0016", "#F1BE48"],
+        "HC Oceláři Třinec": ["TRI", "#DA291C", "#FFFFFF"],
+        "Bílí Tygři Liberec": ["LIB", "#005A9C", "#FFFFFF"],
+        "HC Kometa Brno": ["KOM", "#003366", "#FFFFFF"],
+        "Mountfield HK": ["MHK", "#E31B23", "#000000"],
+        "HC Verva Litvínov": ["LIT", "#FFD100", "#000000"],
+        "BK Mladá Boleslav": ["MLA", "#009639", "#000000"],
+        "HC Energie Karlovy Vary": ["VAR", "#006B3F", "#000000"],
+        "HC Vítkovice Ridera": ["VIT", "#004B87", "#FFFFFF"],
+        "Rytíři Kladno": ["KLA", "#00539F", "#FFFFFF"],
+        "HC Olomouc": ["OLO", "#E00000", "#FFFFFF"],
+        "HC Škoda Plzeň": ["PLZ", "#003DA5", "#FFFFFF"],
+        "Motor České Budějovice": ["CEB", "#ED1B24", "#000000"]
+    };
+
+    function crest(name) {
+        const s = TEAM_STYLES[name] || [name.slice(0,3).toUpperCase(), '#345', '#123'];
+        return `<span class="crest" style="--c1:${s[1]};--c2:${s[2]}">${s[0]}</span>`;
+    }
+
+    window.onload = () => {
+        renderStandings();
+    };
+
+    function switchTab(tab) {
+        ['standings', 'bracket'].forEach(t => document.getElementById('tab-' + t).classList.toggle('active', t === tab));
+        const isBracket = tab === 'bracket';
+        document.getElementById('regular-season-section').style.display = isBracket ? 'none' : 'flex';
+        document.getElementById('playoff-section').style.display = isBracket ? 'flex' : 'none';
+        if (isBracket) {
+            buildPlayoffStructure();
+            renderPlayoff();
+        }
+    }
+
+    let draggedIdx = null;
+
+    function renderStandings() {
+        const list = document.getElementById('elh-teams-list');
+        list.innerHTML = '';
+
+        elhStandings.forEach((team, index) => {
+            const li = document.createElement('li');
+            li.className = 'team-item';
+            li.draggable = true;
+            li.dataset.index = index;
+
+            let tagClass = 'tag-out', tagLabel = 'Mimo';
+            if (index < 4) {
+                tagClass = 'tag-direct'; tagLabel = 'ČF (1-4)';
+            } else if (index < 12) {
+                tagClass = 'tag-wc'; tagLabel = 'Předkolo';
+            }
+
+            li.innerHTML = `
+                <span class="drag-handle">⋮⋮</span>
+                <span class="rank">${index + 1}.</span>
+                ${crest(team)}
+                <span class="team-name">${team}</span>
+                <span class="status-tag ${tagClass}">${tagLabel}</span>
+                <div class="controls">
+                    <button onclick="moveTeam(${index}, -1)">▲</button>
+                    <button onclick="moveTeam(${index}, 1)">▼</button>
+                </div>
+            `;
+
+            li.addEventListener('dragstart', (e) => {
+                draggedIdx = index;
+                li.classList.add('dragging');
+            });
+            li.addEventListener('dragend', () => {
+                li.classList.remove('dragging'); draggedIdx = null;
+                document.querySelectorAll('.team-item').forEach(el => el.classList.remove('drag-over'));
+            });
+            li.addEventListener('dragover', (e) => {
+                e.preventDefault();
+                document.querySelectorAll('.team-item').forEach(el => el.classList.remove('drag-over'));
+                li.classList.add('drag-over');
+            });
+            li.addEventListener('drop', (e) => {
+                e.preventDefault();
+                const targetIdx = Number(li.dataset.index);
+                if (draggedIdx === null || draggedIdx === targetIdx) return;
+                const [moved] = elhStandings.splice(draggedIdx, 1);
+                elhStandings.splice(targetIdx, 0, moved);
+                renderStandings();
+            });
+
+            list.appendChild(li);
+
+            if (index === 3 || index === 11) {
+                const div = document.createElement('div');
+                div.className = 'divider';
+                list.appendChild(div);
+            }
+        });
+    }
+
+    function moveTeam(index, dir) {
+        const target = index + dir;
+        if (target >= 0 && target < elhStandings.length) {
+            const temp = elhStandings[index];
+            elhStandings[index] = elhStandings[target];
+            elhStandings[target] = temp;
+            renderStandings();
+        }
+    }
+
+    // Stav pavouka play-off
+    let playoffState = {
+        predkolo: [], 
+        qf: [],       
+        sf: [],       
+        final: null,  
+        champion: null
+    };
+
+    function buildPlayoffStructure() {
+        const t = elhStandings;
+        playoffState.predkolo = [
+            { t1: {name: t[4], seed: '5'}, t2: {name: t[11], seed: '12'}, winner: null },
+            { t1: {name: t[5], seed: '6'}, t2: {name: t[10], seed: '11'}, winner: null },
+            { t1: {name: t[6], seed: '7'}, t2: {name: t[9], seed: '10'}, winner: null },
+            { t1: {name: t[7], seed: '8'}, t2: {name: t[8], seed: '9'}, winner: null }
+        ];
+
+        playoffState.qf = [
+            { t1: {name: t[0], seed: '1'}, t2: null, winner: null },
+            { t1: {name: t[3], seed: '4'}, t2: null, winner: null },
+            { t1: {name: t[1], seed: '2'}, t2: null, winner: null },
+            { t1: {name: t[2], seed: '3'}, t2: null, winner: null }
+        ];
+
+        playoffState.sf = [
+            { t1: null, t2: null, winner: null },
+            { t1: null, t2: null, winner: null }
+        ];
+
+        playoffState.final = { t1: null, t2: null, winner: null };
+        playoffState.champion = null;
+    }
+
+    function generatePlayoff() {
+        switchTab('bracket');
+    }
+
+    function renderPlayoff() {
+        renderMatchups('predkolo-col', playoffState.predkolo, 'predkolo');
+        renderMatchups('qf-col', playoffState.qf, 'qf');
+        renderMatchups('sf-col', playoffState.sf, 'sf');
+        
+        const finalCol = document.getElementById('final-col');
+        finalCol.innerHTML = '';
+        finalCol.appendChild(createMatchupElement(playoffState.final, 'final', 0));
+
+        const champ = playoffState.champion;
+        document.getElementById('champion-display').style.display = champ ? 'block' : 'none';
+        document.getElementById('champion-name').innerHTML = champ ? crest(champ.name) + champ.name : '';
+        document.querySelector('.trophy').classList.toggle('lit', !!champ);
+    }
+
+    function renderMatchups(containerId, matches, roundName) {
+        const container = document.getElementById(containerId);
+        container.innerHTML = '';
+        matches.forEach((m, idx) => {
+            container.appendChild(createMatchupElement(m, roundName, idx));
+        });
+    }
+
+    function createMatchupElement(m, round, idx) {
+        const div = document.createElement('div');
+        div.className = 'matchup';
+        const hasW = m.winner !== null;
+        const cls = t => (m.winner && t && m.winner.name === t.name) ? 'winner' : (hasW ? 'loser' : '');
+
+        div.innerHTML = `
+            <div class="matchup-team ${cls(m.t1)}" onclick="selectWinner('${round}', ${idx}, 1)">
+                <span>${m.t1 ? `${crest(m.t1.name)}<span class="seed">(${m.t1.seed || ''})</span>${m.t1.name}` : 'Čeká se...'}</span>
+            </div>
+            <div class="matchup-team ${cls(m.t2)}" onclick="selectWinner('${round}', ${idx}, 2)">
+                <span>${m.t2 ? `${crest(m.t2.name)}<span class="seed">(${m.t2.seed || ''})</span>${m.t2.name}` : 'Čeká se...'}</span>
+            </div>
+        `;
+        return div;
+    }
+
+    function selectWinner(round, idx, teamNum) {
+        const m = round === 'predkolo' ? playoffState.predkolo[idx] :
+                  round === 'qf' ? playoffState.qf[idx] :
+                  round === 'sf' ? playoffState.sf[idx] : playoffState.final;
+
+        const winner = teamNum === 1 ? m.t1 : m.t2;
+        if (!winner) return;
+        m.winner = winner;
+
+        propagateWinners();
+        renderPlayoff();
+        if (round === 'final') confetti();
+    }
+
+    function propagateWinners() {
+        const pk = playoffState.predkolo;
+        if (pk[3] && pk[3].winner) playoffState.qf[0].t2 = pk[3].winner;
+        if (pk[0] && pk[0].winner) playoffState.qf[1].t2 = pk[0].winner;
+        if (pk[2] && pk[2].winner) playoffState.qf[2].t2 = pk[2].winner;
+        if (pk[1] && pk[1].winner) playoffState.qf[3].t2 = pk[1].winner;
+
+        if (playoffState.qf[0].winner && playoffState.qf[1].winner) {
+            playoffState.sf[0].t1 = playoffState.qf[0].winner;
+            playoffState.sf[0].t2 = playoffState.qf[1].winner;
+        }
+        if (playoffState.qf[2].winner && playoffState.qf[3].winner) {
+            playoffState.sf[1].t1 = playoffState.qf[2].winner;
+            playoffState.sf[1].t2 = playoffState.qf[3].winner;
+        }
+
+        if (playoffState.sf[0].winner && playoffState.sf[1].winner) {
+            playoffState.final.t1 = playoffState.sf[0].winner;
+            playoffState.final.t2 = playoffState.sf[1].winner;
+        }
+
+        playoffState.champion = playoffState.final.winner;
+    }
+
+    function resetPlayoff() {
+        switchTab('standings');
+    }
+
+    function confetti() {
+        const cols = ['#ffd700', '#00f2fe', '#ffffff', '#ff9f1c'];
+        for (let i = 0; i < 70; i++) {
+            const e = document.createElement('i');
+            e.className = 'confetti';
+            e.style.cssText = `left:${Math.random() * 100}vw;background:${cols[i % 4]};animation-delay:${Math.random() * .6}s;animation-duration:${2 + Math.random() * 2}s`;
+            document.body.appendChild(e);
+            setTimeout(() => e.remove(), 4800);
+        }
+    }
+</script>
+
+</body>
+</html>

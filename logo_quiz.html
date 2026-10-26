@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Poznej Logo | Extraliga Quiz</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background-color: #05070d;
+            color: #f4f7fb;
+            font-family: 'Rajdhani', sans-serif;
+            overflow-x: hidden;
+        }
+        .glass-panel {
+            background: rgba(14, 21, 36, 0.9);
+            backdrop-filter: blur(12px);
+            border: 1px solid #223049;
+        }
+        .title-font {
+            font-family: 'Bebas Neue', sans-serif;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col justify-between p-4 md:p-6">
+
+    <div class="max-w-xl mx-auto w-full flex-1 flex flex-col">
+        <!-- Hlavička -->
+        <div class="flex justify-between items-center mb-6">
+            <a href="league_menu.html?league=elh" class="text-gray-400 hover:text-cyan-400 font-bold text-sm transition">← Zpět do menu</a>
+            <div class="text-xs uppercase tracking-widest text-cyan-400 font-bold">Tipsport Extraliga (Složkové výřezy)</div>
+        </div>
+
+        <div class="text-center mb-6">
+            <h1 class="title-font text-4xl md:text-5xl tracking-wider text-white">POZNEJ LOGO TÝMU</h1>
+            <p class="text-gray-400 text-sm">Poznej klub podle náhodného detailu ze složky týmu!</p>
+        </div>
+
+        <!-- Herní karta -->
+        <div class="glass-panel p-6 rounded-2xl shadow-2xl flex-1 flex flex-col justify-between">
+            
+            <!-- Skóre a stav -->
+            <div class="flex justify-between items-center text-xs font-bold text-gray-400 mb-4 border-b border-gray-800 pb-2">
+                <div>Otázka: <span id="current-question" class="text-white font-mono text-sm">1</span> / 14</div>
+                <div>Skóre: <span id="score" class="text-emerald-400 font-mono text-sm">0</span> bodů</div>
+            </div>
+
+            <!-- Oblast s obrázkem ze složky -->
+            <div class="bg-gray-950/60 p-6 rounded-xl border border-gray-800 flex items-center justify-center my-4 min-h-[220px] relative overflow-hidden">
+                <img id="team-logo-img" src="" alt="Detail loga" class="max-h-48 max-w-full object-contain drop-shadow-[0_10px_15px_rgba(0,0,0,0.5)] transition-all duration-300">
+            </div>
+
+            <!-- Možnosti odpovědí -->
+            <div id="options-container" class="grid grid-cols-1 md:grid-cols-2 gap-3 my-4">
+                <!-- Dynamicky generovaná tlačítka -->
+            </div>
+
+            <!-- Tlačítko další -->
+            <div class="mt-4">
+                <button id="next-btn" onclick="nextQuestion()" class="hidden w-full py-3 bg-cyan-600 hover:bg-cyan-500 text-gray-950 font-black rounded-xl uppercase tracking-wider transition cursor-pointer">
+                    Další logo ➔
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Patička -->
+    <footer class="text-center py-4 text-xs text-gray-600">
+        Hockey Hub &bull; Extraligový kvíz log
+    </footer>
+
+    <script>
+        // Přesná databáze odpovídající názvům ve Windows složkách
+        const teamsDatabase = [
+            { name: "HC Dynamo Pardubice", folder: "Pardubice", prefix: "Pardubice", count: 5 },
+            { name: "HC Energie Karlovy Vary", folder: "Vary", prefix: "Vary", count: 5 },
+            { name: "HC Oceláři Třinec", folder: "Třinec", prefix: "Třinec", count: 5 },
+            { name: "Rytíři Kladno", folder: "Kladno", prefix: "Kladno", count: 5 },
+            { name: "HC Škoda Plzeň", folder: "Plzeň", prefix: "Plzeň", count: 5 },
+            { name: "HC Olomouc", folder: "Olomouc", prefix: "Olomouc", count: 5 },
+            { name: "Mountfield HK", folder: "Headec Králové", prefix: "Hradec Králové", count: 6 },
+            { name: "BK Mladá Boleslav", folder: "Mladá Boleslav", prefix: "Mladá Boleslav", count: 5 },
+            { name: "HC Vítkovice Ridera", folder: "Vítkovice", prefix: "Vítkovice", count: 5 },
+            { name: "HC Verva Litvínov", folder: "Litvínov", prefix: "Litvínov", count: 5 },
+            { name: "Bílí Tygři Liberec", folder: "Liberec", prefix: "Liberec", count: 5 },
+            { name: "HC Sparta Praha", folder: "Praha", prefix: "Sparta", count: 5 },
+            { name: "HC Kometa Brno", folder: "Brno", prefix: "Brno", count: 5 },
+            { name: "Banes Motor České Budějovice", folder: "České Budějovice", prefix: "České Budějovice", count: 5 }
+        ];
+
+        let questions = [];
+        let currentIndex = 0;
+        let score = 0;
+        let answered = false;
+
+        function startGame() {
+            questions = [...teamsDatabase].sort(() => Math.random() - 0.5);
+            currentIndex = 0;
+            score = 0;
+            document.getElementById('score').innerText = score;
+            loadQuestion();
+        }
+
+        function loadQuestion() {
+            answered = false;
+            document.getElementById('next-btn').classList.add('hidden');
+            document.getElementById('current-question').innerText = currentIndex + 1;
+
+            const currentTeam = questions[currentIndex];
+            
+            // Náhodný výběr fotky (např. Headec Králové/Hradec Králové (3).png)
+            const randomPhotoIndex = Math.floor(Math.random() * currentTeam.count) + 1;
+            const imagePath = `${currentTeam.folder}/${currentTeam.prefix} (${randomPhotoIndex}).png`;
+
+            const imgElement = document.getElementById('team-logo-img');
+            imgElement.src = imagePath;
+
+            // Vygenerování možností
+            let wrongOptions = teamsDatabase.filter(t => t.name !== currentTeam.name);
+            wrongOptions.sort(() => Math.random() - 0.5);
+            
+            let choices = [currentTeam.name, wrongOptions[0].name, wrongOptions[1].name, wrongOptions[2].name];
+            choices.sort(() => Math.random() - 0.5);
+
+            const container = document.getElementById('options-container');
+            container.innerHTML = '';
+
+            choices.forEach(choice => {
+                const btn = document.createElement('button');
+                btn.className = "py-3 px-4 bg-gray-900 hover:bg-gray-800 border border-gray-700 rounded-xl font-bold text-sm text-white transition text-left flex justify-between items-center cursor-pointer";
+                btn.innerHTML = `<span>${choice}</span> <span class="text-gray-600 text-xs">▲</span>`;
+                btn.onclick = () => selectAnswer(btn, choice, currentTeam.name);
+                container.appendChild(btn);
+            });
+        }
+
+        function selectAnswer(button, selected, correct) {
+            if (answered) return;
+            answered = true;
+
+            const buttons = document.getElementById('options-container').children;
+
+            if (selected === correct) {
+                button.className = "py-3 px-4 bg-emerald-600/30 border border-emerald-500 rounded-xl font-bold text-sm text-emerald-300 transition text-left flex justify-between items-center";
+                button.innerHTML += `<span>✅</span>`;
+                score += 10;
+                document.getElementById('score').innerText = score;
+            } else {
+                button.className = "py-3 px-4 bg-red-600/30 border border-red-500 rounded-xl font-bold text-sm text-red-300 transition text-left flex justify-between items-center";
+                button.innerHTML += `<span>❌</span>`;
+
+                for (let b of buttons) {
+                    if (b.children[0].innerText === correct) {
+                        b.className = "py-3 px-4 bg-emerald-600/30 border border-emerald-500 rounded-xl font-bold text-sm text-emerald-300 transition text-left flex justify-between items-center";
+                    }
+                }
+            }
+
+            document.getElementById('next-btn').classList.remove('hidden');
+        }
+
+        function nextQuestion() {
+            currentIndex++;
+            if (currentIndex < questions.length) {
+                loadQuestion();
+            } else {
+                const container = document.getElementById('options-container');
+                document.getElementById('team-logo-img').style.display = 'none';
+                container.innerHTML = `
+                    <div class="col-span-2 text-center py-8">
+                        <div class="text-5xl mb-3">🏆</div>
+                        <h2 class="text-2xl font-black text-cyan-300 mb-2">Kvíz dokončen!</h2>
+                        <p class="text-gray-300 text-sm mb-6">Tvoje celkové skóre je <span class="text-emerald-400 font-bold">${score} / ${teamsDatabase.length * 10}</span> bodů.</p>
+                        <button onclick="startGame()" class="px-6 py-3 bg-cyan-600 hover:bg-cyan-500 text-gray-950 font-black rounded-xl uppercase tracking-wider transition cursor-pointer">
+                            Hrát znovu 🔄
+                        </button>
+                    </div>
+                `;
+                document.getElementById('next-btn').style.display = 'none';
+            }
+        }
+
+        window.onload = startGame;
+    </script>
+</body>
+</html>
