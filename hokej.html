@@ -1,4 +1,4 @@
-html_content = """<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="cs">
 <head>
     <meta charset="UTF-8">
@@ -852,7 +852,7 @@ html_content = """<!DOCTYPE html>
             secretImg.style.transition = 'none';
             
             // 2. Nahrajeme novou fotku a rovnou ji ztmavíme
-            secretImg.src = "./fotky_hracu/" + targetPlayer.image;
+            secretImg.src = "./" + targetPlayer.image;
             secretImg.classList.add('silhouette');
             
             // 3. Tento malý trik donutí prohlížeč změnu okamžitě zpracovat
@@ -1028,7 +1028,7 @@ html_content = """<!DOCTYPE html>
         function showModal(title, text) {
             modalTitle.textContent = title;
             modalText.innerHTML = text;
-            document.getElementById('modalImage').src = "./fotky_hracu/" + targetPlayer.image;
+            document.getElementById('modalImage').src = "./" + targetPlayer.image;
             modalOverlay.classList.add('active');
         }
 
@@ -1103,7 +1103,9 @@ html_content = """<!DOCTYPE html>
                 statusToEmoji(g.nat)
             ).join('\n');
 
-            const shareText = `ELH Hráč Quiz - Uhodnuto na ${guessedPlayers.length} pokusů! 🏒🇨🇿\n\n${gridText}`;
+            const shareText = `ELH Hráč Quiz - Uhodnuto na ${guessedPlayers.length} pokusů! 🏒🇨🇿
+
+${gridText}`;
             
             navigator.clipboard.writeText(shareText).then(() => {
                 alert("Výsledek a mřížka zkopírovány do schránky!");
