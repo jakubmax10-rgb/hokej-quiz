@@ -211,6 +211,7 @@ const sparta = [
   { name: "Pavel Kousal", pos: "Útočník", age: 27, number: 23, nat: "CZE", image: "pavel_kousal.png" },
   { name: "Ondřej Najman", pos: "Útočník", age: 28, number: 46, nat: "CZE", image: "ondrej_najman.png" },
   { name: "Jiří Pospíšil", pos: "Útočník", age: 21, number: 85, nat: "CZE", image: "jiri_pospisil.png" },
+  { name: "Jan Rutta", pos: "Útočník", age: 36, number: 44, nat: "CZE", image: "jan_rutta.png" },
   { name: "Jiří Sekáč", pos: "Útočník", age: 34, number: 92, nat: "CZE", image: "jiri_sekac.png" },
   { name: "Devin Shore", pos: "Útočník", age: 32, number: 94, nat: "CAN", image: "devin_shore.png" },
   { name: "Kristian Vesalainen", pos: "Útočník", age: 27, number: 91, nat: "FIN", image: "kristian_vesalainen.png" },
