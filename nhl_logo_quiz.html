@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>NHL Barevný Kvíz | Hockey Hub</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #05070d;
+            --card-bg: #0e1524;
+            --border-color: #223049;
+            --text-color: #f4f7fb;
+            --text-muted: #8593ab;
+            --ice: #3fc6ff;
+            --red: #e8283f;
+            --gold: #f4c451;
+            --correct: #23c46a;
+            --incorrect: #e8283f;
+            font-family: 'Rajdhani', sans-serif;
+        }
+
+        html { scroll-padding-top: env(safe-area-inset-top, 0px); }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            background:
+                radial-gradient(ellipse 900px 500px at 50% -10%, rgba(63,198,255,0.16), transparent 60%),
+                linear-gradient(180deg, #05070d 0%, #070a13 100%);
+            color: var(--text-color);
+            min-height: 100vh;
+            padding: 18px 14px calc(24px + env(safe-area-inset-bottom, 0px));
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .back-nav {
+            width: 100%;
+            max-width: 600px;
+            display: flex;
+            justify-content: flex-start;
+            margin-bottom: 10px;
+        }
+
+        .back-btn-top {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            color: var(--text-muted);
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 0.88rem;
+            padding: 8px 14px;
+            border-radius: 999px;
+            background: rgba(14, 21, 36, 0.7);
+            border: 1px solid var(--border-color);
+            transition: all 0.2s ease;
+        }
+
+        .back-btn-top:hover {
+            color: var(--ice);
+            border-color: var(--ice);
+            background: rgba(19, 28, 48, 0.9);
+        }
+
+        .wrap {
+            width: 100%;
+            max-width: 600px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .hero {
+            text-align: center;
+            margin-bottom: 14px;
+        }
+
+        .eyebrow {
+            font-size: 0.72rem;
+            letter-spacing: 4px;
+            color: var(--ice);
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        h1.title {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: clamp(2.4rem, 10vw, 3.8rem);
+            letter-spacing: 2px;
+            line-height: 1;
+            margin-top: 4px;
+        }
+        h1.title .w1 { color: #f4f7fb; }
+        h1.title .w2 { color: var(--gold); }
+
+        .stats-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            background: linear-gradient(180deg, rgba(17,26,45,0.9), rgba(14,21,36,0.9));
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 12px 18px;
+            margin-bottom: 16px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.35);
+        }
+
+        .stats-group { display: flex; gap: 24px; }
+        .stat-label { font-size: 0.62rem; letter-spacing: 1.5px; color: var(--text-muted); text-transform: uppercase; }
+        .stat-value { font-family: 'Bebas Neue', sans-serif; font-size: 1.6rem; color: var(--ice); line-height: 1; }
+        .stat-value.streak-value { color: var(--gold); }
+
+        .game-container {
+            width: 100%;
+            background: linear-gradient(180deg, rgba(17,26,45,0.85), rgba(10,15,26,0.9));
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 24px 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.45);
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .prompt-label {
+            font-size: 0.8rem;
+            letter-spacing: 1.5px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            margin-bottom: 16px;
+        }
+
+        .pie-chart {
+            width: 140px;
+            height: 140px;
+            border-radius: 50%;
+            border: 3px solid var(--border-color);
+            margin-bottom: 24px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.5);
+        }
+
+        .input-container {
+            position: relative;
+            width: 100%;
+            margin-top: 10px;
+        }
+
+        .input-group {
+            display: flex;
+            gap: 10px;
+            width: 100%;
+        }
+
+        .guess-input {
+            flex: 1;
+            background: #111a2d;
+            border: 1px solid var(--border-color);
+            color: var(--text-color);
+            padding: 14px 16px;
+            border-radius: 12px;
+            font-family: inherit;
+            font-size: 1.1rem;
+            font-weight: 700;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        .guess-input:focus {
+            border-color: var(--ice);
+        }
+
+        .autocomplete-list {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background-color: #0a0f1c;
+            border: 1px solid var(--border-color);
+            border-top: none;
+            border-radius: 0 0 12px 12px;
+            max-height: 200px;
+            overflow-y: auto;
+            z-index: 10;
+            box-shadow: 0 14px 30px rgba(0,0,0,0.5);
+            text-align: left;
+        }
+
+        .autocomplete-item {
+            padding: 11px 16px;
+            cursor: pointer;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            font-weight: 600;
+            font-size: 0.95rem;
+            color: var(--text-color);
+        }
+
+        .autocomplete-item:hover {
+            background-color: #131c30;
+            color: var(--ice);
+        }
+
+        .submit-btn {
+            background: linear-gradient(180deg, var(--ice), #2899d3);
+            color: #05070d;
+            border: none;
+            padding: 0 24px;
+            border-radius: 12px;
+            font-family: inherit;
+            font-size: 1.1rem;
+            font-weight: 700;
+            cursor: pointer;
+            box-shadow: 0 6px 20px rgba(63,198,255,0.3);
+            transition: transform 0.15s ease;
+        }
+        .submit-btn:hover { transform: translateY(-1px); }
+
+        .feedback-msg {
+            margin-top: 14px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            min-height: 28px;
+        }
+        .feedback-msg.correct { color: var(--correct); }
+        .feedback-msg.incorrect { color: var(--incorrect); }
+
+        .next-btn {
+            display: none;
+            width: 100%;
+            margin-top: 14px;
+            background: linear-gradient(180deg, var(--gold), #c99a32);
+            color: #05070d;
+            border: none;
+            padding: 14px;
+            border-radius: 12px;
+            font-family: inherit;
+            font-size: 1.1rem;
+            font-weight: 700;
+            cursor: pointer;
+            box-shadow: 0 6px 20px rgba(244,196,81,0.3);
+            transition: transform 0.15s ease;
+        }
+        .next-btn:hover { transform: translateY(-1px); }
+    </style>
+</head>
+<body>
+
+    <div class="back-nav">
+        <a href="league_menu.html?league=nhl" class="back-btn-top">← Zpět na nabídku</a>
+    </div>
+
+    <div class="wrap">
+        <div class="hero">
+            <div class="eyebrow">National Hockey League</div>
+            <h1 class="title"><span class="w1">KLUBOVÉ</span> <span class="w2">BARVY</span></h1>
+        </div>
+
+        <div class="stats-bar">
+            <div class="stats-group">
+                <div>
+                    <div class="stat-label">Skóre</div>
+                    <div class="stat-value" id="score">0</div>
+                </div>
+                <div>
+                    <div class="stat-label">Série</div>
+                    <div class="stat-value streak-value" id="streak">0</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="game-container">
+            <div class="prompt-label">Napiš název týmu NHL s tímto poměrem barev:</div>
+            
+            <div class="pie-chart" id="pieChart"></div>
+
+            <div class="input-container">
+                <div class="input-group">
+                    <input type="text" id="guessInput" class="guess-input" placeholder="Začni psát název týmu..." autocomplete="off">
+                    <button class="submit-btn" id="submitBtn" onclick="checkAnswer()">Odpovědět</button>
+                </div>
+                <div class="autocomplete-list" id="autocompleteList"></div>
+            </div>
+
+            <div class="feedback-msg" id="feedbackMsg"></div>
+            <button class="next-btn" id="nextBtn" onclick="nextQuestion()">Další tým ➔</button>
+        </div>
+    </div>
+
+    <script>
+        const nhlTeamsDB = [
+            { name: "Edmonton Oilers", colors: [{c: "#00006b", p: 49}, {c: "#ffffff", p: 48}, {c: "#fe521c", p: 3}] },
+            { name: "Minnesota Wild", colors: [{c: "#015836", p: 56}, {c: "#bf2b37", p: 21}, {c: "#eee3c6", p: 19}, {c: "#efb410", p: 4}] },
+            { name: "Vegas Golden Knights", colors: [{c: "#27251f", p: 43}, {c: "#85714d", p: 42}, {c: "#333f48", p: 12}, {c: "#e7e3dc", p: 3}] },
+            { name: "Colorado Avalanche", colors: [{c: "#005488", p: 33}, {c: "#ffffff", p: 26}, {c: "#8b2942", p: 23}, {c: "#a7b1b7", p: 13}, {c: "#000000", p: 4}] },
+            { name: "Utah Mammoth", colors: [{c: "#000000", p: 49}, {c: "#7cb2dd", p: 31}, {c: "#fefefe", p: 20}] },
+            { name: "Dallas Stars", colors: [{c: "#000000", p: 40}, {c: "#8e9194", p: 21}, {c: "#00853a", p: 20}, {c: "#ffffff", p: 19}] },
+            { name: "Seattle Kraken", colors: [{c: "#091929", p: 50}, {c: "#649fb6", p: 27}, {c: "#98d6d7", p: 22}, {c: "#c8202f", p: 1}] },
+            { name: "St. Louis Blues", colors: [{c: "#0172b9", p: 65}, {c: "#fdb81a", p: 35}] },
+            { name: "Nashville Predators", colors: [{c: "#ffffff", p: 43}, {c: "#001840", p: 35}, {c: "#ffb916", p: 22}] },
+            { name: "San Jose Sharks", colors: [{c: "#020202", p: 51}, {c: "#277485", p: 24}, {c: "#ffffff", p: 21}, {c: "#e27a07", p: 4}] },
+            { name: "Calgary Flames", colors: [{c: "#dd0024", p: 74}, {c: "#fcbc1e", p: 26}] },
+            { name: "Anaheim Ducks", colors: [{c: "#000000", p: 42}, {c: "#ffffff", p: 39}, {c: "#8d7548", p: 13}, {c: "#db4013", p: 5}] },
+            { name: "Winnipeg Jets", colors: [{c: "#041e41", p: 37}, {c: "#ffffff", p: 29}, {c: "#8e9090", p: 19}, {c: "#55565a", p: 9}, {c: "#7b303e", p: 6}] },
+            { name: "Los Angeles Kings", colors: [{c: "#a2aaad", p: 60}, {c: "#010101", p: 40}] },
+            { name: "Chicago Blackhawks", colors: [{c: "#231f20", p: 37}, {c: "#e7a908", p: 26}, {c: "#fee011", p: 11}, {c: "#f57215", p: 10}, {c: "#e32739", p: 8}, {c: "#007f55", p: 7}, {c: "#ffffff", p: 1}] },
+            { name: "Vancouver Canucks", colors: [{c: "#003e7e", p: 43}, {c: "#002e56", p: 30}, {c: "#a7a9ac", p: 25}, {c: "#ffffff", p: 3}] },
+            { name: "Carolina Hurricanes", colors: [{c: "#ffffff", p: 45}, {c: "#cf0921", p: 28}, {c: "#090909", p: 27}] },
+            { name: "Boston Bruins", colors: [{c: "#fdb718", p: 47}, {c: "#ffffff", p: 31}, {c: "#000000", p: 22}] },
+            { name: "Montreal Canadiens", colors: [{c: "#be2f37", p: 44}, {c: "#21386f", p: 30}, {c: "#ffffff", p: 26}] },
+            { name: "Ottawa Senators", colors: [{c: "#000000", p: 35}, {c: "#b79257", p: 29}, {c: "#da1a32", p: 25}, {c: "#ffffff", p: 11}] },
+            { name: "Tampa Bay Lightning", colors: [{c: "#001f5b", p: 51}, {c: "#ffffff", p: 49}] },
+            { name: "New Jersey Devils", colors: [{c: "#e13a3e", p: 48}, {c: "#000000", p: 26}, {c: "#ffffff", p: 25}] },
+            { name: "Florida Panthers", colors: [{c: "#c69552", p: 38}, {c: "#021736", p: 36}, {c: "#ffffff", p: 13}, {c: "#c60c1a", p: 12}] },
+            { name: "Toronto Maple Leafs", colors: [{c: "#023a78", p: 87}, {c: "#ffffff", p: 13}] },
+            { name: "Buffalo Sabres", colors: [{c: "#013088", p: 61}, {c: "#ffffff", p: 24}, {c: "#dcab3c", p: 15}] },
+            { name: "Detroit Red Wings", colors: [{c: "#ec2024", p: 43}, {c: "#ffffff", p: 37}, {c: "#f5787a", p: 21}] },
+            { name: "Washington Capitals", colors: [{c: "#ffffff", p: 48}, {c: "#00183f", p: 45}, {c: "#d00328", p: 6}] },
+            { name: "New York Islanders", colors: [{c: "#00338d", p: 35}, {c: "#ffffff", p: 34}, {c: "#fb4f14", p: 31}] },
+            { name: "New York Rangers", colors: [{c: "#0161ab", p: 49}, {c: "#ffffff", p: 43}, {c: "#e3393f", p: 8}] },
+            { name: "Pittsburgh Penguins", colors: [{c: "#000000", p: 47}, {c: "#ffffff", p: 27}, {c: "#ffb800", p: 26}] },
+            { name: "Philadelphia Flyers", colors: [{c: "#000000", p: 70}, {c: "#ffffff", p: 18}, {c: "#969696", p: 8}, {c: "#f4793e", p: 3}] },
+            { name: "Columbus Blue Jackets", colors: [{c: "#00285d", p: 43}, {c: "#a7b1b7", p: 26}, {c: "#e13a3e", p: 17}, {c: "#ffffff", p: 13}] }
+        ];
+
+        let score = parseInt(localStorage.getItem('nhl_color_score')) || 0;
+        let streak = parseInt(localStorage.getItem('nhl_color_streak')) || 0;
+        let currentItem = null;
+        let answered = false;
+
+        const scoreEl = document.getElementById('score');
+        const streakEl = document.getElementById('streak');
+        const pieChartEl = document.getElementById('pieChart');
+        const guessInput = document.getElementById('guessInput');
+        const autocompleteList = document.getElementById('autocompleteList');
+        const submitBtn = document.getElementById('submitBtn');
+        const feedbackMsg = document.getElementById('feedbackMsg');
+        const nextBtn = document.getElementById('nextBtn');
+
+        scoreEl.textContent = score;
+        streakEl.textContent = streak;
+
+        function normalizeStr(str) {
+            return str.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+        }
+
+        function nextQuestion() {
+            answered = false;
+            feedbackMsg.textContent = "";
+            feedbackMsg.className = "feedback-msg";
+            guessInput.value = "";
+            guessInput.disabled = false;
+            submitBtn.style.display = 'block';
+            nextBtn.style.display = 'none';
+            autocompleteList.innerHTML = '';
+
+            currentItem = nhlTeamsDB[Math.floor(Math.random() * nhlTeamsDB.length)];
+
+            let cumulativePercent = 0;
+            let gradientStops = [];
+            
+            currentItem.colors.forEach(item => {
+                let start = cumulativePercent;
+                cumulativePercent += item.p;
+                gradientStops.push(`${item.c} ${start}% ${cumulativePercent}%`);
+            });
+
+            pieChartEl.style.background = `conic-gradient(${gradientStops.join(', ')})`;
+            guessInput.focus();
+        }
+
+        guessInput.addEventListener('input', function() {
+            renderAutocomplete(this.value);
+        });
+
+        function renderAutocomplete(valQuery) {
+            autocompleteList.innerHTML = '';
+            const val = valQuery.trim();
+            if (!val) return;
+
+            const normalizedQuery = normalizeStr(val);
+            const matches = nhlTeamsDB.filter(t => normalizeStr(t.name).includes(normalizedQuery));
+
+            matches.forEach(team => {
+                const item = document.createElement('div');
+                item.className = 'autocomplete-item';
+                item.textContent = team.name;
+                item.addEventListener('click', () => {
+                    guessInput.value = team.name;
+                    autocompleteList.innerHTML = '';
+                    checkAnswer();
+                });
+                autocompleteList.appendChild(item);
+            });
+        }
+
+        function checkAnswer() {
+            if (answered) return;
+
+            let userVal = guessInput.value.trim();
+            if (!userVal) return;
+
+            answered = true;
+            guessInput.disabled = true;
+            submitBtn.style.display = 'none';
+            autocompleteList.innerHTML = '';
+
+            let isCorrect = normalizeStr(userVal) === normalizeStr(currentItem.name);
+
+            if (isCorrect) {
+                score++;
+                streak++;
+                feedbackMsg.textContent = `Správně! Je to ${currentItem.name}! 🏒`;
+                feedbackMsg.className = "feedback-msg correct";
+            } else {
+                streak = 0;
+                feedbackMsg.textContent = `Špatně! Správná odpověď byla: ${currentItem.name}`;
+                feedbackMsg.className = "feedback-msg incorrect";
+            }
+
+            saveStats();
+            nextBtn.style.display = 'block';
+            nextBtn.focus();
+        }
+
+        guessInput.addEventListener('keydown', function(e) {
+            const items = autocompleteList.getElementsByClassName('autocomplete-item');
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                if (items.length > 0) {
+                    // Pokud uživatel vybral nebo má v nabídce shodu, vezmeme první
+                    guessInput.value = items[0].textContent;
+                }
+                checkAnswer();
+            }
+        });
+
+        // Zavření nápovědy při kliknutí mimo
+        document.addEventListener('click', (e) => {
+            if (!e.target.closest('.input-container')) {
+                autocompleteList.innerHTML = '';
+            }
+        });
+
+        function saveStats() {
+            localStorage.setItem('nhl_color_score', score);
+            localStorage.setItem('nhl_color_streak', streak);
+            scoreEl.textContent = score;
+            streakEl.textContent = streak;
+        }
+
+        nextQuestion();
+    </script>
+</body>
+</html>
