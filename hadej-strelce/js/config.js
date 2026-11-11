@@ -18,6 +18,13 @@ const CONFIG = {
     SVK: { name: 'Slovensko', flag: 'sk' },  ITA: { name: 'Itálie', flag: 'it' },
     SLO: { name: 'Slovinsko', flag: 'si' },  DEN: { name: 'Dánsko', flag: 'dk' },
     FRA: { name: 'Francie', flag: 'fr' },    LAT: { name: 'Lotyšsko', flag: 'lv' }
+    KAZ: { name: 'Kazachstán', flag: 'kz' },  GER: { name: 'Německo', flag: 'de' },
+    AUT: { name: 'Rakousko', flag: 'at' },    GBR: { name: 'Velká Británie', flag: 'gb' },
+    JPN: { name: 'Japonsko', flag: 'jp' },    KOR: { name: 'Jižní Korea', flag: 'kr' },
+    USA: { name: 'USA', flag: 'us' },        EST: { name: 'Estonsko', flag: 'ee' },
+    MAD: { name: 'Maďarsko', flag: 'hu' },      POL: { name: 'Polsko', flag: 'pl' },
+    NED: { name: 'Nizozemsko', flag: 'nl' },  ESP: { name: 'Španělsko', flag: 'es' },
+    CHN: { name: 'Čína', flag: 'cn' },        AUS: { name: 'Austrálie', flag: 'au' },
   },
   /* Zápisy jmen v zápasové databázi, které nejdou spárovat se soupiskou automaticky.
      Klíč: "idTurnaje|Jméno v zápase" -> přesné jméno v soupisce. */
