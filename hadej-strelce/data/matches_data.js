@@ -1720,3 +1720,130 @@ const beijerGames2025Matches = [
         }
     }
 ];
+
+const swissGames2024Matches = [
+    {
+        "id": "swiss2024_001",
+        "tournament": "Swiss_Games_2024",
+        "date": "12.12.2024",
+        "stage": "Skupina",
+        "home_team": "FIN",
+        "away_team": "CZE",
+        "score": "1:3",
+        "decision": "Konec",
+        "periods": {
+            "p1": {
+                "score_home": 0,
+                "score_away": 1,
+                "events": [
+                    { "time": "01:47", "type": "other", "note": "Neproměněný nájezd - Kovařčík M." },
+                    { "time": "16:10", "type": "goal", "team": "away", "player": "Kubalík D.", "assists": ["Smejkal J.", "Zábranský L."] }
+                ]
+            },
+            "p2": {
+                "score_home": 1,
+                "score_away": 1,
+                "events": [
+                    { "time": "01:35", "type": "penalty", "team": "away", "player": "Krejčík J.", "duration": 2, "reason": "Hákování" },
+                    { "time": "02:55", "type": "goal", "team": "home", "player": "Pesonen H.", "assists": ["Turkulainen J.", "Puistola P."], "note": "Z přesilovky" },
+                    { "time": "05:44", "type": "goal", "team": "away", "player": "Kubalík D.", "assists": ["Smejkal J.", "Sirota J."] },
+                    { "time": "12:55", "type": "penalty", "team": "home", "player": "Kossila K.", "duration": 2, "reason": "Nedovolené bránění" },
+                    { "time": "14:44", "type": "penalty", "team": "away", "player": "Gazda D.", "duration": 2, "reason": "Podrážení" },
+                    { "time": "14:58", "type": "penalty", "team": "home", "player": "Pesonen H.", "duration": 2, "reason": "Podrážení" },
+                    { "time": "19:44", "type": "penalty", "team": "home", "player": "Pesonen H.", "duration": 2, "reason": "Držení" }
+                ]
+            },
+            "p3": {
+                "score_home": 0,
+                "score_away": 1,
+                "events": [
+                    { "time": "18:49", "type": "goal", "team": "away", "player": "Stránský M.", "assists": ["Beránek O.", "Tomášek D."], "note": "Do prázdné branky" }
+                ]
+            }
+        }
+    },
+    {
+        "id": "swiss2024_002",
+        "tournament": "Swiss_Games_2024",
+        "date": "14.12.2024",
+        "stage": "Skupina",
+        "home_team": "SUI",
+        "away_team": "CZE",
+        "score": "0:2",
+        "decision": "Konec",
+        "periods": {
+            "p1": {
+                "score_home": 0,
+                "score_away": 2,
+                "events": [
+                    { "time": "11:07", "type": "goal", "team": "away", "player": "Zadina F.", "assists": ["Kundrátek T.", "Krejčík J."] },
+                    { "time": "19:39", "type": "goal", "team": "away", "player": "Stránský M.", "assists": ["Tomášek D.", "Zábranský L."] }
+                ]
+            },
+            "p2": {
+                "score_home": 0,
+                "score_away": 0,
+                "events": [
+                    { "time": "09:17", "type": "penalty", "team": "home", "player": "Jager K.", "duration": 4, "reason": "Vysoká hůl" }
+                ]
+            },
+            "p3": {
+                "score_home": 0,
+                "score_away": 0,
+                "events": [
+                    { "time": "08:36", "type": "penalty", "team": "away", "player": "Kondelík J.", "duration": 2, "reason": "Nesportovní chování" },
+                    { "time": "08:36", "type": "penalty", "team": "away", "player": "Kondelík J.", "duration": 2, "reason": "Hrubost" },
+                    { "time": "08:36", "type": "penalty", "team": "home", "player": "Glauser A.", "duration": 2, "reason": "Hrubost" },
+                    { "time": "14:13", "type": "penalty", "team": "away", "player": "Tomášek D.", "duration": 2, "reason": "Podrážení" }
+                ]
+            }
+        }
+    },
+    {
+        "id": "swiss2024_003",
+        "tournament": "Swiss_Games_2024",
+        "date": "15.12.2024",
+        "stage": "Skupina",
+        "home_team": "CZE",
+        "away_team": "SWE",
+        "score": "5:3",
+        "decision": "Konec",
+        "periods": {
+            "p1": {
+                "score_home": 1,
+                "score_away": 0,
+                "events": [
+                    { "time": "04:50", "type": "penalty", "team": "away", "player": "De La Rose J.", "duration": 2, "reason": "Podrážení" },
+                    { "time": "11:09", "type": "goal", "team": "home", "player": "Chlapík F.", "assists": ["Zadina F.", "Sedlák L."] },
+                    { "time": "14:14", "type": "penalty", "team": "away", "player": "Mattsson A.", "duration": 2, "reason": "Hákování" }
+                ]
+            },
+            "p2": {
+                "score_home": 1,
+                "score_away": 2,
+                "events": [
+                    { "time": "02:50", "type": "goal", "team": "away", "player": "Wingerli A.", "assists": ["Hartmann S.", "Lindholm M."] },
+                    { "time": "04:00", "type": "goal", "team": "away", "player": "Brome M.", "assists": ["Sorensen M.", "Wallmark L."] },
+                    { "time": "09:32", "type": "goal", "team": "home", "player": "Zadina F.", "assists": ["Sirota J.", "Sedlák L."] },
+                    { "time": "11:20", "type": "penalty", "team": "home", "player": "Vála O.", "duration": 2, "reason": "Držení" },
+                    { "time": "14:54", "type": "penalty", "team": "away", "player": "Mattsson A.", "duration": 2, "reason": "Hrubost" },
+                    { "time": "14:54", "type": "penalty", "team": "home", "player": "Košťálek J.", "duration": 2, "reason": "Hrubost" },
+                    { "time": "20:00", "type": "penalty", "team": "home", "player": "Pyrochta F.", "duration": 2, "reason": "Sekání" }
+                ]
+            },
+            "p3": {
+                "score_home": 3,
+                "score_away": 1,
+                "events": [
+                    { "time": "03:02", "type": "goal", "team": "home", "player": "Kondelík J.", "assists": ["Flek J.", "Beránek O."] },
+                    { "time": "09:11", "type": "penalty", "team": "away", "player": "Nilsson T.", "duration": 2, "reason": "Podrážení" },
+                    { "time": "10:03", "type": "goal", "team": "home", "player": "Kovařčík O.", "assists": ["Voženílek D.", "Kovařčík M."], "note": "Z přesilovky" },
+                    { "time": "11:22", "type": "penalty", "team": "home", "player": "Sirota J.", "duration": 2, "reason": "Podrážení" },
+                    { "time": "13:19", "type": "goal", "team": "away", "player": "De La Rose J.", "assists": ["Sorensen M.", "Heed T."], "note": "Z přesilovky" },
+                    { "time": "18:07", "type": "penalty", "team": "home", "player": "Smejkal J.", "duration": 2, "reason": "Vysoká hůl" },
+                    { "time": "19:51", "type": "goal", "team": "home", "player": "Kaut M.", "assists": [], "note": "V oslabení, Do prázdné branky" }
+                ]
+            }
+        }
+    }
+];
