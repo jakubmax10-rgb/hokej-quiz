@@ -15,32 +15,41 @@ const UI = (() => {
   const fmtDuration = d => (typeof d === 'number' ? `${d} min` : String(d));
   const posCs = p => ({ Forward: 'Útočník', Defender: 'Obránce', Goalkeeper: 'Brankář' })[p] || p;
 
-  /* ---------- Domovská obrazovka ---------- */
+  /* ---------- Domovská obrazovka s kategoriemi ---------- */
   function renderHome(state, actions) {
     const prog = Store.load();
     const all = state.tournaments.flatMap(t => t.matches);
     const played = all.filter(m => prog[m.id]);
     const sumCorrect = played.reduce((s, m) => s + prog[m.id].best, 0);
     const sumTotal = played.reduce((s, m) => s + (prog[m.id].total || m.slots.length), 0);
-    const tour = state.tournaments.find(t => t.id === state.tournamentId);
+    
+    // Aktuálně vybraný turnaj podle stavu aplikace
+    const tour = state.tournaments.find(t => t.id === state.tournamentId) || state.tournaments[0];
 
     const stats = h('div', { class: 'stats' },
       stat('Odehráno zápasů', `${played.length}/${all.length}`),
       stat('Správně určeno', `${sumCorrect}/${sumTotal}`),
       stat('Úspěšnost', sumTotal ? Math.round(sumCorrect / sumTotal * 100) + ' %' : '–'));
 
+    // Záložky (kategorie) turnajů
     const tabs = h('div', { class: 'tabs', role: 'tablist' }, state.tournaments.map(t =>
-      h('button', { class: 'tab' + (t.id === tour.id ? ' active' : ''), role: 'tab', onclick: () => actions.selectTournament(t.id) }, t.name)));
+      h('button', { 
+        class: 'tab' + (t.id === tour.id ? ' active' : ''), 
+        role: 'tab', 
+        onclick: () => actions.selectTournament(t.id) 
+      }, t.name)
+    ));
 
     const list = h('div', { class: 'match-list' }, tour.matches.map(m => matchCard(m, prog[m.id], actions)));
 
     root().replaceChildren(h('section', { class: 'home fade-in' },
       h('header', { class: 'hero' },
         h('div', { class: 'hero-flag' }, flag('CZE', 'lg')),
-        h('div', {}, h('h1', {}, 'Hádej české střelce'), h('p', {}, 'Doplň, kdo vstřelil góly českého národního týmu.'))),
-      stats, tabs,
+        h('div', {}, h('h1', {}, 'Hádej české střelce'), h('p', {}, 'Doplň, kdo vstřelil góly českého národního týmu podle kategorií.'))),
+      stats, 
+      tabs, // Zde se vykreslí přepínání kategorií (MS, Karjala, Hokejové hry atd.)
       h('div', { class: 'toolbar' },
-        h('span', { class: 'muted' }, `${tour.matches.length} zápasů · soupiska ${tour.roster.length} hráčů`),
+        h('span', { class: 'muted' }, `${tour.name} · ${tour.matches.length} zápasů · soupiska ${tour.roster.length} hráčů`),
         h('div', { class: 'toolbar-btns' },
           h('button', { class: 'btn btn-primary', onclick: () => actions.randomMatch(tour.id) }, '🎲 Náhodný zápas'),
           h('button', { class: 'btn btn-ghost', onclick: actions.resetProgress }, 'Vynulovat postup'))),
