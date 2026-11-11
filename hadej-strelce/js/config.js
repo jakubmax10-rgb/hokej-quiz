@@ -31,6 +31,8 @@ const CONFIG = {
   /* Zápisy jmen v zápasové databázi, které nejdou spárovat se soupiskou automaticky.
      Klíč: "idTurnaje|Jméno v zápase" -> přesné jméno v soupisce. */
   aliases: {
-    'beijer|Kovařčík M.': 'Michal Kovařík'
+    aliases: {
+    'beijer|Kovařčík M.': 'Michal Kovařík',
+    'ceskehry|Lauko J.': 'Jakub Lauko'
   }
-};
+  };
