@@ -723,3 +723,189 @@ const fortunaGames2026Matches = [
         }
     }
 ];
+
+const olympijskeHry2026Matches = [
+    {
+        "id": "oh_001",
+        "tournament": "Olympijske_Hry_2026",
+        "date": "13.02.2026",
+        "stage": "Skupina",
+        "home_team": "FRA",
+        "away_team": "CZE",
+        "score": "3:6",
+        "decision": "Konec",
+        "periods": {
+            "p1": {
+                "score_home": 0,
+                "score_away": 2,
+                "events": [
+                    { "time": "05:27", "type": "penalty", "team": "home", "player": "Crinon P.", "duration": 2, "reason": "Nedovolené bránění" },
+                    { "time": "05:56", "type": "goal", "team": "away", "player": "Nečas M.", "assists": ["Pastrňák D.", "Hronek F."], "note": "Z přesilovky" },
+                    { "time": "07:14", "type": "penalty", "team": "home", "player": "Auvitu Y.", "duration": 2, "reason": "Hákování" },
+                    { "time": "13:04", "type": "goal", "team": "away", "player": "Kempný M.", "assists": ["Stránský M.", "Faksa R."] }
+                ]
+            },
+            "p2": {
+                "score_home": 3,
+                "score_away": 2,
+                "events": [
+                    { "time": "00:36", "type": "penalty", "team": "away", "player": "Hertl T.", "duration": 2, "reason": "Faul kolenem" },
+                    { "time": "01:01", "type": "goal", "team": "home", "player": "Boudon L.", "assists": ["Da Costa S.", "Auvitu Y."], "note": "Z přesilovky" },
+                    { "time": "04:04", "type": "goal", "team": "home", "player": "Boudon L.", "assists": ["Bertrand C."] },
+                    { "time": "05:54", "type": "goal", "team": "home", "player": "Gallet H.", "assists": ["Bertrand C.", "Boudon L."] },
+                    { "time": "13:23", "type": "goal", "team": "away", "player": "Pastrňák D.", "assists": ["Palát O.", "Kempný M."] },
+                    { "time": "17:45", "type": "penalty", "team": "away", "player": "Kubalík D.", "duration": 2, "reason": "Držení" },
+                    { "time": "19:28", "type": "goal", "team": "away", "player": "Stránský M.", "assists": ["Faksa R.", "Hronek F."], "note": "V oslabení" }
+                ]
+            },
+            "p3": {
+                "score_home": 0,
+                "score_away": 2,
+                "events": [
+                    { "time": "01:05", "type": "goal", "team": "away", "player": "Chlapík F.", "assists": ["Nečas M.", "Kämpf D."] },
+                    { "time": "01:53", "type": "goal", "team": "away", "player": "Červenka R.", "assists": ["Sedlák L.", "Špaček D."] },
+                    { "time": "06:09", "type": "penalty", "team": "home", "player": "Guebey E.", "duration": 2, "reason": "Držení" }
+                ]
+            }
+        }
+    },
+    {
+        "id": "oh_002",
+        "tournament": "Olympijske_Hry_2026",
+        "date": "15.02.2026",
+        "stage": "Skupina",
+        "home_team": "SUI",
+        "away_team": "CZE",
+        "score": "4:3",
+        "decision": "Po prodloužení",
+        "periods": {
+            "p1": {
+                "score_home": 0,
+                "score_away": 1,
+                "events": [
+                    { "time": "06:15", "type": "penalty", "team": "home", "player": "Riat D.", "duration": 2, "reason": "Vysoká hůl" },
+                    { "time": "15:19", "type": "goal", "team": "away", "player": "Chlapík F.", "assists": ["Nečas M.", "Kämpf D."] },
+                    { "time": "17:59", "type": "penalty", "team": "home", "player": "Siegenthaler J.", "duration": 2, "reason": "Nedovolené bránění" }
+                ]
+            },
+            "p2": {
+                "score_home": 2,
+                "score_away": 0,
+                "events": [
+                    { "time": "01:46", "type": "penalty", "team": "away", "player": "Kempný M.", "duration": 2, "reason": "Hákování" },
+                    { "time": "09:48", "type": "penalty", "team": "away", "player": "Nečas M.", "duration": 2, "reason": "Držení" },
+                    { "time": "13:36", "type": "penalty", "team": "home", "player": "Siegenthaler J.", "duration": 2, "reason": "Hrubost" },
+                    { "time": "16:53", "type": "goal", "team": "home", "player": "Josi R.", "assists": ["Moser J.J.", "Jager K."] },
+                    { "time": "18:12", "type": "penalty", "team": "away", "player": "Červenka R.", "duration": 2, "reason": "Podrážení" },
+                    { "time": "18:37", "type": "goal", "team": "home", "player": "Meier T.", "assists": ["Josi R.", "Hischier N."], "note": "Z přesilovky" }
+                ]
+            },
+            "p3": {
+                "score_home": 1,
+                "score_away": 2,
+                "events": [
+                    { "time": "06:33", "type": "goal", "team": "away", "player": "Šimek R.", "assists": ["Chlapík F.", "Nečas M."] },
+                    { "time": "08:07", "type": "goal", "team": "home", "player": "Suter P.", "assists": ["Moser J.J.", "Meier T."] },
+                    { "time": "15:26", "type": "penalty", "team": "home", "player": "Fora M.", "duration": 2, "reason": "Podrážení" },
+                    { "time": "17:54", "type": "goal", "team": "away", "player": "Nečas M.", "assists": ["Hronek F.", "Pastrňák D."] }
+                ]
+            },
+            "overtime": {
+                "score_home": 1,
+                "score_away": 0,
+                "events": [
+                    { "time": "01:49", "type": "goal", "team": "home", "player": "Kukan D.", "assists": [] }
+                ]
+            }
+        }
+    },
+    {
+        "id": "oh_003",
+        "tournament": "Olympijske_Hry_2026",
+        "date": "17.02.2026",
+        "stage": "Osmifinále",
+        "home_team": "CZE",
+        "away_team": "DEN",
+        "score": "3:2",
+        "decision": "Konec",
+        "periods": {
+            "p1": {
+                "score_home": 0,
+                "score_away": 0,
+                "events": [
+                    { "time": "07:06", "type": "penalty", "team": "home", "player": "Rutta J.", "duration": 2, "reason": "Držení hole" },
+                    { "time": "17:54", "type": "penalty", "team": "away", "player": "Lauridsen O.", "duration": 2, "reason": "Podrážení" }
+                ]
+            },
+            "p2": {
+                "score_home": 3,
+                "score_away": 2,
+                "events": [
+                    { "time": "04:03", "type": "penalty", "team": "away", "player": "Eller L.", "duration": 2, "reason": "Vysoká hůl" },
+                    { "time": "05:39", "type": "goal", "team": "home", "player": "Nečas M.", "assists": ["Hronek F.", "Červenka R."], "note": "Z přesilovky" },
+                    { "time": "09:02", "type": "goal", "team": "away", "player": "True A.", "assists": ["Blichfeld J."] },
+                    { "time": "10:15", "type": "goal", "team": "home", "player": "Kämpf D.", "assists": ["Rutta J.", "Nečas M."] },
+                    { "time": "11:24", "type": "goal", "team": "home", "player": "Červenka R.", "assists": ["Pastrňák D."] },
+                    { "time": "15:21", "type": "penalty", "team": "home", "player": "Hertl T.", "duration": 2, "reason": "Podrážení" },
+                    { "time": "17:12", "type": "goal", "team": "away", "player": "Olesen N.", "assists": ["Fisker Molgaard O.", "Blichfeld J."], "note": "Z přesilovky" }
+                ]
+            },
+            "p3": {
+                "score_home": 0,
+                "score_away": 0,
+                "events": [
+                    { "time": "08:13", "type": "penalty", "team": "home", "player": "Gudas R.", "duration": 2, "reason": "Nedovolené bránění" },
+                    { "time": "11:31", "type": "penalty", "team": "home", "player": "Hertl T.", "duration": 2, "reason": "Úder loktem" }
+                ]
+            }
+        }
+    },
+    {
+        "id": "oh_004",
+        "tournament": "Olympijske_Hry_2026",
+        "date": "18.02.2026",
+        "stage": "Čtvrtfinále",
+        "home_team": "CAN",
+        "away_team": "CZE",
+        "score": "4:3",
+        "decision": "Po prodloužení",
+        "periods": {
+            "p1": {
+                "score_home": 1,
+                "score_away": 2,
+                "events": [
+                    { "time": "03:05", "type": "goal", "team": "home", "player": "Celebrini M.", "assists": ["McDavid C."] },
+                    { "time": "08:34", "type": "goal", "team": "away", "player": "Sedlák L.", "assists": ["Červenka R.", "Gudas R."] },
+                    { "time": "09:58", "type": "penalty", "team": "away", "player": "Rutta J.", "duration": 2, "reason": "Držení" },
+                    { "time": "13:49", "type": "penalty", "team": "home", "player": "Celebrini M.", "duration": 2, "reason": "Nedovolené bránění" },
+                    { "time": "14:49", "type": "goal", "team": "away", "player": "Pastrňák D.", "assists": ["Hronek F.", "Červenka R."], "note": "Z přesilovky" },
+                    { "time": "16:43", "type": "penalty", "team": "home", "player": "Wilson T.", "duration": 2, "reason": "Vysoká hůl" }
+                ]
+            },
+            "p2": {
+                "score_home": 1,
+                "score_away": 0,
+                "events": [
+                    { "time": "11:24", "type": "penalty", "team": "away", "player": "Kempný M.", "duration": 2, "reason": "Nedovolené bránění" },
+                    { "time": "12:16", "type": "goal", "team": "home", "player": "MacKinnon N.", "assists": ["McDavid C.", "Celebrini M."], "note": "Z přesilovky" },
+                    { "time": "18:48", "type": "penalty", "team": "away", "player": "Gudas R.", "duration": 2, "reason": "Hrubost" }
+                ]
+            },
+            "p3": {
+                "score_home": 1,
+                "score_away": 1,
+                "events": [
+                    { "time": "12:18", "type": "goal", "team": "away", "player": "Palát O.", "assists": ["Nečas M.", "Hertl T."] },
+                    { "time": "16:33", "type": "goal", "team": "home", "player": "Suzuki N.", "assists": ["Toews D.", "Jarvis S."] }
+                ]
+            },
+            "overtime": {
+                "score_home": 1,
+                "score_away": 0,
+                "events": [
+                    { "time": "01:22", "type": "goal", "team": "home", "player": "Marner M.", "assists": ["Celebrini M.", "Harley T."] }
+                ]
+            }
+        }
+    }
+];
