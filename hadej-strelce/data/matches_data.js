@@ -909,3 +909,90 @@ const olympijskeHry2026Matches = [
         }
     }
 ];
+
+const swissGames2025Matches = [
+    {
+        "id": "swiss_001",
+        "tournament": "Swiss_Hockey_Games_2025",
+        "date": "11.12.2025",
+        "home_team": "CZE",
+        "away_team": "FIN",
+        "score": "3:1",
+        "decision": "Konec",
+        "periods": {
+            "p1": {
+                "score_home": 0,
+                "score_away": 0,
+                "events": [
+                    { "time": "01:01", "type": "penalty", "team": "away", "player": "Manninen S.", "duration": 2, "reason": "Hákování" },
+                    { "time": "18:51", "type": "penalty", "team": "home", "player": "Krejčík J.", "duration": 2, "reason": "Držení" },
+                    { "time": "20:00", "type": "penalty", "team": "home", "player": "Zábranský L.", "duration": 2, "reason": "Krosček" }
+                ]
+            },
+            "p2": {
+                "score_home": 1,
+                "score_away": 0,
+                "events": [
+                    { "time": "06:44", "type": "goal", "team": "home", "player": "Červenka R.", "assists": ["Chlapík F.", "Adámek M."] }
+                ]
+            },
+            "p3": {
+                "score_home": 2,
+                "score_away": 1,
+                "events": [
+                    { "time": "01:48", "type": "penalty", "team": "away", "player": "Niku S.", "duration": 2, "reason": "Držení" },
+                    { "time": "02:06", "type": "goal", "team": "home", "player": "Kaše O.", "assists": ["Sedlák L.", "Červenka R."], "note": "Z přesilovky" },
+                    { "time": "03:57", "type": "penalty", "team": "home", "player": "Krejčík J.", "duration": 2, "reason": "Nedovolené bránění" },
+                    { "time": "06:52", "type": "goal", "team": "away", "player": "Salo R.", "assists": ["Sallinen J.", "Bjorninen H."] },
+                    { "time": "08:02", "type": "other", "note": "Neuznaný gól - videorozhodčí (Manninen S.)" },
+                    { "time": "08:37", "type": "penalty", "team": "away", "player": "Puljujarvi J.", "duration": 2, "reason": "Vysoká hůl" },
+                    { "time": "19:05", "type": "other", "note": "Neuznaný gól - coach challenge (Saarijarvi V.)" },
+                    { "time": "19:57", "type": "goal", "team": "home", "player": "Rousek L.", "assists": [], "note": "Do prázdné branky" },
+                    { "time": "19:57", "type": "penalty", "team": "away", "player": "Lehtonen M.", "duration": 2, "reason": "Nesportovní chování" },
+                    { "time": "19:57", "type": "penalty", "team": "away", "player": "Lehtonen M.", "duration": 10, "reason": "Nesportovní chování" }
+                ]
+            }
+        }
+    },
+    {
+        "id": "swiss_002",
+        "tournament": "Swiss_Hockey_Games_2025",
+        "date": "13.12.2025",
+        "home_team": "SUI",
+        "away_team": "CZE",
+        "score": "3:5",
+        "decision": "Konec",
+        "periods": {
+            "p1": {
+                "score_home": 1,
+                "score_away": 1,
+                "events": [
+                    { "time": "11:45", "type": "goal", "team": "away", "player": "Chlapík F.", "assists": [] },
+                    { "time": "14:34", "type": "goal", "team": "home", "player": "Thurkauf C.", "assists": ["Riat D."] }
+                ]
+            },
+            "p2": {
+                "score_home": 1,
+                "score_away": 1,
+                "events": [
+                    { "time": "04:14", "type": "goal", "team": "away", "player": "Špaček M.", "assists": ["Gazda D."] },
+                    { "time": "07:05", "type": "penalty", "team": "home", "player": "Hofmann G.", "duration": 2, "reason": "Podrážení" },
+                    { "time": "12:38", "type": "penalty", "team": "away", "player": "Špaček M.", "duration": 2, "reason": "Nedovolené bránění" },
+                    { "time": "14:23", "type": "goal", "team": "home", "player": "Simion D.", "assists": ["Andrighetto S."], "note": "Z přesilovky" },
+                    { "time": "19:58", "type": "penalty", "team": "away", "player": "Pyrochta F.", "duration": 2, "reason": "Podrážení" }
+                ]
+            },
+            "p3": {
+                "score_home": 1,
+                "score_away": 3,
+                "events": [
+                    { "time": "08:05", "type": "goal", "team": "away", "player": "Voženílek D.", "assists": [] },
+                    { "time": "09:03", "type": "goal", "team": "home", "player": "Thurkauf C.", "assists": ["Riat D."] },
+                    { "time": "12:21", "type": "penalty", "team": "home", "player": "Canonica L.", "duration": 2, "reason": "Nedovolené bránění" },
+                    { "time": "15:52", "type": "goal", "team": "away", "player": "Chlapík F.", "assists": [] },
+                    { "time": "18:50", "type": "goal", "team": "away", "player": "Beránek O.", "assists": [], "note": "Do prázdné branky" }
+                ]
+            }
+        }
+    }
+];
