@@ -996,3 +996,129 @@ const swissGames2025Matches = [
         }
     }
 ];
+
+const finnishGames2025Matches = [
+    {
+        "id": "finnish_001",
+        "tournament": "Finnish_Hockey_Games_2025",
+        "date": "06.11.2025",
+        "home_team": "SWE",
+        "away_team": "CZE",
+        "score": "3:1",
+        "decision": "Konec",
+        "periods": {
+            "p1": {
+                "score_home": 0,
+                "score_away": 0,
+                "events": [
+                    { "time": "05:06", "type": "penalty", "team": "away", "player": "Kurovský D.", "duration": 2, "reason": "Hákování" },
+                    { "time": "11:49", "type": "penalty", "team": "home", "player": "Asplund R.", "duration": 2, "reason": "Podrážení" }
+                ]
+            },
+            "p2": {
+                "score_home": 1,
+                "score_away": 0,
+                "events": [
+                    { "time": "03:13", "type": "penalty", "team": "away", "player": "Sedlák L.", "duration": 2, "reason": "Držení" },
+                    { "time": "13:22", "type": "goal", "team": "home", "player": "Ryfors S.", "assists": ["Larsson J.", "Ehn C."] },
+                    { "time": "14:47", "type": "penalty", "team": "home", "player": "Hugg R.", "duration": 2, "reason": "Narážení na hranici" }
+                ]
+            },
+            "p3": {
+                "score_home": 2,
+                "score_away": 1,
+                "events": [
+                    { "time": "01:00", "type": "penalty", "team": "away", "player": "Zohorna R.", "duration": 2, "reason": "Držení hole" },
+                    { "time": "01:29", "type": "goal", "team": "home", "player": "Sylvegard M.", "assists": ["Heed T.", "Ryfors S."], "note": "Z přesilovky" },
+                    { "time": "04:44", "type": "goal", "team": "away", "player": "Lauko J.", "assists": [] },
+                    { "time": "06:01", "type": "penalty", "team": "away", "player": "Sedlák L.", "duration": 2, "reason": "Držení" },
+                    { "time": "06:56", "type": "penalty", "team": "away", "player": "Tým", "duration": 2, "reason": "Příliš mnoho hráčů na ledě" },
+                    { "time": "11:10", "type": "penalty", "team": "home", "player": "Hagg R.", "duration": 2, "reason": "Nesportovní chování" },
+                    { "time": "11:10", "type": "penalty", "team": "away", "player": "Kondelík J.", "duration": 2, "reason": "Nesportovní chování" },
+                    { "time": "15:57", "type": "goal", "team": "home", "player": "Brannstrom E.", "assists": [] }
+                ]
+            }
+        }
+    },
+    {
+        "id": "finnish_002",
+        "tournament": "Finnish_Hockey_Games_2025",
+        "date": "08.11.2025",
+        "home_team": "FIN",
+        "away_team": "CZE",
+        "score": "4:2",
+        "decision": "Konec",
+        "periods": {
+            "p1": {
+                "score_home": 1,
+                "score_away": 0,
+                "events": [
+                    { "time": "01:28", "type": "goal", "team": "home", "player": "Ruotsalainen A.", "assists": ["Hatakka S.", "Innala J."] },
+                    { "time": "08:30", "type": "penalty", "team": "home", "player": "Erholtz E.", "duration": 2, "reason": "Nedovolené bránění" }
+                ]
+            },
+            "p2": {
+                "score_home": 2,
+                "score_away": 0,
+                "events": [
+                    { "time": "00:33", "type": "penalty", "team": "home", "player": "Puljujarvi J.", "duration": 2, "reason": "Nedovolené bránění" },
+                    { "time": "06:28", "type": "goal", "team": "home", "player": "Tukiainen L.", "assists": ["Ruotsalainen A.", "Innala J."] },
+                    { "time": "15:18", "type": "penalty", "team": "away", "player": "Chlapík F.", "duration": 2, "reason": "Sekání" },
+                    { "time": "17:19", "type": "goal", "team": "home", "player": "Manninen S.", "assists": ["Puljujarvi J.", "Lehtonen M."] }
+                ]
+            },
+            "p3": {
+                "score_home": 1,
+                "score_away": 2,
+                "events": [
+                    { "time": "05:50", "type": "goal", "team": "away", "player": "Kubalík D.", "assists": ["Sedlák L.", "Zábranský L."] },
+                    { "time": "13:15", "type": "penalty", "team": "home", "player": "Hatakka S.", "duration": 2, "reason": "Podrážení" },
+                    { "time": "16:12", "type": "penalty", "team": "away", "player": "Sedlák L.", "duration": 2, "reason": "Nedovolené bránění" },
+                    { "time": "18:32", "type": "goal", "team": "away", "player": "Zohorna R.", "assists": ["Stránský M.", "Šimek R."] },
+                    { "time": "19:55", "type": "goal", "team": "home", "player": "Innala J.", "assists": [], "note": "Do prázdné branky" }
+                ]
+            }
+        }
+    },
+    {
+        "id": "finnish_003",
+        "tournament": "Finnish_Hockey_Games_2025",
+        "date": "09.11.2025",
+        "home_team": "CZE",
+        "away_team": "SUI",
+        "score": "4:0",
+        "decision": "Konec",
+        "periods": {
+            "p1": {
+                "score_home": 2,
+                "score_away": 0,
+                "events": [
+                    { "time": "01:18", "type": "other", "note": "Neuznaný gól - videorozhodčí (Kondelík J.)" },
+                    { "time": "03:45", "type": "goal", "team": "home", "player": "Chlapík F.", "assists": ["Košťálek J.", "Šimek R."] },
+                    { "time": "05:46", "type": "goal", "team": "home", "player": "Chlapík F.", "assists": ["Reichel K.", "Kantner M."] },
+                    { "time": "06:57", "type": "penalty", "team": "away", "player": "Tým", "duration": 2, "reason": "Příliš mnoho hráčů na ledě" },
+                    { "time": "19:18", "type": "penalty", "team": "away", "player": "Baechler N.", "duration": 5, "reason": "Krosček" },
+                    { "time": "19:18", "type": "penalty", "team": "away", "player": "Baechler N.", "duration": 10, "reason": "Osobní trest" }
+                ]
+            },
+            "p2": {
+                "score_home": 2,
+                "score_away": 0,
+                "events": [
+                    { "time": "02:31", "type": "penalty", "team": "away", "player": "Gross N.", "duration": 2, "reason": "Držení hole" },
+                    { "time": "03:35", "type": "goal", "team": "home", "player": "Stránský M.", "assists": ["Košťálek J.", "Kubalík D."], "note": "Z přesilovky" },
+                    { "time": "05:03", "type": "penalty", "team": "away", "player": "Chanton G.", "duration": 2, "reason": "Zdržování hry" },
+                    { "time": "07:13", "type": "goal", "team": "home", "player": "Adámek M.", "assists": ["Chlapík F.", "Kondelík J."] },
+                    { "time": "09:40", "type": "other", "note": "Střídání brankářů Švýcarska (Berra R. -> Aeschlimann S.)" }
+                ]
+            },
+            "p3": {
+                "score_home": 0,
+                "score_away": 0,
+                "events": [
+                    { "time": "10:08", "type": "penalty", "team": "home", "player": "Ščotka J.", "duration": 2, "reason": "Vysoká hůl" }
+                ]
+            }
+        }
+    }
+];
