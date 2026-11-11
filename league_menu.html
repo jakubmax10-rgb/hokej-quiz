@@ -86,6 +86,13 @@
             .games-grid { grid-template-columns: repeat(2, 1fr); }
         }
 
+        /* Speciální úprava, pokud je v mřížce jen 1 karta (např. Národní tým) */
+        .games-grid.single-card {
+            grid-template-columns: 1fr;
+            max-width: 450px;
+            margin: 0 auto;
+        }
+
         .game-card {
             background: linear-gradient(180deg, rgba(14,21,36,0.9), rgba(10,15,26,0.9));
             border: 1px solid var(--border-color);
@@ -186,7 +193,7 @@
         const title = document.getElementById('leagueTitle');
         const gamesGrid = document.getElementById('gamesGrid');
 
-        // Konfigurace her pro Extraligu (ELH) vs NHL
+        // Konfigurace her pro ELH, NHL a Národní tým
         const contents = {
             elh: {
                 eyebrow: 'Tipsport Extraliga',
@@ -262,6 +269,19 @@
                         desc: 'Predikuj výsledky konferencí a kompletní vyřazovací pavouk o Stanley Cup.'
                     }
                 ]
+            },
+            repulse: {
+                eyebrow: 'Česká Reprezentace',
+                title: 'NÁRODNÍ TÝM - HERNÍ MÓDY',
+                cards: [
+                    {
+                        href: 'hadej-strelce/index.html',
+                        badge: 'Nové',
+                        icon: '🎯',
+                        title: 'Hádej České Střelce',
+                        desc: 'Doplň střelce gólů českého národního týmu v reálných zápasech a turnajích.'
+                    }
+                ]
             }
         };
 
@@ -269,6 +289,13 @@
 
         eyebrow.textContent = activeContent.eyebrow;
         title.textContent = activeContent.title;
+
+        // Pokud je v sekci jen jedna karta (Národní tým), přidáme třídu pro vycentrování
+        if (activeContent.cards.length === 1) {
+            gamesGrid.classList.add('single-card');
+        } else {
+            gamesGrid.classList.remove('single-card');
+        }
 
         // Vykreslení karet
         gamesGrid.innerHTML = activeContent.cards.map(card => `

@@ -38,7 +38,7 @@
 
         .wrap {
             width: 100%;
-            max-width: 600px;
+            max-width: 850px;
             text-align: center;
         }
 
@@ -74,8 +74,8 @@
             grid-template-columns: 1fr;
             gap: 20px;
         }
-        @media(min-width: 480px) {
-            .leagues-grid { grid-template-columns: 1fr 1fr; }
+        @media(min-width: 650px) {
+            .leagues-grid { grid-template-columns: repeat(3, 1fr); }
         }
 
         .league-card {
@@ -130,6 +130,7 @@
             font-weight: 700;
             font-size: 0.85rem;
             transition: all 0.2s;
+            margin-top: auto;
         }
 
         .league-card:hover .league-btn {
@@ -147,7 +148,7 @@
         <div class="subtitle">Zvol si ligu a otestuj své hokejové znalosti</div>
 
         <div class="leagues-grid">
-            <!-- OPRAVENÝ ODKAZ: Směruje do mezistránky s výběrem her pro ELH -->
+            <!-- Extraliga (ELH) -->
             <a href="league_menu.html?league=elh" class="league-card">
                 <div class="league-flag">🇨🇿</div>
                 <div class="league-name">Extraliga (ELH)</div>
@@ -155,12 +156,20 @@
                 <div class="league-btn">Vstoupit do ELH →</div>
             </a>
 
-            <!-- OPRAVENÝ ODKAZ: Směruje do mezistránky s výběrem her pro NHL -->
+            <!-- National Hockey League -->
             <a href="league_menu.html?league=nhl" class="league-card">
                 <div class="league-flag">🌎</div>
                 <div class="league-name">National Hockey League</div>
                 <div class="league-desc">Hádání hvězd, tabulka & playoff</div>
                 <div class="league-btn">Vstoupit do NHL →</div>
+            </a>
+
+            <!-- NÁRODNÍ TÝM (Nově přidané) -->
+            <a href="league_menu.html?league=repulse" class="league-card">
+                <div class="league-flag">🦁</div>
+                <div class="league-name">Národní Tým</div>
+                <div class="league-desc">Hádej české střelce v turnajích</div>
+                <div class="league-btn">Vstoupit do reprezentace →</div>
             </a>
         </div>
     </div>
