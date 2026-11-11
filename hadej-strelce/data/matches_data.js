@@ -1847,3 +1847,87 @@ const swissGames2024Matches = [
         }
     }
 ];
+
+const karjalaCup2024Matches = [
+    {
+        "id": "karjala2024_001",
+        "tournament": "Karjala_Cup_2024",
+        "date": "07.11.2024",
+        "stage": "Skupina",
+        "home_team": "CZE",
+        "away_team": "SWE",
+        "score": "5:2",
+        "decision": "Konec",
+        "periods": {
+            "p1": {
+                "score_home": 3,
+                "score_away": 0,
+                "events": [
+                    { "time": "07:02", "type": "goal", "team": "home", "player": "Gazda D.", "assists": [] },
+                    { "time": "10:02", "type": "goal", "team": "home", "player": "Pyrochta F.", "assists": ["Kovařčík M.", "Voženílek D."] },
+                    { "time": "15:16", "type": "penalty", "team": "away", "player": "Weissbach L.", "duration": 2, "reason": "Sekání" },
+                    { "time": "16:55", "type": "goal", "team": "home", "player": "Kousal P.", "assists": ["Kaut M.", "Lenc R."], "note": "Z přesilovky" }
+                ]
+            },
+            "p2": {
+                "score_home": 1,
+                "score_away": 1,
+                "events": [
+                    { "time": "03:00", "type": "goal", "team": "away", "player": "Rasmussen D.", "assists": [] },
+                    { "time": "08:42", "type": "penalty", "team": "home", "player": "Ticháček J.", "duration": 2, "reason": "Podrážení" },
+                    { "time": "17:26", "type": "goal", "team": "home", "player": "Gazda D.", "assists": ["Pyrochta F.", "Kondelík J."] }
+                ]
+            },
+            "p3": {
+                "score_home": 1,
+                "score_away": 1,
+                "events": [
+                    { "time": "04:32", "type": "penalty", "team": "home", "player": "Kousal P.", "duration": 2, "reason": "Hákování" },
+                    { "time": "07:10", "type": "goal", "team": "away", "player": "Lang O.", "assists": ["Bengtsson A.", "Sellgren J."] },
+                    { "time": "10:38", "type": "penalty", "team": "away", "player": "Johnson A.", "duration": 2, "reason": "Nedovolené bránění" },
+                    { "time": "19:17", "type": "goal", "team": "home", "player": "Flek J.", "assists": ["Voženílek D."], "note": "Do prázdné branky" }
+                ]
+            }
+        }
+    },
+    {
+        "id": "karjala2024_002",
+        "tournament": "Karjala_Cup_2024",
+        "date": "10.11.2024",
+        "stage": "Skupina",
+        "home_team": "CZE",
+        "away_team": "SUI",
+        "score": "5:2",
+        "decision": "Konec",
+        "periods": {
+            "p1": {
+                "score_home": 3,
+                "score_away": 1,
+                "events": [
+                    { "time": "03:08", "type": "goal", "team": "home", "player": "Kondelík J.", "assists": ["Beránek O."] },
+                    { "time": "12:56", "type": "goal", "team": "away", "player": "Chanton G.", "assists": ["Aebischer D.", "Kunzle M."] },
+                    { "time": "17:41", "type": "goal", "team": "home", "player": "Lenc R.", "assists": ["Pyrochta F.", "Beránek O."] },
+                    { "time": "19:05", "type": "goal", "team": "home", "player": "Zohorna R.", "assists": ["Knot R.", "Ščotka J."] }
+                ]
+            },
+            "p2": {
+                "score_home": 2,
+                "score_away": 1,
+                "events": [
+                    { "time": "00:01", "type": "other", "note": "Střídání brankářů (SUI): Charlin S. -> Senn G." },
+                    { "time": "13:11", "type": "goal", "team": "away", "player": "Ambühl A.", "assists": ["Kunzle M.", "Baechler N."] },
+                    { "time": "15:26", "type": "penalty", "team": "away", "player": "Fora M.", "duration": 2, "reason": "Hákování" },
+                    { "time": "16:36", "type": "goal", "team": "home", "player": "Kunc M.", "assists": ["Kaut M.", "Kondelík J."], "note": "Z přesilovky" },
+                    { "time": "18:43", "type": "goal", "team": "home", "player": "Kaut M.", "assists": ["Špaček M.", "Gazda D."] }
+                ]
+            },
+            "p3": {
+                "score_home": 0,
+                "score_away": 0,
+                "events": [
+                    { "time": "12:43", "type": "penalty", "team": "home", "player": "Kantner M.", "duration": 2, "reason": "Podrážení" }
+                ]
+            }
+        }
+    }
+];
