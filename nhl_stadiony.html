@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>NHL Poznej Stadion | Hockey Hub</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #05070d;
+            --card-bg: #0e1524;
+            --border-color: #223049;
+            --text-color: #f4f7fb;
+            --text-muted: #8593ab;
+            --ice: #3fc6ff;
+            --red: #e8283f;
+            --gold: #f4c451;
+            --correct: #23c46a;
+            --incorrect: #e8283f;
+            font-family: 'Rajdhani', sans-serif;
+        }
+
+        html { scroll-padding-top: env(safe-area-inset-top, 0px); }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            background:
+                radial-gradient(ellipse 900px 500px at 50% -10%, rgba(63,198,255,0.16), transparent 60%),
+                linear-gradient(180deg, #05070d 0%, #070a13 100%);
+            color: var(--text-color);
+            min-height: 100vh;
+            padding: 18px 14px calc(24px + env(safe-area-inset-bottom, 0px));
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .back-nav {
+            width: 100%;
+            max-width: 600px;
+            display: flex;
+            justify-content: flex-start;
+            margin-bottom: 10px;
+        }
+
+        .back-btn-top {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            color: var(--text-muted);
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 0.88rem;
+            padding: 8px 14px;
+            border-radius: 999px;
+            background: rgba(14, 21, 36, 0.7);
+            border: 1px solid var(--border-color);
+            transition: all 0.2s ease;
+        }
+
+        .back-btn-top:hover {
+            color: var(--ice);
+            border-color: var(--ice);
+            background: rgba(19, 28, 48, 0.9);
+        }
+
+        .wrap {
+            width: 100%;
+            max-width: 600px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .hero {
+            text-align: center;
+            margin-bottom: 14px;
+        }
+
+        .eyebrow {
+            font-size: 0.72rem;
+            letter-spacing: 4px;
+            color: var(--ice);
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        h1.title {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: clamp(2.4rem, 10vw, 3.8rem);
+            letter-spacing: 2px;
+            line-height: 1;
+            margin-top: 4px;
+        }
+        h1.title .w1 { color: #f4f7fb; }
+        h1.title .w2 { color: var(--gold); }
+
+        .stats-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            background: linear-gradient(180deg, rgba(17,26,45,0.9), rgba(14,21,36,0.9));
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 12px 18px;
+            margin-bottom: 16px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.35);
+        }
+
+        .stats-group { display: flex; gap: 24px; }
+        .stat-label { font-size: 0.62rem; letter-spacing: 1.5px; color: var(--text-muted); text-transform: uppercase; }
+        .stat-value { font-family: 'Bebas Neue', sans-serif; font-size: 1.6rem; color: var(--ice); line-height: 1; }
+        .stat-value.streak-value { color: var(--gold); }
+
+        .game-container {
+            width: 100%;
+            background: linear-gradient(180deg, rgba(17,26,45,0.85), rgba(10,15,26,0.9));
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 24px 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.45);
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .prompt-label {
+            font-size: 0.8rem;
+            letter-spacing: 1.5px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            margin-bottom: 14px;
+        }
+
+        /* Rámeček pro fotku stadionu */
+        .stadium-image-box {
+            width: 100%;
+            height: 240px;
+            border-radius: 12px;
+            overflow: hidden;
+            border: 2px solid var(--border-color);
+            margin-bottom: 20px;
+            background: #05070d;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.5);
+        }
+
+        .stadium-image-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .stadium-image-box img:hover {
+            transform: scale(1.02);
+        }
+
+        .options-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 12px;
+            width: 100%;
+        }
+
+        @media (min-width: 480px) {
+            .options-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+
+        .option-btn {
+            background: #111a2d;
+            border: 1px solid var(--border-color);
+            color: var(--text-color);
+            padding: 16px;
+            border-radius: 12px;
+            font-family: inherit;
+            font-size: 1.05rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            min-height: 60px;
+            width: 100%;
+        }
+
+        .option-btn:hover:not(:disabled) {
+            border-color: var(--ice);
+            background: #17243d;
+            transform: translateY(-2px);
+        }
+
+        .option-btn.correct {
+            background: var(--correct);
+            border-color: var(--correct);
+            color: #04160c;
+        }
+
+        .option-btn.incorrect {
+            background: var(--incorrect);
+            border-color: var(--incorrect);
+            color: #fff;
+        }
+
+        .next-btn {
+            display: none;
+            width: 100%;
+            margin-top: 18px;
+            background: linear-gradient(180deg, var(--ice), #2899d3);
+            color: #05070d;
+            border: none;
+            padding: 14px;
+            border-radius: 12px;
+            font-family: inherit;
+            font-size: 1.1rem;
+            font-weight: 700;
+            cursor: pointer;
+            box-shadow: 0 6px 20px rgba(63,198,255,0.3);
+            transition: transform 0.15s ease;
+        }
+        .next-btn:hover { transform: translateY(-1px); }
+    </style>
+</head>
+<body>
+
+    <div class="back-nav">
+        <a href="league_menu.html?league=nhl" class="back-btn-top">← Zpět na nabídku</a>
+    </div>
+
+    <div class="wrap">
+        <div class="hero">
+            <div class="eyebrow">National Hockey League</div>
+            <h1 class="title"><span class="w1">POZNEJ</span> <span class="w2">STADION</span></h1>
+        </div>
+
+        <div class="stats-bar">
+            <div class="stats-group">
+                <div>
+                    <div class="stat-label">Skóre</div>
+                    <div class="stat-value" id="score">0</div>
+                </div>
+                <div>
+                    <div class="stat-label">Série</div>
+                    <div class="stat-value streak-value" id="streak">0</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="game-container">
+            <div class="prompt-label" id="stadiumPrompt">Který tým NHL hraje na tomto stadionu?</div>
+            
+            <!-- Obrázek stadionu -->
+            <div class="stadium-image-box">
+                <img id="stadiumImg" src="" alt="Hokejový stadion NHL">
+            </div>
+
+            <div class="options-grid" id="optionsGrid">
+                <!-- Tlačítka možností -->
+            </div>
+
+            <button class="next-btn" id="nextBtn">Další stadion ➔</button>
+        </div>
+    </div>
+
+    <script>
+        // Kompletní databáze všech 32 týmů a jejich stadionů se správnou cestou k obrázkům
+        const nhlStadiumsDB = [
+            { name: "Edmonton Oilers", arena: "Rogers Place", image: "nhl_stadiony/rogersplace.png" },
+            { name: "Minnesota Wild", arena: "Grand Casino Arena", image: "nhl_stadiony/grandcasinoarena.png" },
+            { name: "Vegas Golden Knights", arena: "T-Mobile Arena", image: "nhl_stadiony/tmobilearena.png" },
+            { name: "Colorado Avalanche", arena: "Ball Arena", image: "nhl_stadiony/ballarena.png" },
+            { name: "Utah Mammoth", arena: "Delta Center", image: "nhl_stadiony/deltacenter.png" },
+            { name: "Dallas Stars", arena: "American Airlines Center", image: "nhl_stadiony/americanairlinescenter.png" },
+            { name: "Seattle Kraken", arena: "Climate Pledge Arena", image: "nhl_stadiony/climatepledgearena.png" },
+            { name: "St. Louis Blues", arena: "Enterprise Center", image: "nhl_stadiony/enterprisecenter.png" },
+            { name: "Nashville Predators", arena: "Bridgestone Arena", image: "nhl_stadiony/bridgestonearena.png" },
+            { name: "San Jose Sharks", arena: "SAP Center", image: "nhl_stadiony/sapcenter.png" },
+            { name: "Calgary Flames", arena: "Scotiabank Saddledome", image: "nhl_stadiony/scotiabanksaddledome.png" },
+            { name: "Anaheim Ducks", arena: "Honda Center", image: "nhl_stadiony/hondacenter.png" },
+            { name: "Winnipeg Jets", arena: "Canada Life Centre", image: "nhl_stadiony/canadalifecentre.png" },
+            { name: "Los Angeles Kings", arena: "Crypto.com Arena", image: "nhl_stadiony/cryptocomarena.png" },
+            { name: "Chicago Blackhawks", arena: "United Center", image: "nhl_stadiony/unitedcenter.png" },
+            { name: "Vancouver Canucks", arena: "Rogers Arena", image: "nhl_stadiony/rogersarena.png" },
+            { name: "Carolina Hurricanes", arena: "Lenovo Center", image: "nhl_stadiony/lenovocenter.png" },
+            { name: "Boston Bruins", arena: "TD Garden", image: "nhl_stadiony/tdgarden.png" },
+            { name: "Montreal Canadiens", arena: "Bell Centre", image: "nhl_stadiony/bellcentre.png" },
+            { name: "Ottawa Senators", arena: "Canadian Tire Centre", image: "nhl_stadiony/canadiantirecentre.png" },
+            { name: "Tampa Bay Lightning", arena: "Benchmark International Arena", image: "nhl_stadiony/benchmarkinternationalarena.png" },
+            { name: "New Jersey Devils", arena: "Prudential Center", image: "nhl_stadiony/prudentialcenter.png" },
+            { name: "Florida Panthers", arena: "Amerant Bank Arena", image: "nhl_stadiony/amerantbankarena.png" },
+            { name: "Toronto Maple Leafs", arena: "Scotiabank Arena", image: "nhl_stadiony/scotiabankarena.png" },
+            { name: "Buffalo Sabres", arena: "KeyBank Center", image: "nhl_stadiony/keybankcenter.png" },
+            { name: "Detroit Red Wings", arena: "Little Caesars Arena", image: "nhl_stadiony/littlecaesarsarena.png" },
+            { name: "Washington Capitals", arena: "Capital One Arena", image: "nhl_stadiony/capitalonearena.png" },
+            { name: "New York Islanders", arena: "UBS Arena", image: "nhl_stadiony/ubsarena.png" },
+            { name: "New York Rangers", arena: "Madison Square Garden", image: "nhl_stadiony/madisonsquaregarden.png" },
+            { name: "Pittsburgh Penguins", arena: "PPG Paints Arena", image: "nhl_stadiony/ppgpaintsarena.png" },
+            { name: "Philadelphia Flyers", arena: "Xfinity Mobile Arena", image: "nhl_stadiony/xfinitymobilearena.png" },
+            { name: "Columbus Blue Jackets", arena: "Nationwide Arena", image: "nhl_stadiony/nationwidearena.png" }
+        ];
+
+        let score = parseInt(localStorage.getItem('nhl_stadium_score')) || 0;
+        let streak = parseInt(localStorage.getItem('nhl_stadium_streak')) || 0;
+        let currentItem = null;
+        let answered = false;
+
+        const scoreEl = document.getElementById('score');
+        const streakEl = document.getElementById('streak');
+        const stadiumImg = document.getElementById('stadiumImg');
+        const stadiumPrompt = document.getElementById('stadiumPrompt');
+        const optionsGrid = document.getElementById('optionsGrid');
+        const nextBtn = document.getElementById('nextBtn');
+
+        scoreEl.textContent = score;
+        streakEl.textContent = streak;
+
+        function nextQuestion() {
+            answered = false;
+            nextBtn.style.display = 'none';
+
+            // Náhodný výběr týmu/stadionu
+            currentItem = nhlStadiumsDB[Math.floor(Math.random() * nhlStadiumsDB.length)];
+
+            // Nastavení obrázku a textu nad ním
+            stadiumImg.src = currentItem.image;
+            stadiumPrompt.textContent = `Který tým NHL hraje v aréně ${currentItem.arena}?`;
+
+            // Výběr 3 špatných možností (názvů týmů)
+            let wrongOptions = nhlStadiumsDB
+                .filter(t => t.name !== currentItem.name)
+                .map(t => t.name)
+                .sort(() => 0.5 - Math.random())
+                .slice(0, 3);
+
+            let options = [...wrongOptions, currentItem.name].sort(() => 0.5 - Math.random());
+
+            // Vykreslení 4 tlačítek
+            optionsGrid.innerHTML = options.map(opt => `
+                <button class="option-btn" onclick="checkAnswer(this, '${opt.replace(/'/g, "\\'")}')">${opt}</button>
+            `).join('');
+        }
+
+        function checkAnswer(btn, selectedName) {
+            if (answered) return;
+            answered = true;
+
+            const buttons = optionsGrid.querySelectorAll('.option-btn');
+            buttons.forEach(b => {
+                b.disabled = true;
+                if (b.textContent === currentItem.name) {
+                    b.classList.add('correct');
+                }
+            });
+
+            if (selectedName === currentItem.name) {
+                score++;
+                streak++;
+                saveStats();
+            } else {
+                btn.classList.add('incorrect');
+                streak = 0;
+                saveStats();
+            }
+
+            nextBtn.style.display = 'block';
+        }
+
+        function saveStats() {
+            localStorage.setItem('nhl_stadium_score', score);
+            localStorage.setItem('nhl_stadium_streak', streak);
+            scoreEl.textContent = score;
+            streakEl.textContent = streak;
+        }
+
+        nextBtn.addEventListener('click', nextQuestion);
+
+        // Spuštění první otázky
+        nextQuestion();
+    </script>
+</body>
+</html>
