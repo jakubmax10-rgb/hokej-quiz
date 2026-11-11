@@ -6,7 +6,7 @@ const CONFIG = {
     { id: 'fortuna', name: 'Fortuna Games 2026',  matches: () => fortunaGames2026Matches,       roster: () => fortunaGames2026RosterCze },
     { id: 'ms',      name: 'Mistrovství světa 2026', matches: () => mistrovstviSveta2026Matches, roster: () => ms2026RosterCze },
     { id: 'nocco',   name: 'Nocco Games 2026',    matches: () => noccoGames2026Matches,         roster: () => noccoGames2026RosterCze },
-    { id: 'oh',      name: 'Olympijské hry 2026',  matches: () => olympijskeHry2026Matches,                 roster: () => oh2026RosterCze }
+    { id: 'oh',      name: 'Olympijské hry 2026',  matches: () => olympijskeHry2026Matches,     roster: () => oh2026RosterCze }
   ],
   teams: {
     CZE: { name: 'Česko', flag: 'cz' },      SWE: { name: 'Švédsko', flag: 'se' },
