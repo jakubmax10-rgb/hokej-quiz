@@ -9,7 +9,8 @@ const CONFIG = {
     { id: 'oh',      name: 'Olympijské hry 2026',  matches: () => olympijskeHry2026Matches,     roster: () => oh2026RosterCze },
     { id: 'swiss',   name: 'Swiss Games 2025',    matches: () => swissGames2025Matches,         roster: () => swissGames2025RosterCze },
     { id: 'finnish', name: 'Nocco Games 2025',    matches: () => finnishGames2025Matches,         roster: () => noccoGames2025RosterCze },
-    { id: 'ms2025',  name: 'Mistrovství světa 2025', matches: () => mistrovstviSveta2025Matches, roster: () => ms2025RosterCze }
+    { id: 'ms2025',  name: 'Mistrovství světa 2025', matches: () => mistrovstviSveta2025Matches, roster: () => ms2025RosterCze },
+    { id: 'ceskehry', name: 'České hry 2025', matches: () => ceskeHry2025Matches, roster: () => ceskeHry2025RosterCze }
   ],
   teams: {
     CZE: { name: 'Česko', flag: 'cz' },      SWE: { name: 'Švédsko', flag: 'se' },

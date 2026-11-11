@@ -1491,3 +1491,148 @@ const mistrovstviSveta2025Matches = [
         }
     }
 ];
+
+const ceskeHry2025Matches = [
+    {
+        "id": "ceskehry_001",
+        "tournament": "Ceske_hokejove_hry_2025",
+        "date": "01.05.2025",
+        "stage": "Skupina",
+        "home_team": "CZE",
+        "away_team": "FIN",
+        "score": "4:2",
+        "decision": "Konec",
+        "periods": {
+            "p1": {
+                "score_home": 3,
+                "score_away": 0,
+                "events": [
+                    { "time": "02:02", "type": "goal", "team": "home", "player": "Lauko J.", "assists": ["Kovařčík M."] },
+                    { "time": "10:26", "type": "penalty", "team": "away", "player": "Erholtz E.", "duration": 2, "reason": "Podrážení" },
+                    { "time": "12:20", "type": "penalty", "team": "away", "player": "Puistola P.", "duration": 2, "reason": "Držení" },
+                    { "time": "12:31", "type": "goal", "team": "home", "player": "Beránek O.", "assists": ["Černoch J.", "Špaček M."], "note": "Z přesilovky" },
+                    { "time": "12:38", "type": "goal", "team": "home", "player": "Chlapík F.", "assists": [] }
+                ]
+            },
+            "p2": {
+                "score_home": 0,
+                "score_away": 1,
+                "events": [
+                    { "time": "09:16", "type": "penalty", "team": "home", "player": "Klíma Kev.", "duration": 2, "reason": "Držení" },
+                    { "time": "11:01", "type": "goal", "team": "away", "player": "Hameenaho L.", "assists": ["Jarvinen J.", "Tolvanen E."], "note": "Z přesilovky" }
+                ]
+            },
+            "p3": {
+                "score_home": 1,
+                "score_away": 1,
+                "events": [
+                    { "time": "03:42", "type": "goal", "team": "away", "player": "Vittasmaki V.", "assists": ["Thomson L.", "Jarvinen J."] },
+                    { "time": "08:59", "type": "penalty", "team": "away", "player": "Bjorninen H.", "duration": 2, "reason": "Podrážení" },
+                    { "time": "18:16", "type": "other", "note": "Neuznaný gól - coach challenge (Ruohomaa M.)" },
+                    { "time": "19:56", "type": "penalty", "team": "away", "player": "Ruohomaa M.", "duration": 2, "reason": "Zdržování hry" },
+                    { "time": "19:58", "type": "goal", "team": "home", "player": "Lauko J.", "assists": ["Krejčík J.", "Špaček M."], "note": "Z přesilovky" }
+                ]
+            }
+        }
+    },
+    {
+        "id": "ceskehry_002",
+        "tournament": "Ceske_hokejove_hry_2025",
+        "date": "03.05.2025",
+        "stage": "Skupina",
+        "home_team": "CZE",
+        "away_team": "SWE",
+        "score": "2:4",
+        "decision": "Konec",
+        "periods": {
+            "p1": {
+                "score_home": 0,
+                "score_away": 1,
+                "events": [
+                    { "time": "01:10", "type": "penalty", "team": "home", "player": "Hájek L.", "duration": 2, "reason": "Podrážení" },
+                    { "time": "01:53", "type": "goal", "team": "away", "player": "Carlsson L.", "assists": ["Zibanejad M.", "Andersson R."], "note": "Z přesilovky" },
+                    { "time": "05:04", "type": "penalty", "team": "home", "player": "Kučeřík R.", "duration": 2, "reason": "Zdržování hry" },
+                    { "time": "16:16", "type": "penalty", "team": "away", "player": "Hartmann S.", "duration": 2, "reason": "Nedovolené bránění" },
+                    { "time": "16:16", "type": "penalty", "team": "away", "player": "Larsson A.", "duration": 2, "reason": "Hrubost" },
+                    { "time": "16:16", "type": "penalty", "team": "home", "player": "Beránek O.", "duration": 2, "reason": "Hrubost" }
+                ]
+            },
+            "p2": {
+                "score_home": 2,
+                "score_away": 2,
+                "events": [
+                    { "time": "00:26", "type": "penalty", "team": "home", "player": "Kousal P.", "duration": 2, "reason": "Držení" },
+                    { "time": "08:33", "type": "goal", "team": "home", "player": "Košťálek J.", "assists": ["Pyrochta F.", "Špaček M."] },
+                    { "time": "08:54", "type": "penalty", "team": "home", "player": "Kučeřík R.", "duration": 2, "reason": "Hrubost" },
+                    { "time": "09:14", "type": "goal", "team": "away", "player": "Zibanejad M.", "assists": ["Andersson R.", "Carlsson L."], "note": "Z přesilovky" },
+                    { "time": "11:20", "type": "penalty", "team": "away", "player": "Larsson A.", "duration": 2, "reason": "Vysoká hůl" },
+                    { "time": "14:22", "type": "penalty", "team": "home", "player": "Klapka A.", "duration": 2, "reason": "Podrážení" },
+                    { "time": "14:39", "type": "goal", "team": "away", "player": "Andersson R.", "assists": ["Carlsson L."], "note": "Z přesilovky" },
+                    { "time": "15:20", "type": "penalty", "team": "away", "player": "Froden J.", "duration": 5, "reason": "Zásah do oblasti hlavy a krku" },
+                    { "time": "15:20", "type": "penalty", "team": "away", "player": "Froden J.", "duration": 10, "reason": "Osobní trest" },
+                    { "time": "17:30", "type": "goal", "team": "home", "player": "Klapka A.", "assists": ["Lauko J.", "Kovařčík M."], "note": "Z přesilovky" }
+                ]
+            },
+            "p3": {
+                "score_home": 0,
+                "score_away": 1,
+                "events": [
+                    { "time": "09:20", "type": "penalty", "team": "home", "player": "Stránský M.", "duration": 2, "reason": "Nedovolené bránění" },
+                    { "time": "09:20", "type": "penalty", "team": "away", "player": "Borgman A.", "duration": 2, "reason": "Hrubost" },
+                    { "time": "18:27", "type": "goal", "team": "away", "player": "Lundstrom I.", "assists": ["Edvinsson S."], "note": "Do prázdné branky" }
+                ]
+            }
+        }
+    },
+    {
+        "id": "ceskehry_003",
+        "tournament": "Ceske_hokejove_hry_2025",
+        "date": "04.05.2025",
+        "stage": "Skupina",
+        "home_team": "CZE",
+        "away_team": "SUI",
+        "score": "3:5",
+        "decision": "Konec",
+        "periods": {
+            "p1": {
+                "score_home": 1,
+                "score_away": 1,
+                "events": [
+                    { "time": "03:21", "type": "penalty", "team": "away", "player": "Walser S.", "duration": 2, "reason": "Podrážení" },
+                    { "time": "03:45", "type": "goal", "team": "home", "player": "Kovařčík O.", "assists": ["Kondelík J.", "Špaček D."], "note": "Z přesilovky" },
+                    { "time": "04:59", "type": "penalty", "team": "away", "player": "Senteler S.", "duration": 2, "reason": "Podrážení" },
+                    { "time": "11:19", "type": "goal", "team": "away", "player": "Egli D.", "assists": ["Moy T.", "Knak S."] },
+                    { "time": "19:18", "type": "penalty", "team": "home", "player": "Voženílek D.", "duration": 2, "reason": "Nedovolené bránění" }
+                ]
+            },
+            "p2": {
+                "score_home": 1,
+                "score_away": 2,
+                "events": [
+                    { "time": "01:40", "type": "goal", "team": "away", "player": "Knak S.", "assists": ["Fora M."] },
+                    { "time": "03:15", "type": "penalty", "team": "home", "player": "Zadina F.", "duration": 2, "reason": "Podrážení" },
+                    { "time": "10:14", "type": "goal", "team": "away", "player": "Egli D.", "assists": ["Baechler N.", "Schmid S."] },
+                    { "time": "10:49", "type": "other", "note": "Neuznaný gól - videorozhodčí (Voženílek D.)" },
+                    { "time": "12:43", "type": "penalty", "team": "home", "player": "Lenc R.", "duration": 2, "reason": "Krosček" },
+                    { "time": "12:43", "type": "penalty", "team": "away", "player": "Glauser A.", "duration": 2, "reason": "Krosček" },
+                    { "time": "12:59", "type": "goal", "team": "home", "player": "Kovařčík M.", "assists": ["Kovařčík O.", "Pyrochta F."] },
+                    { "time": "16:46", "type": "penalty", "team": "away", "player": "Berni T.", "duration": 2, "reason": "Podrážení" },
+                    { "time": "17:56", "type": "penalty", "team": "home", "player": "Voženílek D.", "duration": 2, "reason": "Hrubost" }
+                ]
+            },
+            "p3": {
+                "score_home": 1,
+                "score_away": 2,
+                "events": [
+                    { "time": "05:34", "type": "goal", "team": "away", "player": "Moy T.", "assists": ["Senteler S.", "Knak S."] },
+                    { "time": "07:57", "type": "penalty", "team": "home", "player": "Hájek L.", "duration": 2, "reason": "Držení" },
+                    { "time": "10:49", "type": "goal", "team": "away", "player": "Rohrbach D.", "assists": ["Baechler N."] },
+                    { "time": "13:14", "type": "penalty", "team": "away", "player": "Marti Ch.", "duration": 2, "reason": "Hákování" },
+                    { "time": "14:25", "type": "penalty", "team": "away", "player": "Fora M.", "duration": 2, "reason": "Hákování" },
+                    { "time": "17:10", "type": "penalty", "team": "home", "player": "Kovařčík O.", "duration": 2, "reason": "Podrážení" },
+                    { "time": "17:27", "type": "goal", "team": "home", "player": "Flek J.", "assists": [], "note": "V oslabení" }
+                ]
+            }
+        }
+    }
+];
