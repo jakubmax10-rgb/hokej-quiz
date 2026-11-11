@@ -1931,3 +1931,452 @@ const karjalaCup2024Matches = [
         }
     }
 ];
+
+const ms2024Matches = [
+    {
+        "id": "ms2024_001",
+        "tournament": "Mistrovstvi_sveta_2024",
+        "date": "10.05.2024",
+        "stage": "Skupina",
+        "home_team": "CZE",
+        "away_team": "FIN",
+        "score": "1:0",
+        "decision": "Po nájezdech",
+        "periods": {
+            "p1": { "score_home": 0, "score_away": 0, "events": [] },
+            "p2": {
+                "score_home": 0,
+                "score_away": 0,
+                "events": [
+                    { "time": "05:52", "type": "penalty", "team": "away", "player": "Rissanen R.", "duration": 2, "reason": "Podrážení" },
+                    { "time": "18:18", "type": "other", "note": "Neuznaný gól - coach challenge (Palát O.)" }
+                ]
+            },
+            "p3": {
+                "score_home": 0,
+                "score_away": 0,
+                "events": [
+                    { "time": "00:17", "type": "penalty", "team": "home", "player": "Gudas R.", "duration": 2, "reason": "Podrážení" },
+                    { "time": "05:35", "type": "penalty", "team": "home", "player": "Kaše O.", "duration": 2, "reason": "Hrubost" },
+                    { "time": "05:35", "type": "penalty", "team": "away", "player": "Hyry A.", "duration": 2, "reason": "Hrubost" },
+                    { "time": "17:19", "type": "penalty", "team": "home", "player": "Krejčík J.", "duration": 2, "reason": "Zdržování hry" },
+                    { "time": "17:19", "type": "penalty", "team": "away", "player": "Vittasmaki V.", "duration": 2, "reason": "Zdržování hry" },
+                    { "time": "19:03", "type": "penalty", "team": "home", "player": "Gudas R.", "duration": 2, "reason": "Držení" }
+                ]
+            },
+            "ot": { "score_home": 0, "score_away": 0, "events": [] },
+            "so": {
+                "score_home": 1,
+                "score_away": 0,
+                "events": [
+                    { "time": "1", "type": "so_miss", "team": "away", "player": "Kaski O." },
+                    { "time": "1", "type": "so_goal", "team": "home", "player": "Kaše O." },
+                    { "time": "2", "type": "so_miss", "team": "away", "player": "Granlund Milk." },
+                    { "time": "2", "type": "so_miss", "team": "home", "player": "Krejčík J." },
+                    { "time": "3", "type": "so_miss", "team": "away", "player": "Puljujarvi J." },
+                    { "time": "3", "type": "so_miss", "team": "home", "player": "Palát O." },
+                    { "time": "4", "type": "so_miss", "team": "away", "player": "Kapanen O." },
+                    { "time": "4", "type": "so_goal", "team": "home", "player": "Červenka R." }
+                ]
+            }
+        }
+    },
+    {
+        "id": "ms2024_002",
+        "tournament": "Mistrovstvi_sveta_2024",
+        "date": "11.05.2024",
+        "stage": "Skupina",
+        "home_team": "NOR",
+        "away_team": "CZE",
+        "score": "3:6",
+        "decision": "Konec",
+        "periods": {
+            "p1": {
+                "score_home": 3,
+                "score_away": 2,
+                "events": [
+                    { "time": "06:06", "type": "goal", "team": "away", "player": "Červenka R.", "assists": ["Kundrátek T.", "Sedlák L."] },
+                    { "time": "06:37", "type": "goal", "team": "home", "player": "Solberg S.", "assists": ["Thoresen P.", "Zuccarello M."] },
+                    { "time": "11:33", "type": "penalty", "team": "home", "player": "Krogdahl M.", "duration": 2, "reason": "Sekání" },
+                    { "time": "12:10", "type": "goal", "team": "home", "player": "Steen N.", "assists": ["Trettenes M."], "note": "V oslabení" },
+                    { "time": "16:32", "type": "goal", "team": "home", "player": "Salsten E.", "assists": ["Solberg S.", "Zuccarello M."] },
+                    { "time": "17:12", "type": "goal", "team": "away", "player": "Červenka R.", "assists": ["Sedlák L.", "Kaše O."] },
+                    { "time": "19:01", "type": "penalty", "team": "away", "player": "Kempný M.", "duration": 2, "reason": "Nedovolené bránění" },
+                    { "time": "19:56", "type": "penalty", "team": "away", "player": "Gudas R.", "duration": 2, "reason": "Hrubost" },
+                    { "time": "19:56", "type": "penalty", "team": "home", "player": "Martinsen A.", "duration": 2, "reason": "Hrubost" },
+                    { "time": "20:00", "type": "penalty", "team": "home", "player": "Thoresen P.", "duration": 2, "reason": "Hrubost" },
+                    { "time": "20:00", "type": "penalty", "team": "away", "player": "Hájek L.", "duration": 2, "reason": "Hrubost" },
+                    { "time": "20:00", "type": "penalty", "team": "away", "player": "Hájek L.", "duration": 2, "reason": "Nesportovní chování" }
+                ]
+            },
+            "p2": {
+                "score_home": 0,
+                "score_away": 1,
+                "events": [
+                    { "time": "04:05", "type": "penalty", "team": "home", "player": "Kassatul C.", "duration": 2, "reason": "Hrubost" },
+                    { "time": "07:27", "type": "penalty", "team": "home", "player": "Salsten E.", "duration": 2, "reason": "Sekání" },
+                    { "time": "15:54", "type": "goal", "team": "away", "player": "Beránek O.", "assists": ["Kempný M."] },
+                    { "time": "17:02", "type": "penalty", "team": "away", "player": "Gudas R.", "duration": 2, "reason": "Nedovolená výstroj" },
+                    { "time": "19:12", "type": "penalty", "team": "home", "player": "Ronnild M.", "duration": 2, "reason": "Hákování" }
+                ]
+            },
+            "p3": {
+                "score_home": 0,
+                "score_away": 3,
+                "events": [
+                    { "time": "00:20", "type": "penalty", "team": "home", "player": "Kassatul C.", "duration": 2, "reason": "Hákování" },
+                    { "time": "05:19", "type": "goal", "team": "away", "player": "Stránský M.", "assists": ["Krejčík J.", "Kämpf D."] },
+                    { "time": "07:29", "type": "penalty", "team": "home", "player": "Zuccarello M.", "duration": 2, "reason": "Hrubost" },
+                    { "time": "16:59", "type": "goal", "team": "away", "player": "Hájek L.", "assists": ["Palát O."] },
+                    { "time": "19:06", "type": "goal", "team": "away", "player": "Palát O.", "assists": ["Kämpf D.", "Voženílek D."], "note": "Do prázdné branky" }
+                ]
+            }
+        }
+    },
+    {
+        "id": "ms2024_003",
+        "tournament": "Mistrovstvi_sveta_2024",
+        "date": "13.05.2024",
+        "stage": "Skupina",
+        "home_team": "SUI",
+        "away_team": "CZE",
+        "score": "2:1",
+        "decision": "Po nájezdech",
+        "periods": {
+            "p1": {
+                "score_home": 1,
+                "score_away": 0,
+                "events": [
+                    { "time": "12:52", "type": "penalty", "team": "home", "player": "Červenka R.", "duration": 2, "reason": "Hrubost" },
+                    { "time": "13:36", "type": "goal", "team": "home", "player": "Fiala K.", "assists": ["Hischier N.", "Josi R."], "note": "Z přesilovky" }
+                ]
+            },
+            "p2": {
+                "score_home": 0,
+                "score_away": 1,
+                "events": [
+                    { "time": "08:01", "type": "penalty", "team": "home", "player": "Fiala K.", "duration": 2, "reason": "Podrážení" },
+                    { "time": "13:40", "type": "penalty", "team": "away", "player": "Stránský M.", "duration": 2, "reason": "Podrážení" },
+                    { "time": "15:40", "type": "penalty", "team": "away", "player": "Beránek O.", "duration": 2, "reason": "Hrubost" },
+                    { "time": "15:40", "type": "penalty", "team": "away", "player": "Rutta J.", "duration": 2, "reason": "Hrubost" },
+                    { "time": "15:40", "type": "penalty", "team": "home", "player": "Kurashev P.", "duration": 2, "reason": "Hrubost" },
+                    { "time": "15:40", "type": "penalty", "team": "home", "player": "Niederreiter N.", "duration": 2, "reason": "Hrubost" },
+                    { "time": "15:45", "type": "penalty", "team": "home", "player": "Siegenthaler J.", "duration": 2, "reason": "Nedovolené bránění" },
+                    { "time": "15:57", "type": "goal", "team": "away", "player": "Stránský M.", "assists": ["Špaček D.", "Červenka R."], "note": "Z přesilovky" },
+                    { "time": "19:52", "type": "penalty", "team": "away", "player": "Kempný M.", "duration": 2, "reason": "Podrážení" }
+                ]
+            },
+            "p3": {
+                "score_home": 0,
+                "score_away": 0,
+                "events": [
+                    { "time": "03:35", "type": "penalty", "team": "home", "player": "Ambühl A.", "duration": 2, "reason": "Podrážení" }
+                ]
+            },
+            "ot": {
+                "score_home": 0,
+                "score_away": 0,
+                "events": [
+                    { "time": "04:15", "type": "penalty", "team": "away", "player": "Kempný M.", "duration": 2, "reason": "Narážení na hrazení" }
+                ]
+            },
+            "so": {
+                "score_home": 2,
+                "score_away": 1,
+                "events": [
+                    { "time": "1", "type": "so_miss", "team": "home", "player": "Andrighetto S." },
+                    { "time": "1", "type": "so_miss", "team": "away", "player": "Kaše O." },
+                    { "time": "2", "type": "so_goal", "team": "home", "player": "Fiala K." },
+                    { "time": "2", "type": "so_goal", "team": "away", "player": "Stránský M." },
+                    { "time": "3", "type": "so_goal", "team": "home", "player": "Kurashev P." },
+                    { "time": "3", "type": "so_miss", "team": "away", "player": "Tomášek D." },
+                    { "time": "4", "type": "so_miss", "team": "home", "player": "Loeffel R." },
+                    { "time": "4", "type": "so_miss", "team": "away", "player": "Červenka R." },
+                    { "time": "5", "type": "so_miss", "team": "home", "player": "Josi R." },
+                    { "time": "5", "type": "so_miss", "team": "away", "player": "Flek J." }
+                ]
+            }
+        }
+    },
+    {
+        "id": "ms2024_004",
+        "tournament": "Mistrovstvi_sveta_2024",
+        "date": "15.05.2024",
+        "stage": "Skupina",
+        "home_team": "CZE",
+        "away_team": "DEN",
+        "score": "7:4",
+        "decision": "Konec",
+        "periods": {
+            "p1": {
+                "score_home": 1,
+                "score_away": 1,
+                "events": [
+                    { "time": "12:46", "type": "penalty", "team": "away", "player": "Fisker Molgaard O.", "duration": 2, "reason": "Podrážení" },
+                    { "time": "12:57", "type": "penalty", "team": "away", "player": "Jensen A. J.", "duration": 2, "reason": "Podrážení" },
+                    { "time": "18:21", "type": "penalty", "team": "home", "player": "Kempný M.", "duration": 2, "reason": "Držení" },
+                    { "time": "18:54", "type": "goal", "team": "away", "player": "Wejse C.", "assists": ["Blichfeld J.", "Bruggisser P."], "note": "Z přesilovky" },
+                    { "time": "19:52", "type": "goal", "team": "home", "player": "Rutta J.", "assists": ["Kämpf D."] }
+                ]
+            },
+            "p2": {
+                "score_home": 2,
+                "score_away": 1,
+                "events": [
+                    { "time": "02:50", "type": "goal", "team": "home", "player": "Flek J.", "assists": ["Kondelík J.", "Voženílek D."] },
+                    { "time": "04:29", "type": "goal", "team": "home", "player": "Sedlák L.", "assists": ["Kaše O.", "Červenka R."] },
+                    { "time": "08:58", "type": "penalty", "team": "away", "player": "Bruggisser P.", "duration": 2, "reason": "Sekání" },
+                    { "time": "19:36", "type": "goal", "team": "away", "player": "Russell P.", "assists": ["Jensen Nich.", "Bruggisser P."] }
+                ]
+            },
+            "p3": {
+                "score_home": 4,
+                "score_away": 2,
+                "events": [
+                    { "time": "01:09", "type": "penalty", "team": "home", "player": "Palát O.", "duration": 2, "reason": "Hákování" },
+                    { "time": "04:43", "type": "goal", "team": "away", "player": "Fisker Molgaard O.", "assists": ["Lauridsen M.", "Lassen M."] },
+                    { "time": "06:16", "type": "goal", "team": "home", "player": "Kundrátek T.", "assists": ["Tomášek D.", "Krejčík J."] },
+                    { "time": "11:10", "type": "goal", "team": "home", "player": "Kubalík D.", "assists": ["Tomášek D.", "Palát O."] },
+                    { "time": "11:30", "type": "goal", "team": "home", "player": "Stránský M.", "assists": ["Kämpf D.", "Voženílek D."] },
+                    { "time": "11:51", "type": "goal", "team": "away", "player": "From M.", "assists": ["Scheel F.", "Wejse C."] },
+                    { "time": "13:08", "type": "goal", "team": "home", "player": "Palát O.", "assists": ["Kempný M."] },
+                    { "time": "14:14", "type": "penalty", "team": "home", "player": "Kempný M.", "duration": 2, "reason": "Vysoká hůl" }
+                ]
+            }
+        }
+    },
+    {
+        "id": "ms2024_005",
+        "tournament": "Mistrovstvi_sveta_2024",
+        "date": "17.05.2024",
+        "stage": "Skupina",
+        "home_team": "CZE",
+        "away_team": "AUT",
+        "score": "4:0",
+        "decision": "Konec",
+        "periods": {
+            "p1": {
+                "score_home": 1,
+                "score_away": 0,
+                "events": [
+                    { "time": "19:32", "type": "goal", "team": "home", "player": "Kaše O.", "assists": [] },
+                    { "time": "20:00", "type": "penalty", "team": "home", "player": "Kubalík D.", "duration": 2, "reason": "Hrubost" },
+                    { "time": "20:00", "type": "penalty", "team": "away", "player": "Baumgartner B.", "duration": 2, "reason": "Hrubost" }
+                ]
+            },
+            "p2": {
+                "score_home": 2,
+                "score_away": 0,
+                "events": [
+                    { "time": "01:06", "type": "penalty", "team": "home", "player": "Gudas R.", "duration": 2, "reason": "Podrážení" },
+                    { "time": "14:26", "type": "penalty", "team": "away", "player": "Raffl T.", "duration": 2, "reason": "Hákování" },
+                    { "time": "14:49", "type": "penalty", "team": "home", "player": "Červenka R.", "duration": 2, "reason": "Sekání" },
+                    { "time": "15:14", "type": "penalty", "team": "away", "player": "Maier D.", "duration": 2, "reason": "Podrážení" },
+                    { "time": "15:49", "type": "goal", "team": "home", "player": "Kubalík D.", "assists": ["Tomášek D.", "Špaček D."], "note": "Z přesilovky" },
+                    { "time": "16:53", "type": "goal", "team": "home", "player": "Flek J.", "assists": ["Stránský M."], "note": "Z přesilovky" }
+                ]
+            },
+            "p3": {
+                "score_home": 1,
+                "score_away": 0,
+                "events": [
+                    { "time": "01:31", "type": "goal", "team": "home", "player": "Tomášek D.", "assists": ["Palát O.", "Kubalík D."] }
+                ]
+            }
+        }
+    },
+    {
+        "id": "ms2024_006",
+        "tournament": "Mistrovstvi_sveta_2024",
+        "date": "18.05.2024",
+        "stage": "Skupina",
+        "home_team": "CZE",
+        "away_team": "GBR",
+        "score": "4:1",
+        "decision": "Konec",
+        "periods": {
+            "p1": {
+                "score_home": 2,
+                "score_away": 0,
+                "events": [
+                    { "time": "02:18", "type": "goal", "team": "home", "player": "Sedlák L.", "assists": ["Červenka R.", "Krejčík J."] },
+                    { "time": "04:46", "type": "goal", "team": "home", "player": "Krejčík J.", "assists": ["Gudas R.", "Červenka R."] },
+                    { "time": "09:34", "type": "penalty", "team": "away", "player": "Duggan S.", "duration": 2, "reason": "Nedovolené bránění" },
+                    { "time": "17:14", "type": "penalty", "team": "home", "player": "Kaše O.", "duration": 2, "reason": "Vysoká hůl" }
+                ]
+            },
+            "p2": {
+                "score_home": 2,
+                "score_away": 1,
+                "events": [
+                    { "time": "00:36", "type": "goal", "team": "home", "player": "Sedlák L.", "assists": ["Červenka R.", "Kaše O."] },
+                    { "time": "02:11", "type": "penalty", "team": "home", "player": "Krejčík J.", "duration": 2, "reason": "Nedovolené bránění" },
+                    { "time": "02:17", "type": "goal", "team": "away", "player": "Mosey E.", "assists": ["Kirk L.", "O'Connor B."], "note": "Z přesilovky" },
+                    { "time": "12:04", "type": "penalty", "team": "away", "player": "Dowd R.", "duration": 2, "reason": "Podrážení" },
+                    { "time": "12:15", "type": "goal", "team": "home", "player": "Kaše O.", "assists": ["Sedlák L.", "Červenka R."], "note": "Z přesilovky" },
+                    { "time": "16:01", "type": "penalty", "team": "home", "player": "Stránský M.", "duration": 2, "reason": "Podrážení" },
+                    { "time": "19:27", "type": "penalty", "team": "home", "player": "Gudas R.", "duration": 2, "reason": "Držení" }
+                ]
+            },
+            "p3": {
+                "score_home": 0,
+                "score_away": 0,
+                "events": [
+                    { "time": "12:00", "type": "penalty", "team": "home", "player": "Stránský M.", "duration": 2, "reason": "Nedovolené bránění" }
+                ]
+            }
+        }
+    },
+    {
+        "id": "ms2024_007",
+        "tournament": "Mistrovstvi_sveta_2024",
+        "date": "21.05.2024",
+        "stage": "Skupina",
+        "home_team": "CAN",
+        "away_team": "CZE",
+        "score": "4:3",
+        "decision": "Po prodloužení",
+        "periods": {
+            "p1": {
+                "score_home": 0,
+                "score_away": 0,
+                "events": [
+                    { "time": "00:18", "type": "penalty", "team": "away", "player": "Krejčík J.", "duration": 2, "reason": "Zdržování hry" },
+                    { "time": "13:11", "type": "penalty", "team": "home", "player": "Severson D.", "duration": 2, "reason": "Vysoká hůl" }
+                ]
+            },
+            "p2": { "score_home": 0, "score_away": 0, "events": [] },
+            "p3": {
+                "score_home": 3,
+                "score_away": 3,
+                "events": [
+                    { "time": "00:54", "type": "penalty", "team": "away", "player": "Kempný M.", "duration": 2, "reason": "Vysoká hůl" },
+                    { "time": "01:01", "type": "goal", "team": "home", "player": "Cozens D.", "assists": ["Power Q.", "Paul N."], "note": "Z přesilovky" },
+                    { "time": "07:20", "type": "penalty", "team": "home", "player": "Bedard C.", "duration": 2, "reason": "Krosček" },
+                    { "time": "09:11", "type": "goal", "team": "away", "player": "Kubalík D.", "assists": ["Nečas M.", "Sedlák L."], "note": "Z přesilovky" },
+                    { "time": "11:01", "type": "goal", "team": "home", "player": "Mercer D.", "assists": ["Severson D."] },
+                    { "time": "15:42", "type": "goal", "team": "home", "player": "Hagel B.", "assists": ["Tavares J.", "Dubois P."] },
+                    { "time": "16:27", "type": "penalty", "team": "home", "player": "Mercer D.", "duration": 2, "reason": "Podrážení" },
+                    { "time": "16:56", "type": "goal", "team": "away", "player": "Palát O.", "assists": ["Špaček D.", "Červenka R."], "note": "Z přesilovky" },
+                    { "time": "18:11", "type": "goal", "team": "away", "player": "Červenka R.", "assists": ["Nečas M.", "Špaček D."] }
+                ]
+            },
+            "ot": {
+                "score_home": 1,
+                "score_away": 0,
+                "events": [
+                    { "time": "02:47", "type": "penalty", "team": "home", "player": "Dubois P.", "duration": 2, "reason": "Držení" },
+                    { "time": "03:13", "type": "goal", "team": "home", "player": "Cozens D.", "assists": [], "note": "V oslabení" }
+                ]
+            }
+        }
+    },
+    {
+        "id": "ms2024_008",
+        "tournament": "Mistrovstvi_sveta_2024",
+        "date": "23.05.2024",
+        "stage": "Čtvrtfinále",
+        "home_team": "USA",
+        "away_team": "CZE",
+        "score": "0:1",
+        "decision": "Konec",
+        "periods": {
+            "p1": { "score_home": 0, "score_away": 0, "events": [] },
+            "p2": {
+                "score_home": 0,
+                "score_away": 1,
+                "events": [
+                    { "time": "02:42", "type": "penalty", "team": "away", "player": "Pastrňák D.", "duration": 2, "reason": "Vysoká hůl" },
+                    { "time": "06:23", "type": "penalty", "team": "home", "player": "Zegras T.", "duration": 2, "reason": "Podrážení" },
+                    { "time": "06:39", "type": "goal", "team": "away", "player": "Zacha P.", "assists": ["Špaček D.", "Červenka R."], "note": "Z přesilovky" },
+                    { "time": "11:49", "type": "penalty", "team": "away", "player": "Kempný M.", "duration": 2, "reason": "Hrubost" },
+                    { "time": "11:49", "type": "penalty", "team": "home", "player": "Tkachuk B.", "duration": 2, "reason": "Hrubost" },
+                    { "time": "18:43", "type": "penalty", "team": "away", "player": "Rutta J.", "duration": 2, "reason": "Hákování" }
+                ]
+            },
+            "p3": { "score_home": 0, "score_away": 0, "events": [] }
+        }
+    },
+    {
+        "id": "ms2024_009",
+        "tournament": "Mistrovstvi_sveta_2024",
+        "date": "25.05.2024",
+        "stage": "Semifinále",
+        "home_team": "SWE",
+        "away_team": "CZE",
+        "score": "3:7",
+        "decision": "Konec",
+        "periods": {
+            "p1": {
+                "score_home": 2,
+                "score_away": 2,
+                "events": [
+                    { "time": "00:04", "type": "penalty", "team": "home", "player": "Kempe A.", "duration": 2, "reason": "Podrážení" },
+                    { "time": "03:39", "type": "goal", "team": "home", "player": "Johansson M.", "assists": [] },
+                    { "time": "05:18", "type": "penalty", "team": "away", "player": "Gudas R.", "duration": 2, "reason": "Podrážení" },
+                    { "time": "07:48", "type": "goal", "team": "away", "player": "Kubalík D.", "assists": ["Nečas M.", "Kundrátek T."] },
+                    { "time": "08:08", "type": "goal", "team": "home", "player": "Pettersson M.", "assists": ["Kempe A.", "Eriksson Ek J."] },
+                    { "time": "09:37", "type": "goal", "team": "away", "player": "Kämpf D.", "assists": ["Nečas M."] },
+                    { "time": "16:33", "type": "penalty", "team": "home", "player": "Eriksson Ek J.", "duration": 2, "reason": "Hrubost" },
+                    { "time": "16:33", "type": "penalty", "team": "away", "player": "Rutta J.", "duration": 2, "reason": "Hrubost" }
+                ]
+            },
+            "p2": {
+                "score_home": 1,
+                "score_away": 3,
+                "events": [
+                    { "time": "06:05", "type": "goal", "team": "away", "player": "Kaše O.", "assists": ["Sedlák L."] },
+                    { "time": "06:21", "type": "goal", "team": "away", "player": "Nečas M.", "assists": ["Kubalík D.", "Kämpf D."] },
+                    { "time": "09:03", "type": "goal", "team": "away", "player": "Kubalík D.", "assists": ["Kempný M.", "Nečas M."] },
+                    { "time": "09:03", "type": "other", "note": "Střídání brankářů (SWE): Ersson S. -> Gustavsson F." },
+                    { "time": "14:54", "type": "penalty", "team": "away", "player": "Hájek L.", "duration": 2, "reason": "Podrážení" },
+                    { "time": "15:30", "type": "goal", "team": "home", "player": "Eriksson Ek J.", "assists": ["Raymond L.", "Dahlin R."], "note": "Z přesilovky" },
+                    { "time": "18:37", "type": "penalty", "team": "away", "player": "Rutta J.", "duration": 2, "reason": "Podrážení" }
+                ]
+            },
+            "p3": {
+                "score_home": 0,
+                "score_away": 2,
+                "events": [
+                    { "time": "03:38", "type": "penalty", "team": "away", "player": "Nečas M.", "duration": 2, "reason": "Držení" },
+                    { "time": "05:40", "type": "goal", "team": "away", "player": "Sedlák L.", "assists": ["Kaše O."] },
+                    { "time": "13:42", "type": "goal", "team": "away", "player": "Sedlák L.", "assists": [] },
+                    { "time": "19:11", "type": "penalty", "team": "home", "player": "Raymond L.", "duration": 2, "reason": "Nesportovní chování" },
+                    { "time": "19:11", "type": "penalty", "team": "away", "player": "Kubalík D.", "duration": 2, "reason": "Nesportovní chování" },
+                    { "time": "19:32", "type": "other", "note": "Neuznaný gól - videorozhodčí (Sedlák L.)" }
+                ]
+            }
+        }
+    },
+    {
+        "id": "ms2024_010",
+        "tournament": "Mistrovstvi_sveta_2024",
+        "date": "26.05.2024",
+        "stage": "Finále",
+        "home_team": "SUI",
+        "away_team": "CZE",
+        "score": "0:2",
+        "decision": "Konec",
+        "periods": {
+            "p1": { "score_home": 0, "score_away": 0, "events": [] },
+            "p2": {
+                "score_home": 0,
+                "score_away": 0,
+                "events": [
+                    { "time": "01:25", "type": "penalty", "team": "home", "player": "Bertschy C.", "duration": 2, "reason": "Nedovolené bránění" },
+                    { "time": "02:37", "type": "penalty", "team": "away", "player": "Palát O.", "duration": 2, "reason": "Nedovolené bránění" },
+                    { "time": "09:31", "type": "penalty", "team": "home", "player": "Fora M.", "duration": 2, "reason": "Držení" },
+                    { "time": "14:49", "type": "penalty", "team": "away", "player": "Gudas R.", "duration": 2, "reason": "Zdržování hry" }
+                ]
+            },
+            "p3": {
+                "score_home": 0,
+                "score_away": 2,
+                "events": [
+                    { "time": "09:13", "type": "goal", "team": "away", "player": "Pastrňák D.", "assists": ["Kundrátek T.", "Hájek L."] },
+                    { "time": "19:41", "type": "goal", "team": "away", "player": "Kämpf D.", "assists": ["Kubalík D.", "Nečas M."], "note": "Do prázdné branky" }
+                ]
+            }
+        }
+    }
+];

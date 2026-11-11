@@ -13,8 +13,8 @@ const CONFIG = {
     { id: 'ceskehry', name: 'České hry 2025', matches: () => ceskeHry2025Matches, roster: () => ceskeHry2025RosterCze },
     { id: 'beijer2025', name: 'Beijer Games 2025', matches: () =>beijerGames2025Matches, roster: () => beijerGames2025RosterCze },
     { id: 'swiss2024', name: 'Swiss Games 2024', matches: () => swissGames2024Matches, roster: () => swissGames2024RosterCze },
-    { id: 'karjala2024', name: 'Karjala Cup 2024', matches: () => karjalaCup2024Matches, roster: () => karjalaCup2024RosterCze }
-    
+    { id: 'karjala2024', name: 'Karjala Cup 2024', matches: () => karjalaCup2024Matches, roster: () => karjalaCup2024RosterCze },
+    { id: 'ms2024', name: 'Mistrovství světa 2024', matches: () => ms2024Matches, roster: () => ms2024RosterCze }
   ],
   teams: {
     CZE: { name: 'Česko', flag: 'cz' },      SWE: { name: 'Švédsko', flag: 'se' },
