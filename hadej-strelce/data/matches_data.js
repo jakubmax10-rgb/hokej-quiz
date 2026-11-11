@@ -1636,3 +1636,174 @@ const ceskeHry2025Matches = [
         }
     }
 ];
+
+const beijerGames2025Matches = [
+    {
+        "id": "beijer_001",
+        "tournament": "Beijer_Games_2025",
+        "date": "06.02.2025",
+        "stage": "Skupina",
+        "home_team": "CZE",
+        "away_team": "SWE",
+        "score": "4:1",
+        "decision": "Konec",
+        "periods": {
+            "p1": {
+                "score_home": 1,
+                "score_away": 1,
+                "events": [
+                    { "time": "02:32", "type": "goal", "team": "home", "player": "Chlapík F.", "assists": ["Zohorna R."] },
+                    { "time": "03:57", "type": "goal", "team": "away", "player": "Hartmann S.", "assists": ["Lindberg O.", "Berglund F."] },
+                    { "time": "11:53", "type": "penalty", "team": "home", "player": "Galvas J.", "duration": 2, "reason": "Podrážení" },
+                    { "time": "14:59", "type": "penalty", "team": "away", "player": "Berglund F.", "duration": 2, "reason": "Podrážení" },
+                    { "time": "15:46", "type": "penalty", "team": "home", "player": "Lenc R.", "duration": 2, "reason": "Nedovolené bránění" },
+                    { "time": "18:06", "type": "penalty", "team": "away", "player": "Everberg D.", "duration": 2, "reason": "Vysoká hůl" }
+                ]
+            },
+            "p2": {
+                "score_home": 1,
+                "score_away": 0,
+                "events": [
+                    { "time": "06:52", "type": "penalty", "team": "home", "player": "Zbořil J.", "duration": 2, "reason": "Faul kolenem" },
+                    { "time": "15:13", "type": "goal", "team": "home", "player": "Zbořil J.", "assists": ["Kunc M.", "Reichel K."] }
+                ]
+            },
+            "p3": {
+                "score_home": 2,
+                "score_away": 0,
+                "events": [
+                    { "time": "09:27", "type": "penalty", "team": "away", "player": "De La Rose J.", "duration": 2, "reason": "Hákování" },
+                    { "time": "09:50", "type": "goal", "team": "home", "player": "Lenc R.", "assists": ["Ticháček J.", "Kousal P."], "note": "Z přesilovky" },
+                    { "time": "19:35", "type": "penalty", "team": "home", "player": "Flynn O.", "duration": 2, "reason": "Vysoká hůl" },
+                    { "time": "19:42", "type": "goal", "team": "home", "player": "Reichel K.", "assists": [], "note": "V oslabení, Do prázdné branky" }
+                ]
+            }
+        }
+    },
+    const beijerGames2025Matches = [
+    {
+        "id": "beijer_001",
+        "tournament": "Beijer_Games_2025",
+        "date": "06.02.2025",
+        "stage": "Skupina",
+        "home_team": "CZE",
+        "away_team": "SWE",
+        "score": "4:1",
+        "decision": "Konec",
+        "periods": {
+            "p1": {
+                "score_home": 1,
+                "score_away": 1,
+                "events": [
+                    { "time": "02:32", "type": "goal", "team": "home", "player": "Chlapík F.", "assists": ["Zohorna R."] },
+                    { "time": "03:57", "type": "goal", "team": "away", "player": "Hartmann S.", "assists": ["Lindberg O.", "Berglund F."] },
+                    { "time": "11:53", "type": "penalty", "team": "home", "player": "Galvas J.", "duration": 2, "reason": "Podrážení" },
+                    { "time": "14:59", "type": "penalty", "team": "away", "player": "Berglund F.", "duration": 2, "reason": "Podrážení" },
+                    { "time": "15:46", "type": "penalty", "team": "home", "player": "Lenc R.", "duration": 2, "reason": "Nedovolené bránění" },
+                    { "time": "18:06", "type": "penalty", "team": "away", "player": "Everberg D.", "duration": 2, "reason": "Vysoká hůl" }
+                ]
+            },
+            "p2": {
+                "score_home": 1,
+                "score_away": 0,
+                "events": [
+                    { "time": "06:52", "type": "penalty", "team": "home", "player": "Zbořil J.", "duration": 2, "reason": "Faul kolenem" },
+                    { "time": "15:13", "type": "goal", "team": "home", "player": "Zbořil J.", "assists": ["Kunc M.", "Reichel K."] }
+                ]
+            },
+            "p3": {
+                "score_home": 2,
+                "score_away": 0,
+                "events": [
+                    { "time": "09:27", "type": "penalty", "team": "away", "player": "De La Rose J.", "duration": 2, "reason": "Hákování" },
+                    { "time": "09:50", "type": "goal", "team": "home", "player": "Lenc R.", "assists": ["Ticháček J.", "Kousal P."], "note": "Z přesilovky" },
+                    { "time": "19:35", "type": "penalty", "team": "home", "player": "Flynn O.", "duration": 2, "reason": "Vysoká hůl" },
+                    { "time": "19:42", "type": "goal", "team": "home", "player": "Reichel K.", "assists": [], "note": "V oslabení, Do prázdné branky" }
+                ]
+            }
+        }
+    },
+    
+    const beijerGames2025Matches = [
+    {
+        "id": "beijer2025_001",
+        "tournament": "Beijer_Games_2025",
+        "date": "06.02.2025",
+        "stage": "Skupina",
+        "home_team": "CZE",
+        "away_team": "SWE",
+        "score": "4:1",
+        "decision": "Konec",
+        "periods": {
+            "p1": {
+                "score_home": 1,
+                "score_away": 1,
+                "events": [
+                    { "time": "02:32", "type": "goal", "team": "home", "player": "Chlapík F.", "assists": ["Zohorna R."] },
+                    { "time": "03:57", "type": "goal", "team": "away", "player": "Hartmann S.", "assists": ["Lindberg O.", "Berglund F."] },
+                    { "time": "11:53", "type": "penalty", "team": "home", "player": "Galvas J.", "duration": 2, "reason": "Podrážení" },
+                    { "time": "14:59", "type": "penalty", "team": "away", "player": "Berglund F.", "duration": 2, "reason": "Podrážení" },
+                    { "time": "15:46", "type": "penalty", "team": "home", "player": "Lenc R.", "duration": 2, "reason": "Nedovolené bránění" },
+                    { "time": "18:06", "type": "penalty", "team": "away", "player": "Everberg D.", "duration": 2, "reason": "Vysoká hůl" }
+                ]
+            },
+            "p2": {
+                "score_home": 1,
+                "score_away": 0,
+                "events": [
+                    { "time": "06:52", "type": "penalty", "team": "home", "player": "Zbořil J.", "duration": 2, "reason": "Faul kolenem" },
+                    { "time": "15:13", "type": "goal", "team": "home", "player": "Zbořil J.", "assists": ["Kunc M.", "Reichel K."] }
+                ]
+            },
+            "p3": {
+                "score_home": 2,
+                "score_away": 0,
+                "events": [
+                    { "time": "09:27", "type": "penalty", "team": "away", "player": "De La Rose J.", "duration": 2, "reason": "Hákování" },
+                    { "time": "09:50", "type": "goal", "team": "home", "player": "Lenc R.", "assists": ["Ticháček J.", "Kousal P."], "note": "Z přesilovky" },
+                    { "time": "19:35", "type": "penalty", "team": "home", "player": "Flynn O.", "duration": 2, "reason": "Vysoká hůl" },
+                    { "time": "19:42", "type": "goal", "team": "home", "player": "Reichel K.", "assists": [], "note": "V oslabení, Do prázdné branky" }
+                ]
+            }
+        }
+    },
+    {
+        "id": "beijer2025_002",
+        "tournament": "Beijer_Games_2025",
+        "date": "09.02.2025",
+        "stage": "Skupina",
+        "home_team": "SUI",
+        "away_team": "CZE",
+        "score": "0:3",
+        "decision": "Konec",
+        "periods": {
+            "p1": {
+                "score_home": 0,
+                "score_away": 0,
+                "events": [
+                    { "time": "05:27", "type": "penalty", "team": "home", "player": "Sablatnig Y.", "duration": 2, "reason": "Nedovolené bránění" },
+                    { "time": "09:25", "type": "penalty", "team": "home", "player": "Ritzmann F.", "duration": 2, "reason": "Podrážení" },
+                    { "time": "16:12", "type": "penalty", "team": "home", "player": "Berni T.", "duration": 2, "reason": "Krosček" }
+                ]
+            },
+            "p2": {
+                "score_home": 0,
+                "score_away": 1,
+                "events": [
+                    { "time": "03:41", "type": "penalty", "team": "home", "player": "Schmid S.", "duration": 2, "reason": "Držení" },
+                    { "time": "07:28", "type": "goal", "team": "away", "player": "Horký L.", "assists": ["Filip M.", "Fridrich P."] },
+                    { "time": "08:06", "type": "penalty", "team": "away", "player": "Zohorna R.", "duration": 2, "reason": "Podrážení" }
+                ]
+            },
+            "p3": {
+                "score_home": 0,
+                "score_away": 2,
+                "events": [
+                    { "time": "08:17", "type": "penalty", "team": "away", "player": "Kodýtek P.", "duration": 2, "reason": "Podrážení" },
+                    { "time": "18:36", "type": "goal", "team": "away", "player": "Kunc M.", "assists": [], "note": "Do prázdné branky" },
+                    { "time": "19:26", "type": "goal", "team": "away", "player": "Zohorna R.", "assists": ["Chlapík F.", "Fridrich P."], "note": "Do prázdné branky" }
+                ]
+            }
+        }
+    }
+];
