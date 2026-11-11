@@ -1122,3 +1122,372 @@ const finnishGames2025Matches = [
         }
     }
 ];
+
+const mistrovstviSveta2025Matches = [
+    {
+        "id": "ms2025_001",
+        "tournament": "Mistrovstvi_Sveta_2025",
+        "date": "09.05.2025",
+        "stage": "Skupina",
+        "home_team": "SUI",
+        "away_team": "CZE",
+        "score": "4:5",
+        "decision": "Po prodloužení",
+        "periods": {
+            "p1": {
+                "score_home": 2,
+                "score_away": 1,
+                "events": [
+                    { "time": "01:34", "type": "goal", "team": "home", "player": "Marti Ch.", "assists": ["Hofmann G.", "Fora M."] },
+                    { "time": "05:32", "type": "other", "note": "Neuznaný gól - coach challenge (Schmid S.)" },
+                    { "time": "17:18", "type": "other", "note": "Neproměněný nájezd - Pastrňák D." },
+                    { "time": "17:50", "type": "goal", "team": "home", "player": "Riat D.", "assists": ["Siegenthaler J.", "Kukan D."] },
+                    { "time": "18:37", "type": "penalty", "team": "home", "player": "Meier T.", "duration": 2, "reason": "Vysoká hůl" },
+                    { "time": "19:32", "type": "penalty", "team": "home", "player": "Fora M.", "duration": 2, "reason": "Podrážení" },
+                    { "time": "19:41", "type": "goal", "team": "away", "player": "Stránský M.", "assists": ["Pastrňák D.", "Červenka R."], "note": "Z přesilovky" }
+                ]
+            },
+            "p2": {
+                "score_home": 0,
+                "score_away": 2,
+                "events": [
+                    { "time": "06:01", "type": "goal", "team": "away", "player": "Zadina F.", "assists": ["Krejčík J.", "Špaček M."] },
+                    { "time": "15:33", "type": "goal", "team": "away", "player": "Pyrochta F.", "assists": ["Zadina F.", "Špaček D."] },
+                    { "time": "19:47", "type": "penalty", "team": "away", "player": "Špaček D.", "duration": 2, "reason": "Krosček" }
+                ]
+            },
+            "p3": {
+                "score_home": 2,
+                "score_away": 1,
+                "events": [
+                    { "time": "01:21", "type": "goal", "team": "home", "player": "Schmid S.", "assists": ["Moy T.", "Hofmann G."], "note": "Z přesilovky" },
+                    { "time": "09:00", "type": "goal", "team": "home", "player": "Andrighetto S.", "assists": ["Marti Ch.", "Malgin D."] },
+                    { "time": "10:55", "type": "penalty", "team": "away", "player": "Kodýtek P.", "duration": 2, "reason": "Podrážení" },
+                    { "time": "16:13", "type": "goal", "team": "away", "player": "Sedlák L.", "assists": ["Červenka R.", "Hronek F."], "note": "Z přesilovky" }
+                ]
+            },
+            "overtime": {
+                "score_home": 0,
+                "score_away": 1,
+                "events": [
+                    { "time": "02:30", "type": "goal", "team": "away", "player": "Červenka R.", "assists": ["Pastrňák D.", "Vejmelka K."] }
+                ]
+            }
+        }
+    },
+    {
+        "id": "ms2025_002",
+        "tournament": "Mistrovstvi_Sveta_2025",
+        "date": "11.05.2025",
+        "stage": "Skupina",
+        "home_team": "NOR",
+        "away_team": "CZE",
+        "score": "1:2",
+        "decision": "Konec",
+        "periods": {
+            "p1": {
+                "score_home": 0,
+                "score_away": 0,
+                "events": [
+                    { "time": "11:05", "type": "penalty", "team": "home", "player": "Hansen I.", "duration": 2, "reason": "Hrubost" },
+                    { "time": "11:05", "type": "penalty", "team": "away", "player": "Stránský M.", "duration": 2, "reason": "Hrubost" },
+                    { "time": "12:00", "type": "penalty", "team": "home", "player": "Johannesen J.", "duration": 2, "reason": "Podrážení" },
+                    { "time": "15:13", "type": "penalty", "team": "away", "player": "Červenka R.", "duration": 2, "reason": "Vysoká hůl" },
+                    { "time": "17:05", "type": "penalty", "team": "home", "player": "Martinsen A.", "duration": 2, "reason": "Nedovolené bránění" }
+                ]
+            },
+            "p2": {
+                "score_home": 1,
+                "score_away": 2,
+                "events": [
+                    { "time": "02:14", "type": "goal", "team": "away", "player": "Flek J.", "assists": ["Kodýtek P.", "Krejčík J."] },
+                    { "time": "08:03", "type": "goal", "team": "home", "player": "Solberg S.", "assists": ["Berglund J.", "Salsten E."] },
+                    { "time": "13:20", "type": "goal", "team": "away", "player": "Pastrňák D.", "assists": ["Červenka R.", "Hronek F."] },
+                    { "time": "18:53", "type": "penalty", "team": "away", "player": "Hájek L.", "duration": 2, "reason": "Podrážení" }
+                ]
+            },
+            "p3": {
+                "score_home": 0,
+                "score_away": 0,
+                "events": []
+            }
+        }
+    },
+    {
+        "id": "ms2025_003",
+        "tournament": "Mistrovstvi_Sveta_2025",
+        "date": "12.05.2025",
+        "stage": "Skupina",
+        "home_team": "CZE",
+        "away_team": "DEN",
+        "score": "7:2",
+        "decision": "Konec",
+        "periods": {
+            "p1": {
+                "score_home": 0,
+                "score_away": 0,
+                "events": [
+                    { "time": "00:48", "type": "penalty", "team": "home", "player": "Hronek F.", "duration": 2, "reason": "Hrubost" },
+                    { "time": "00:48", "type": "penalty", "team": "away", "player": "Aagaard M.", "duration": 2, "reason": "Sekání" },
+                    { "time": "02:04", "type": "penalty", "team": "away", "player": "Scheel F.", "duration": 2, "reason": "Nedovolené bránění" },
+                    { "time": "11:18", "type": "other", "note": "Neuznaný gól - coach challenge (Aagaard M.)" },
+                    { "time": "07:22", "type": "penalty", "team": "home", "player": "Lauko J.", "duration": 2, "reason": "Hrubost" }
+                ]
+            },
+            "p2": {
+                "score_home": 4,
+                "score_away": 1,
+                "events": [
+                    { "time": "03:35", "type": "goal", "team": "home", "player": "Nečas M.", "assists": ["Beránek O.", "Hronek F."] },
+                    { "time": "04:23", "type": "goal", "team": "home", "player": "Gazda D.", "assists": ["Kodýtek P.", "Beránek O."] },
+                    { "time": "09:35", "type": "penalty", "team": "away", "player": "True A.", "duration": 2, "reason": "Podrážení" },
+                    { "time": "09:35", "type": "penalty", "team": "home", "player": "Nečas M.", "duration": 2, "reason": "Nafilmovaný pád" },
+                    { "time": "13:52", "type": "goal", "team": "home", "player": "Pastrňák D.", "assists": ["Sedlák L.", "Vladař D."] },
+                    { "time": "16:21", "type": "goal", "team": "home", "player": "Sedlák L.", "assists": ["Pastrňák D.", "Hronek F."] },
+                    { "time": "18:47", "type": "goal", "team": "away", "player": "Olesen N.", "assists": ["Russell P.", "Jensen N."] },
+                    { "time": "19:57", "type": "penalty", "team": "away", "player": "Olesen N.", "duration": 2, "reason": "Sekání" }
+                ]
+            },
+            "p3": {
+                "score_home": 3,
+                "score_away": 1,
+                "events": [
+                    { "time": "04:32", "type": "goal", "team": "home", "player": "Nečas M.", "assists": ["Zadina F.", "Špaček M."] },
+                    { "time": "06:24", "type": "goal", "team": "away", "player": "Wejse C.", "assists": ["Jensen N.", "Olesen N."] },
+                    { "time": "12:33", "type": "penalty", "team": "home", "player": "Krejčík J.", "duration": 2, "reason": "Hákování" },
+                    { "time": "17:43", "type": "goal", "team": "home", "player": "Voženílek D.", "assists": ["Flek J.", "Lauko J."], "note": "Do prázdné branky" },
+                    { "time": "19:01", "type": "goal", "team": "home", "player": "Červenka R.", "assists": ["Pastrňák D.", "Sedlák L."] }
+                ]
+            }
+        }
+    },
+    {
+        "id": "ms2025_004",
+        "tournament": "Mistrovstvi_Sveta_2025",
+        "date": "15.05.2025",
+        "stage": "Skupina",
+        "home_team": "CZE",
+        "away_team": "HUN",
+        "score": "6:1",
+        "decision": "Konec",
+        "periods": {
+            "p1": {
+                "score_home": 2,
+                "score_away": 0,
+                "events": [
+                    { "time": "06:54", "type": "penalty", "team": "away", "player": "Szongoth D.", "duration": 2, "reason": "Vysoká hůl" },
+                    { "time": "14:10", "type": "penalty", "team": "away", "player": "Papp K.", "duration": 2, "reason": "Hákování" },
+                    { "time": "17:30", "type": "goal", "team": "home", "player": "Pastrňák D.", "assists": ["Červenka R.", "Sedlák L."] },
+                    { "time": "19:23", "type": "goal", "team": "home", "player": "Flek J.", "assists": ["Voženílek D."] }
+                ]
+            },
+            "p2": {
+                "score_home": 1,
+                "score_away": 1,
+                "events": [
+                    { "time": "04:49", "type": "penalty", "team": "home", "player": "Červenka R.", "duration": 2, "reason": "Nedovolené bránění" },
+                    { "time": "09:43", "type": "goal", "team": "home", "player": "Kodýtek P.", "assists": ["Hronek F.", "Voženílek D."] },
+                    { "time": "10:50", "type": "penalty", "team": "away", "player": "Gallo V.", "duration": 2, "reason": "Nedovolené bránění" },
+                    { "time": "15:27", "type": "goal", "team": "away", "player": "Mihalik A.", "assists": ["Vincze P.", "Ortenszky T."] }
+                ]
+            },
+            "p3": {
+                "score_home": 3,
+                "score_away": 0,
+                "events": [
+                    { "time": "03:42", "type": "goal", "team": "home", "player": "Pastrňák D.", "assists": ["Krejčík J.", "Gazda D."] },
+                    { "time": "04:25", "type": "penalty", "team": "away", "player": "Horvath B.", "duration": 2, "reason": "Narážení na hranici" },
+                    { "time": "06:19", "type": "goal", "team": "home", "player": "Beránek O.", "assists": ["Zadina F.", "Krejčík J."], "note": "Z přesilovky" },
+                    { "time": "07:38", "type": "goal", "team": "home", "player": "Sedlák L.", "assists": ["Červenka R.", "Pastrňák D."] }
+                ]
+            }
+        }
+    },
+    {
+        "id": "ms2025_005",
+        "tournament": "Mistrovstvi_Sveta_2025",
+        "date": "17.05.2025",
+        "stage": "Skupina",
+        "home_team": "CZE",
+        "away_team": "KAZ",
+        "score": "8:1",
+        "decision": "Konec",
+        "periods": {
+            "p1": {
+                "score_home": 1,
+                "score_away": 0,
+                "events": [
+                    { "time": "05:19", "type": "goal", "team": "home", "player": "Stránský M.", "assists": ["Beránek O.", "Pyrochta F."] }
+                ]
+            },
+            "p2": {
+                "score_home": 3,
+                "score_away": 0,
+                "events": [
+                    { "time": "01:26", "type": "goal", "team": "home", "player": "Flek J.", "assists": ["Gazda D.", "Klapka A."] },
+                    { "time": "10:17", "type": "penalty", "team": "away", "player": "Savitsky K.", "duration": 2, "reason": "Nedovolené bránění" },
+                    { "time": "12:19", "type": "goal", "team": "home", "player": "Stránský M.", "assists": ["Špaček D.", "Špaček M."] },
+                    { "time": "14:03", "type": "other", "note": "Neproměněný nájezd - Pastrňák D." },
+                    { "time": "17:04", "type": "goal", "team": "home", "player": "Červenka R.", "assists": ["Pastrňák D.", "Krejčík J."] },
+                    { "time": "18:07", "type": "penalty", "team": "away", "player": "Shestakov A.", "duration": 2, "reason": "Podrážení" }
+                ]
+            },
+            "p3": {
+                "score_home": 4,
+                "score_away": 1,
+                "events": [
+                    { "time": "01:06", "type": "goal", "team": "home", "player": "Klapka A.", "assists": ["Hájek L."] },
+                    { "time": "01:06", "type": "other", "note": "Střídání brankářů Kazachstánu (Amirbekov J. -> Pavlenko M.)" },
+                    { "time": "04:12", "type": "penalty", "team": "home", "player": "Krejčík J.", "duration": 2, "reason": "Vysoká hůl" },
+                    { "time": "07:36", "type": "goal", "team": "away", "player": "Kolesnikov V.", "assists": ["Breus D.", "Muratov B."], "note": "Z přesilovky" },
+                    { "time": "09:07", "type": "penalty", "team": "away", "player": "Breus D.", "duration": 2, "reason": "Držení" },
+                    { "time": "10:16", "type": "penalty", "team": "away", "player": "Metalnikov L.", "duration": 2, "reason": "Zdržování hry" },
+                    { "time": "13:13", "type": "goal", "team": "home", "player": "Červenka R.", "assists": ["Pyrochta F."] },
+                    { "time": "13:22", "type": "penalty", "team": "home", "player": "Nečas M.", "duration": 2, "reason": "Hákování" },
+                    { "time": "15:44", "type": "goal", "team": "home", "player": "Červenka R.", "assists": ["Nečas M.", "Sedlák L."] },
+                    { "time": "19:22", "type": "goal", "team": "home", "player": "Klapka A.", "assists": ["Flek J.", "Gazda D."] }
+                ]
+            }
+        }
+    },
+    {
+        "id": "ms2025_006",
+        "tournament": "Mistrovstvi_Sveta_2025",
+        "date": "19.05.2025",
+        "stage": "Skupina",
+        "home_team": "GER",
+        "away_team": "CZE",
+        "score": "0:5",
+        "decision": "Konec",
+        "periods": {
+            "p1": {
+                "score_home": 0,
+                "score_away": 1,
+                "events": [
+                    { "time": "05:27", "type": "penalty", "team": "home", "player": "Wiederer M.", "duration": 2, "reason": "Nedovolené bránění" },
+                    { "time": "05:51", "type": "goal", "team": "away", "player": "Pastrňák D.", "assists": ["Nečas M.", "Červenka R."], "note": "Z přesilovky" }
+                ]
+            },
+            "p2": {
+                "score_home": 0,
+                "score_away": 2,
+                "events": [
+                    { "time": "06:43", "type": "goal", "team": "away", "player": "Sedlák L.", "assists": ["Pastrňák D.", "Červenka R."] },
+                    { "time": "09:07", "type": "goal", "team": "away", "player": "Flek J.", "assists": ["Voženílek D.", "Krejčík J."] },
+                    { "time": "11:47", "type": "penalty", "team": "away", "player": "Kodýtek P.", "duration": 2, "reason": "Narážení na hranici" },
+                    { "time": "16:45", "type": "penalty", "team": "home", "player": "Stutzle T.", "duration": 2, "reason": "Hrubost" },
+                    { "time": "19:34", "type": "penalty", "team": "away", "player": "Krejčík J.", "duration": 2, "reason": "Vysoká hůl" }
+                ]
+            },
+            "p3": {
+                "score_home": 0,
+                "score_away": 2,
+                "events": [
+                    { "time": "00:43", "type": "goal", "team": "away", "player": "Lauko J.", "assists": [], "note": "V oslabení" },
+                    { "time": "16:40", "type": "goal", "team": "away", "player": "Flek J.", "assists": ["Nečas M.", "Hronek F."] }
+                ]
+            }
+        }
+    },
+    {
+        "id": "ms2025_007",
+        "tournament": "Mistrovstvi_Sveta_2025",
+        "date": "20.05.2025",
+        "stage": "Skupina",
+        "home_team": "CZE",
+        "away_team": "USA",
+        "score": "2:5",
+        "decision": "Konec",
+        "periods": {
+            "p1": {
+                "score_home": 0,
+                "score_away": 1,
+                "events": [
+                    { "time": "04:13", "type": "penalty", "team": "home", "player": "Voženílek D.", "duration": 2, "reason": "Hrubost" },
+                    { "time": "04:13", "type": "penalty", "team": "away", "player": "Eyssimont M.", "duration": 2, "reason": "Hrubost" },
+                    { "time": "06:56", "type": "penalty", "team": "home", "player": "Pastrňák D.", "duration": 2, "reason": "Hrubost" },
+                    { "time": "09:25", "type": "goal", "team": "away", "player": "Doan J.", "assists": ["Peeke A.", "Pinto S."] },
+                    { "time": "11:01", "type": "penalty", "team": "home", "player": "Hronek F.", "duration": 2, "reason": "Hrubost" },
+                    { "time": "13:16", "type": "penalty", "team": "home", "player": "Ticháček J.", "duration": 2, "reason": "Podrážení" },
+                    { "time": "13:16", "type": "penalty", "team": "away", "player": "Gauthier C.", "duration": 2, "reason": "Hákování" },
+                    { "time": "13:46", "type": "penalty", "team": "away", "player": "Skjei B.", "duration": 2, "reason": "Podrážení" }
+                ]
+            },
+            "p2": {
+                "score_home": 2,
+                "score_away": 0,
+                "events": [
+                    { "time": "00:41", "type": "goal", "team": "home", "player": "Pastrňák D.", "assists": ["Červenka R."] },
+                    { "time": "07:26", "type": "penalty", "team": "away", "player": "LaCombe J.", "duration": 2, "reason": "Hákování" },
+                    { "time": "08:33", "type": "goal", "team": "home", "player": "Nečas M.", "assists": ["Pastrňák D.", "Sedlák L."], "note": "Z přesilovky" },
+                    { "time": "13:39", "type": "penalty", "team": "home", "player": "Klapka A.", "duration": 2, "reason": "Hrubost" },
+                    { "time": "13:39", "type": "penalty", "team": "home", "player": "Voženílek D.", "duration": 2, "reason": "Sekání" },
+                    { "time": "13:39", "type": "penalty", "team": "away", "player": "Garland C.", "duration": 2, "reason": "Hrubost" },
+                    { "time": "13:39", "type": "penalty", "team": "away", "player": "Cooley L.", "duration": 2, "reason": "Hrubost" },
+                    { "time": "18:38", "type": "goal", "team": "away", "player": "Krejčík J.", "assists": [], "note": "Vlastní gól" }
+                ]
+            },
+            "p3": {
+                "score_home": 0,
+                "score_away": 4,
+                "events": [
+                    { "time": "01:35", "type": "goal", "team": "away", "player": "Nazar F.", "assists": ["Smith W.", "Buium Z."], "note": "Z přesilovky" },
+                    { "time": "03:16", "type": "penalty", "team": "home", "player": "Krejčík J.", "duration": 2, "reason": "Nesportovní chování" },
+                    { "time": "03:16", "type": "penalty", "team": "away", "player": "Cooley L.", "duration": 2, "reason": "Sekání" },
+                    { "time": "05:38", "type": "penalty", "team": "home", "player": "Stránský M.", "duration": 2, "reason": "Podrážení" },
+                    { "time": "07:01", "type": "goal", "team": "away", "player": "Nazar F.", "assists": ["Gauthier C.", "Buium Z."], "note": "Z přesilovky" },
+                    { "time": "10:44", "type": "penalty", "team": "away", "player": "O'Connor D.", "duration": 2, "reason": "Držení" },
+                    { "time": "13:29", "type": "goal", "team": "away", "player": "Cooley L.", "assists": ["Keller C.", "Werenski Z."] },
+                    { "time": "13:35", "type": "penalty", "team": "home", "player": "Kundrátek T.", "duration": 2, "reason": "Podrážení" },
+                    { "time": "17:06", "type": "goal", "team": "away", "player": "Peeke A.", "assists": ["O'Connor D."], "note": "Do prázdné branky" },
+                    { "time": "19:04", "type": "penalty", "team": "away", "player": "Garland C.", "duration": 2, "reason": "Držení" }
+                ]
+            }
+        }
+    },
+    {
+        "id": "ms2025_008",
+        "tournament": "Mistrovstvi_Sveta_2025",
+        "date": "22.05.2025",
+        "stage": "Čtvrtfinále",
+        "home_team": "SWE",
+        "away_team": "CZE",
+        "score": "5:2",
+        "decision": "Konec",
+        "periods": {
+            "p1": {
+                "score_home": 3,
+                "score_away": 0,
+                "events": [
+                    { "time": "08:11", "type": "penalty", "team": "away", "player": "Kodýtek P.", "duration": 2, "reason": "Podrážení" },
+                    { "time": "09:07", "type": "penalty", "team": "home", "player": "Raymond L.", "duration": 2, "reason": "Podrážení" },
+                    { "time": "11:09", "type": "penalty", "team": "away", "player": "Pastrňák D.", "duration": 2, "reason": "Držení" },
+                    { "time": "12:40", "type": "goal", "team": "home", "player": "Carlsson L.", "assists": ["Andersson R.", "Zibanejad M."], "note": "Z přesilovky" },
+                    { "time": "14:05", "type": "penalty", "team": "home", "player": "Larsson A.", "duration": 2, "reason": "Vysoká hůl" },
+                    { "time": "16:52", "type": "goal", "team": "home", "player": "Raymond L.", "assists": ["Sandin R."] },
+                    { "time": "19:32", "type": "goal", "team": "home", "player": "Raymond L.", "assists": ["Sandin R."] }
+                ]
+            },
+            "p2": {
+                "score_home": 1,
+                "score_away": 1,
+                "events": [
+                    { "time": "00:01", "type": "other", "note": "Střídání brankářů Česka (Vejmelka K. -> Vladař D.)" },
+                    { "time": "01:05", "type": "penalty", "team": "home", "player": "Andersson R.", "duration": 2, "reason": "Podrážení" },
+                    { "time": "02:53", "type": "penalty", "team": "home", "player": "Backlund M.", "duration": 2, "reason": "Zdržování hry" },
+                    { "time": "03:04", "type": "goal", "team": "away", "player": "Červenka R.", "assists": ["Nečas M.", "Pastrňák D."], "note": "Z přesilovky" },
+                    { "time": "09:18", "type": "penalty", "team": "away", "player": "Ticháček J.", "duration": 2, "reason": "Sekání" },
+                    { "time": "14:05", "type": "goal", "team": "home", "player": "Carlsson L.", "assists": ["Zibanejad M.", "Johansson M."] }
+                ]
+            },
+            "p3": {
+                "score_home": 1,
+                "score_away": 1,
+                "events": [
+                    { "time": "08:33", "type": "goal", "team": "away", "player": "Špaček M.", "assists": ["Voženílek D.", "Ticháček J."] },
+                    { "time": "15:04", "type": "goal", "team": "home", "player": "Forsberg F.", "assists": ["Pettersson M.", "Backlund M."], "note": "Do prázdné branky" }
+                ]
+            }
+        }
+    }
+];
