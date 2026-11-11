@@ -168,6 +168,12 @@ const ceskeHry2025RosterCze = [
         "team": "HC Dynamo Pardubice"
     },
     {
+        "number": 94,
+        "name": "Jakub Lauko",
+        "position": "Forward",
+        "team": "Boston Bruins"
+    },
+    {
         "number": 95,
         "name": "Adam Klapka",
         "position": "Forward",
