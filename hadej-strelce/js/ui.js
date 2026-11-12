@@ -164,7 +164,7 @@ const UI = (() => {
         h('span', { class: 'run-score' }, `${DataAdapter.teamInfo(teamCode).name} ${e.runningScore}`));
       body.append(main);
       if (e.slot && e.slot.answer) {
-        const wrapper = h('div', { class: 'slot' }, c.ac.input.value); // opraveno bezpečně
+        const wrapper = h('div', { class: 'slot' }); // Opraveno: čistý wrapper bez padající proměnné c
         body.append(wrapper);
         const ac = Autocomplete.attach(wrapper, m.roster, name => { Game.setPick(session, e.slot.index, name); session._updateBtn && session._updateBtn(); });
         controls[e.slot.index] = { wrapper, ac };
